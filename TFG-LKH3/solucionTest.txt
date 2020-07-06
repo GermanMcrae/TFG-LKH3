@@ -1,0 +1,13 @@
+NAME : Test.1996307.tour
+COMMENT : Length = 1996307
+COMMENT : Found by LKH [Keld Helsgaun] Mon Jun 22 23:20:50 2020
+TYPE : TOUR
+DIMENSION : 5
+TOUR_SECTION
+1
+2
+4
+3
+5
+-1
+EOF

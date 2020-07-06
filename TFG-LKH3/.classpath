@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/germanmcrae/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/org.json.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/jar_files/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/jar_files/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/jar_files/httpclient-4.5.6.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/jar_files/httpcore-4.4.10.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/josm-16538.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/commons-io-2.7/commons-io-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/commons-io-2.7/commons-io-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/commons-io-2.7/commons-io-2.7-test-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/commons-io-2.7/commons-io-2.7-tests.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/commons-io-2.7/commons-io-2.7.jar"/>
+	<classpathentry kind="lib" path="/Users/germanmcrae/eclipse-workspace/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
