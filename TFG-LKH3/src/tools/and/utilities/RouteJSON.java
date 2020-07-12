@@ -20,6 +20,8 @@ public class RouteJSON {
 	String weight_name;
 	MapPolygon poly;
 	
+	List<Coordinate> coordinates;
+	
 	Coordinate coordinateFrom;
 	Coordinate coordinateTo;
 	
@@ -38,6 +40,8 @@ public class RouteJSON {
 		distance = 0.0;
 		weight_name = "";
 		poly = null;
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();;
+		
 		
 		coordinateFrom = null;
 		coordinateTo = null;
@@ -71,7 +75,7 @@ public class RouteJSON {
 					var tempGeometry = tempRoutes.getJSONObject("geometry");
 					var tempCoordinates = tempGeometry.getJSONArray("coordinates");
 				
-					List<Coordinate> coordinates = new ArrayList<Coordinate>();
+					coordinates = new ArrayList<Coordinate>();
 					for(int i=0; i<tempCoordinates.length();i++) {
 	        			JSONArray dato = tempCoordinates.getJSONArray(i);
 	        			coordinates.add(new Coordinate((double)dato.get(1), (double)dato.get(0)));
@@ -123,6 +127,10 @@ public class RouteJSON {
 	
 	public Coordinate getCoordinateTo() {
 		return coordinateTo;
+	}
+	
+	public List<Coordinate> getCoordinates(){
+		return coordinates;
 	}
 	
 	public boolean getCode() {

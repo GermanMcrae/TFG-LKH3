@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<nodes>
+    <nodo>
+        <capacity>100</capacity>
+        <coordinate>
+            <lat>10.0</lat>
+            <lon>10.0</lon>
+        </coordinate>
+        <name>Nodo 1</name>
+    </nodo>
+    <nodo>
+        <capacity>200</capacity>
+        <coordinate>
+            <lat>20.0</lat>
+            <lon>10.0</lon>
+        </coordinate>
+        <listRoutes>
+            <coordinateFrom>
+                <lat>20.0</lat>
+                <lon>30.0</lon>
+            </coordinateFrom>
+            <distance>20.1</distance>
+            <duration>0.0</duration>
+        </listRoutes>
+        <name>Nodo 2</name>
+    </nodo>
+    <nodo>
+        <capacity>300</capacity>
+        <name>Nodo 0</name>
+    </nodo>
+</nodes>

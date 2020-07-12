@@ -33,6 +33,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
@@ -52,13 +53,18 @@ import com.kitfox.svg.Polyline;
 import com.osrm.services.Route;
 
 import tools.and.utilities.MatrixPoints;
+import tools.and.utilities.NewProyectRoute;
+import tools.and.utilities.Nodo;
+import tools.and.utilities.NodosList;
 import tools.and.utilities.ParametersFile;
 import tools.and.utilities.ProblemFile;
 import tools.and.utilities.RouteJSON;
 import tools.and.utilities.RouteResult;
+import tools.and.utilities.Ruta;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -110,6 +116,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         // receive events and update
         map().addJMVListener(this);
         
+        NewProyectRoute npRoute = new NewProyectRoute();
         
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,6 +124,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel panelTop = new JPanel();
         JPanel panelBottom = new JPanel();
+        JPanel panelBottomNew = new JPanel();
         JPanel helpPanel = new JPanel();
         
         //add tabbedpanel
@@ -135,21 +143,49 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         panel1.add(panel, BorderLayout.NORTH);
         panel1.add(helpPanel, BorderLayout.SOUTH);
         panel.add(panelTop, BorderLayout.NORTH);
-        panel.add(panelBottom, BorderLayout.SOUTH);
+        panel.add(panelBottom, BorderLayout.CENTER);
+        panel.add(panelBottomNew, BorderLayout.SOUTH);
         JLabel helpLabel = new JLabel("Use right mouse button to move,\n "
                 + "left double click or mouse wheel to zoom.");
         helpPanel.add(helpLabel);
         JButton button = new JButton("setDisplayToFitMapMarkers");
         button.addActionListener(e -> map().setDisplayToFitMapMarkers());
         
+        JButton btNew = new JButton("New");
+        btNew.addActionListener(e -> {
+        	
+        	npRoute.setVisible(true);
+        });
+        JButton btLoad = new JButton("Load");
+        btLoad.addActionListener(e -> {
+        	
+        });
+        JButton btSave = new JButton("Save");
+        btSave.addActionListener(e -> {
+        	
+        });
+        
         JButton btExport = new JButton("Export");
-        btExport.addActionListener(e -> testExport());
+        btExport.addActionListener(e -> {
+			try {
+				testExport();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JAXBException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
         
         JButton btClear = new JButton("Clear");
         btClear.addActionListener(e -> clearPoints());
         
         JButton btGenerateRoute = new JButton("Generate Route");
         btGenerateRoute.addActionListener(e -> GenerateRoute());
+        
+        //JButton btTestXML = new JButton("Leer XML");
+        //btTestXML.addActionListener(e -> ());
         
         JComboBox<TileSource> tileSourceSelector = new JComboBox<>(new TileSource[] {
                 //new OsmTileSource.Mapnik(),
@@ -200,9 +236,13 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         scrollWrapEnabled.addActionListener(e -> map().setScrollWrapEnabled(scrollWrapEnabled.isSelected()));
         panelBottom.add(scrollWrapEnabled);
         //panelBottom.add(button);
-        panelBottom.add(btExport);
-        panelBottom.add(btClear);
-        panelBottom.add(btGenerateRoute);
+        
+        panelBottomNew.add(btNew);
+        panelBottomNew.add(btLoad);
+        panelBottomNew.add(btSave);
+        panelBottomNew.add(btExport);
+        panelBottomNew.add(btClear);
+        panelBottomNew.add(btGenerateRoute);
         
         panelTop.add(zoomLabel);
         panelTop.add(zoomValue);
@@ -375,7 +415,58 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	
     }
     
-    private void testExport() {
+    private void newProyect() {
+    	
+    }
+    
+    
+    private void testExport() throws IOException, JAXBException{
+    	
+		JAXBContext context = JAXBContext.newInstance(NodosList.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		
+		List<Ruta> routes = new ArrayList<Ruta>();
+		Ruta ruta = new Ruta();
+		ruta.setDistance(20.1);
+		ruta.setCoordinateFrom(new Coordinate(20, 30));
+		
+		routes.add(ruta);
+			
+		Nodo n1 = new Nodo();
+		n1.setName("Nodo 1");
+		n1.setCapacity(100);
+		n1.setCoordinate(new Coordinate(10, 10));
+			
+		Nodo n2 = new Nodo();
+		n2.setName("Nodo 2");
+		n2.setCapacity(200);
+		n2.setCoordinate(new Coordinate(20, 10));
+		
+		n2.setListRoutes(routes);
+		
+		Nodo n3 = new Nodo();
+		n3.setName("Nodo 0");
+		n3.setCapacity(300);
+		//n3.setCoordinate(new Coordinate(10, 30));
+		
+		List<Nodo> myList = new ArrayList<Nodo>();
+		myList.add(n1);
+		myList.add(n2);
+		myList.add(n3);
+		
+		NodosList nodes = new NodosList();
+		nodes.setNodes(myList);
+		
+		
+		FileOutputStream fos = new FileOutputStream("DATOS_NODOS.xml");
+		marshaller.marshal(nodes, fos);
+		fos.close();
+			
+			
+		
+    	
+    	
     	/*JAXBContext context = JAXBContext.newInstance(Provincia.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -423,60 +514,6 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         RouteJSON obj = new RouteJSON(routingWithProfile);
         //System.out.println(obj.getCode());
         
-        
-        //System.out.println("Empieza aqui");
-        //System.out.println(routingWithProfile);
-        //try {
-        	
-        	//var res = routingWithProfile.getJSONArray("waypoints");
-        	//for(int i=0; i<res.length();i++) {
-        	//	var temp = (JSONObject)res.get(i);
-        	//	System.out.println(temp.get("name")+" "+temp.get("location"));
-        		//System.out.println(temp.get("location"));
-        	//}
-        	//System.out.println(res);
-        	//var res2 = routingWithProfile.getJSONArray("routes");
-        	//var res3 = res2.getJSONObject(0);
-        	//System.out.println("duration: "+res3.get("duration"));//double
-        	//System.out.println("distance: "+res3.get("distance"));//double
-        	//System.out.println("legs: "+res3.get("legs"));//[{"summary":"","duration":413.4,"distance":4919.5,"weight":413.4,"steps":[]}]
-        	//var res4 = res3.getJSONArray("legs");
-        	//var res5 = res4.getJSONObject(0);
-        	//System.out.println("summary: "+res5.get("summary"));
-        	//System.out.println("duration: "+res5.get("duration"));
-        	//System.out.println("distance: "+res5.get("distance"));
-        	//System.out.println("weight: "+res5.get("weight"));
-        	//System.out.println("steps: "+res5.get("steps"));
-        	
-    			
-    		//System.out.println("weight_name: "+res3.get("weight_name"));
-        	//System.out.println("weight: "+res3.get("weight"));
-        	//System.out.println("geometry: "+res3.get("geometry"));
-        	//var res6 = res3.getJSONObject("geometry");
-        	//var res7 = res6.getJSONArray("coordinates");
-        	
-        	
-        	//List<? extends ICoordinate> b;// = new List<? extends ICoordinate>();
-        	//List<Coordinate> coordinates = new ArrayList<Coordinate>();
-        	
-        	//Gson gson = new Gson();
-        	//JsonReader reader = new JsonReader("");
-        	//routingWithProfile.
-        	//List<Polyline> polylines = new ArrayList<>();
-        	
-        	
-        	//for(int i=0; i<res7.length();i++) {
-        	//	JSONArray dato = res7.getJSONArray(i);
-        	//	coordinates.add(new Coordinate((double)dato.get(1), (double)dato.get(0)));
-        		
-        	//}
-        	
-        	
-        	//MapPolygon bermudas = new MapPolygonImpl(c(49, 1), c(45, 10), c(40, 5));
-            //map().addMapPolygon(bermudas);
-        	
-        	
-        	
         	//MapPolygon poly = new MapPolygon(coordinates);
         	//MapPolygon poly = new MapPolylineImpl(coordinates);
         	map().addMapPolygon(obj.getPolyline());
@@ -560,35 +597,6 @@ public class Demo extends JFrame implements JMapViewerEventListener {
             }
         	
         	
-        	//System.out.println(res2.get("distance"));
-        	//System.out.println(res2.get("legs"));
-        	//for(int i=0; i<res2.length();i++) {
-        	//	var temp = (JSONObject)res.get(i);
-        	//	System.out.println(temp.get("name")+" "+temp.get("location"));
-        		//System.out.println(temp.get("location"));
-        	//}
-        	
-		//} catch (JSONException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-        
-        
-        //ghRequest.setEarliestDepartureTime(LocalDateTime.of(2007, 1, 1, 9, 0, 0).atZone(zoneId).toInstant());
-        //ghRequest.setIgnoreTransfers(true);
-        //GHResponse route = ptRouteResource.route(ghRequest);
-
-    	
-    	//String workDir = "gh-car";
-    	//String vehicle = "car";
-    	//String osmFile = "berlin-latest.osm.pbf";graphhopper germanmcrae DsmX64yJ6HiSvsw
-    	
-    	//GraphHopper graphHopper = new GraphHopper().setGraphHopperLocation(workDir)
-    	//		.setEncodingManager(new EncodingManager(vehicle))
-    	//		.setDataReaderFile(osmFile)
-    	//		.forServer();
-    	
-    	//double[] orig = new double[]{52.1536925d, 11.6395728d};
-    	//double[] dest = new double[]{52.1610366d, 11.6322505d};
 
 
     }
