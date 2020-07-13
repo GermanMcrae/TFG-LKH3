@@ -68,12 +68,12 @@ public class RouteJSON {
 					code = false;
 				}
 				if(code) {
-					var tempRoutes = routes.getJSONObject(0);
+					JSONObject tempRoutes = routes.getJSONObject(0);
 					duration = tempRoutes.getDouble("duration");
 					distance = tempRoutes.getDouble("distance");
 					weight_name = tempRoutes.getString("weight_name");
-					var tempGeometry = tempRoutes.getJSONObject("geometry");
-					var tempCoordinates = tempGeometry.getJSONArray("coordinates");
+					JSONObject tempGeometry = tempRoutes.getJSONObject("geometry");
+					JSONArray tempCoordinates = tempGeometry.getJSONArray("coordinates");
 				
 					coordinates = new ArrayList<Coordinate>();
 					for(int i=0; i<tempCoordinates.length();i++) {
@@ -83,15 +83,15 @@ public class RouteJSON {
 					poly = new MapPolylineImpl(coordinates);
 							
 				
-					var tempWaypoints = json.getJSONArray("waypoints");
+					JSONArray tempWaypoints = json.getJSONArray("waypoints");
 					if(tempWaypoints.length() == 2) {
-						var tp1 = (JSONObject)tempWaypoints.get(0);
+						JSONObject tp1 = (JSONObject)tempWaypoints.get(0);
 						nameFrom = tp1.getString("name");
-						var tp11 = tp1.getJSONArray("location");
+						JSONArray tp11 = tp1.getJSONArray("location");
 						coordinateFrom = new Coordinate(tp11.getLong(0), tp11.getLong(1));
-						var tp2 = (JSONObject)tempWaypoints.get(0);
+						JSONObject tp2 = (JSONObject)tempWaypoints.get(0);
 						nameTo = tp2.getString("name");
-						var tp22 = tp2.getJSONArray("location");
+						JSONArray tp22 = tp2.getJSONArray("location");
 						coordinateTo = new Coordinate(tp22.getLong(0), tp22.getLong(1));
 					}
 				

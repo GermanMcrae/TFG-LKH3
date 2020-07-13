@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dialog;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
@@ -116,7 +118,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         // receive events and update
         map().addJMVListener(this);
         
-        NewProyectRoute npRoute = new NewProyectRoute();
+        NewProyectRoute npRoute = new NewProyectRoute(this);
         
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,6 +157,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         btNew.addActionListener(e -> {
         	
         	npRoute.setVisible(true);
+        	npRoute.setModalityType(Dialog.ModalityType.MODELESS);
+        	this.setEnabled(false);
         });
         JButton btLoad = new JButton("Load");
         btLoad.addActionListener(e -> {

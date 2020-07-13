@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
@@ -41,8 +42,9 @@ public class NewProyectRoute extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewProyectRoute() {
-		//super(parent, modal);
+	public NewProyectRoute(JFrame jf) {
+		super(jf, "New proyect");
+		//jf.setEnabled(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -73,6 +75,10 @@ public class NewProyectRoute extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+				okButton.addActionListener(e -> {
+					jf.setEnabled(true);
+					dispose();
+				});
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
@@ -82,9 +88,4 @@ public class NewProyectRoute extends JDialog {
 		}
 	}
 	
-	/*private void mniNuevaVentanaActionPerformed(java.awt.event.ActionEvent evt) {
-		NewProyectRoute nv = new NewProyectRoute(this,true);
-		JDialog jd = new JDialog(nv, «Dialogo modal», Dialog.ModalityType.DOCUMENT_MODAL);
-		nv.setVisible(true);
-	}*/
 }
