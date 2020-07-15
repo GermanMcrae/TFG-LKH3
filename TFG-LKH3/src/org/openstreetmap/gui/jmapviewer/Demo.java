@@ -29,6 +29,7 @@ import javax.json.JsonReader;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -162,11 +163,27 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         });
         JButton btLoad = new JButton("Load");
         btLoad.addActionListener(e -> {
-        	
+        	JFileChooser fileChooser = new JFileChooser();
+        	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        	int result = fileChooser.showOpenDialog(this);
+        	if (result == JFileChooser.APPROVE_OPTION) {
+        	    File selectedFile = fileChooser.getSelectedFile();
+        	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        	}
         });
         JButton btSave = new JButton("Save");
         btSave.addActionListener(e -> {
-        	
+        	JFrame parentFrame = new JFrame();
+        	 
+        	JFileChooser fileChooser = new JFileChooser();
+        	fileChooser.setDialogTitle("Specify a file to save");   
+        	 
+        	int userSelection = fileChooser.showSaveDialog(parentFrame);
+        	 
+        	if (userSelection == JFileChooser.APPROVE_OPTION) {
+        	    File fileToSave = fileChooser.getSelectedFile();
+        	    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        	}
         });
         
         JButton btExport = new JButton("Export");

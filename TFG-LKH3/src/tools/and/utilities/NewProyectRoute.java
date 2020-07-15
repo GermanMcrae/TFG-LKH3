@@ -8,8 +8,13 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JTextPane;
 import java.awt.GridLayout;
+import java.awt.TextField;
+import java.awt.event.KeyAdapter;
+
 import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -25,13 +30,14 @@ public class NewProyectRoute extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
+	private JButton okButton;
 
 	/**
 	 * Launch the application.
 	 */
-/*	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
-			NewProyectRoute dialog = new NewProyectRoute();
+			NewProyectRoute dialog = new NewProyectRoute());
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -61,31 +67,59 @@ public class NewProyectRoute extends JDialog {
 			lblNewLabel.setBounds(65, 90, 61, 16);
 			contentPanel.add(lblNewLabel);
 		}
+		okButton = new JButton("OK");
+		okButton.setEnabled(false);
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		{
+			
+			okButton.setActionCommand("OK");
+			buttonPane.add(okButton);
+			getRootPane().setDefaultButton(okButton);
+			okButton.addActionListener(e -> {
+				jf.setEnabled(true);
+				dispose();
+			});
+		}
+		{
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.setActionCommand("Cancel");
+			buttonPane.add(cancelButton);
+		}
+		
 		
 		textField = new JTextField();
 		textField.setBounds(148, 85, 156, 26);
 		contentPanel.add(textField);
 		textField.setColumns(10);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(e -> {
-					jf.setEnabled(true);
-					dispose();
-				});
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+		     public void changedUpdate(DocumentEvent e) {
+		         changed();
+		       }
+		       public void removeUpdate(DocumentEvent e) {
+		         changed();
+		       }
+		       public void insertUpdate(DocumentEvent e) {
+		         changed();
+		       }
+
+		       public void changed() {
+		          if (textField.getText().equals("")){
+		        	  okButton.setEnabled(false);
+		          }
+		          else {
+		        	  okButton.setEnabled(true);
+		         }
+
+		       }
+		       
+		});
+		
+	}
+	
+	public String ReturnValue() {
+		return textField.getText();
 	}
 	
 }
