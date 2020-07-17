@@ -33,6 +33,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.xml.bind.JAXBContext;
@@ -60,6 +61,7 @@ import tools.and.utilities.NewProyectRoute;
 import tools.and.utilities.Nodo;
 import tools.and.utilities.NodosList;
 import tools.and.utilities.ParametersFile;
+import tools.and.utilities.PointProblem;
 import tools.and.utilities.ProblemFile;
 import tools.and.utilities.RouteJSON;
 import tools.and.utilities.RouteResult;
@@ -99,6 +101,10 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     private final JLabel mperpLabelName;
     private final JLabel mperpLabelValue;
     
+    private boolean pointFlag;
+    private String proyectName;
+    private String pathFile;
+    
     //private List<List<RouteJSON>> MatrixOfPoint = new ArrayList<List<RouteJSON>>();
 
     MatrixPoints rawMatrixPoint;
@@ -110,6 +116,9 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         super("JMapViewer Demo");
         setSize(400, 400);
 
+        pointFlag = true;
+        proyectName = "";
+        pathFile = "";
         treeMap = new JMapViewerTree("Zones");
         
         //listaPuntos = new JList();
@@ -120,6 +129,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         map().addJMVListener(this);
         
         NewProyectRoute npRoute = new NewProyectRoute(this);
+        PointProblem ppNewPoint = new PointProblem(this);
         
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -310,14 +320,30 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         map().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {//left button
+                if (e.getButton() == MouseEvent.BUTTON1 && pointFlag) {//left button
                     map().getAttribution().handleAttribution(e.getPoint(), true);
+                    
+                    ppNewPoint.FillData(map().getPosition(e.getPoint()).getLat(), map().getPosition(e.getPoint()).getLon());
+                    //ppNewPoint.setVisible(true);
+                    //ppNewPoint.setModalityType(Dialog.ModalityType.MODELESS);
                     System.out.println("Button1a "+map().getPosition(e.getPoint()));
                     System.out.println("Button1b "+e.getPoint());
                     MapMarkerDot myPoint = new MapMarkerDot(map().getPosition(e.getPoint()).getLat(),map().getPosition(e.getPoint()).getLon());
                     myPoint.setBackColor(Color.blue);;
                     myPoint.setName("P"+(map().mapMarkerList.size()+1));
-                    map().addMapMarker(myPoint);
+                    //if(ppNewPoint.getValidate())
+                    
+                    //int resp = JOptionPane.showConfirmDialog(null, "A", "B", JOptionPane.YES_NO_OPTION);        
+                    //int resp = ppNewPoint.showConfirmDialog(null, null);
+                    int resp = ppNewPoint.showConfirmDialog(null, null);
+                    if (resp == 0)
+                     System.out.println("call methodA()");
+                    else
+                        System.out.println("call foo()");
+
+
+                    
+                    	map().addMapMarker(myPoint);
                    
                 }
                 if (e.getButton() == MouseEvent.BUTTON2) {//middle button
@@ -332,6 +358,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
                 }
             }
         });
+        
+        
 
         map().addMouseMotionListener(new MouseAdapter() {
             @Override
