@@ -12,10 +12,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -105,6 +109,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     private String proyectName;
     private String pathFile;
     
+    private List<Nodo> ejercicio;
+    
     //private List<List<RouteJSON>> MatrixOfPoint = new ArrayList<List<RouteJSON>>();
 
     MatrixPoints rawMatrixPoint;
@@ -127,6 +133,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         // Listen to the map viewer for user operations so components will
         // receive events and update
         map().addJMVListener(this);
+        
+        ejercicio = new ArrayList<Nodo>();
         
         NewProyectRoute npRoute = new NewProyectRoute(this);
         PointProblem ppNewPoint = new PointProblem(this);
@@ -192,7 +200,16 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         	 
         	if (userSelection == JFileChooser.APPROVE_OPTION) {
         	    File fileToSave = fileChooser.getSelectedFile();
-        	    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        	    if(fileToSave.exists()) {
+        	    	System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        	    	/*try {
+						SaveProyect(fileToSave);
+					} catch (IOException | JAXBException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}*/
+        	    }
+        	    
         	}
         });
         
@@ -319,42 +336,53 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 
         map().addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1 && pointFlag) {//left button
-                    map().getAttribution().handleAttribution(e.getPoint(), true);
+            public void mouseClicked(MouseEvent b) {
+                if (b.getButton() == MouseEvent.BUTTON1 && pointFlag) {//left button
+                	map().getAttribution().handleAttribution(b.getPoint(), true);
+                	ppNewPoint.setVisible(true);
+
+                    ppNewPoint.FillData(map().getPosition(b.getPoint()).getLat(), map().getPosition(b.getPoint()).getLon());
                     
-                    ppNewPoint.FillData(map().getPosition(e.getPoint()).getLat(), map().getPosition(e.getPoint()).getLon());
-                    //ppNewPoint.setVisible(true);
-                    //ppNewPoint.setModalityType(Dialog.ModalityType.MODELESS);
-                    System.out.println("Button1a "+map().getPosition(e.getPoint()));
-                    System.out.println("Button1b "+e.getPoint());
-                    MapMarkerDot myPoint = new MapMarkerDot(map().getPosition(e.getPoint()).getLat(),map().getPosition(e.getPoint()).getLon());
-                    myPoint.setBackColor(Color.blue);;
-                    myPoint.setName("P"+(map().mapMarkerList.size()+1));
+                    ppNewPoint.setModalityType(Dialog.ModalityType.MODELESS);
+                    MapMarkerDot myPoint = new MapMarkerDot(map().getPosition(b.getPoint()).getLat(),map().getPosition(b.getPoint()).getLon());
+                    System.out.println("Button1a "+map().getPosition(b.getPoint()));
+                    System.out.println("Button1b "+b.getPoint());
+                    myPoint.setBackColor(Color.blue);
+    	            ppNewPoint.setName("P"+(map().mapMarkerList.size()+1));
                     //if(ppNewPoint.getValidate())
                     
-                    //int resp = JOptionPane.showConfirmDialog(null, "A", "B", JOptionPane.YES_NO_OPTION);        
-                    //int resp = ppNewPoint.showConfirmDialog(null, null);
-                    int resp = ppNewPoint.showConfirmDialog(null, null);
-                    if (resp == 0)
-                     System.out.println("call methodA()");
-                    else
-                        System.out.println("call foo()");
-
-
+    	            System.out.println("Antes de los botones ");
+					ppNewPoint.okButton.addActionListener(e -> {
+						System.out.println("okButton.addActionListener(e -> "+ppNewPoint.okButton.getActionListeners().length);
+						System.out.println("Hace okButton ");
+						System.out.println("myPoint "+myPoint);
+						ppNewPoint.setVisible(false);
+						myPoint.setName(ppNewPoint.getName());
+						map().addMapMarker(myPoint);
+						//ppNewPoint.clearOkActionListener();
+						ppNewPoint.clearActionListener();
+						addNodoEjercicio(ppNewPoint.getName(), ppNewPoint.getWeight(), new Coordinate(ppNewPoint.getLat(), ppNewPoint.getLon()));
+    				});
                     
-                    	map().addMapMarker(myPoint);
+                    ppNewPoint.cancelButton.addActionListener(e -> {
+                    	System.out.println("cancelButton.addActionListener(e -> "+ppNewPoint.cancelButton.getActionListeners().length);
+                    	System.out.println("Hace cancelButton ");
+                    	ppNewPoint.setVisible(false);
+                    	//ppNewPoint.clearCancelActionListener();
+                    	ppNewPoint.clearActionListener();
+					});
+                    
                    
                 }
-                if (e.getButton() == MouseEvent.BUTTON2) {//middle button
-                    map().getAttribution().handleAttribution(e.getPoint(), true);
-                    System.out.println("Button2a "+map().getPosition(e.getPoint()));
-                    System.out.println("Button2b "+e.getPoint());
+                if (b.getButton() == MouseEvent.BUTTON2) {//middle button
+                    map().getAttribution().handleAttribution(b.getPoint(), true);
+                    System.out.println("Button2a "+map().getPosition(b.getPoint()));
+                    System.out.println("Button2b "+b.getPoint());
                 }
-                if (e.getButton() == MouseEvent.BUTTON3) {//right button
-                    map().getAttribution().handleAttribution(e.getPoint(), true);
-                    System.out.println("Button3a "+map().getPosition(e.getPoint()));
-                    System.out.println("Button3b "+e.getPoint());
+                if (b.getButton() == MouseEvent.BUTTON3) {//right button
+                    map().getAttribution().handleAttribution(b.getPoint(), true);
+                    System.out.println("Button3a "+map().getPosition(b.getPoint()));
+                    System.out.println("Button3b "+b.getPoint());
                 }
             }
         });
@@ -461,11 +489,93 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	System.out.println("Test clear ok");
     	map().removeAllMapMarkers();
     	map().removeAllMapPolygons();
+    	ejercicio.clear();
     	
     }
     
     private void newProyect() {
     	
+    }
+    
+    void SaveProyect(File fileToSave) throws IOException, JAXBException{
+    	
+    	JAXBContext context = JAXBContext.newInstance(NodosList.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		
+		List<Ruta> routes = new ArrayList<Ruta>();
+		Ruta ruta = new Ruta();
+		ruta.setDistance(20.1);
+		ruta.setCoordinateFrom(new Coordinate(20, 30));
+		
+		routes.add(ruta);
+			
+		Nodo n1 = new Nodo();
+		n1.setName("Nodo 1");
+		n1.setCapacity(100);
+		n1.setCoordinate(new Coordinate(10, 10));
+			
+		Nodo n2 = new Nodo();
+		n2.setName("Nodo 2");
+		n2.setCapacity(200);
+		n2.setCoordinate(new Coordinate(20, 10));
+		
+		n2.setListRoutes(routes);
+		
+		Nodo n3 = new Nodo();
+		n3.setName("Nodo 0");
+		n3.setCapacity(300);
+		//n3.setCoordinate(new Coordinate(10, 30));
+		
+		List<Nodo> myList = new ArrayList<Nodo>();
+		myList.add(n1);
+		myList.add(n2);
+		myList.add(n3);
+		
+		NodosList nodes = new NodosList();
+		nodes.setNodes(myList);
+		
+		
+		FileOutputStream fos = new FileOutputStream("DATOS_NODOS.xml");
+		marshaller.marshal(nodes, fos);
+		fos.close();
+    	
+    }
+    
+    private void addNodoEjercicio(String name, double capacity, Coordinate coor) {
+    	System.out.println("Nombre: " + name);
+    	System.out.println("Capacidad " + capacity);
+    	System.out.println("Coordenadas" + coor);
+    	Nodo newNodo = new Nodo();
+    	newNodo.setName(name);
+		newNodo.setCapacity(capacity);
+		newNodo.setCoordinate(coor);
+    	if(ejercicio.size() == 0) {
+    		System.out.println("vacio");
+    		ejercicio.add(newNodo);
+    		
+    	}
+    	else {
+    		System.out.println("lleno");
+    		    		
+    		//listar los anteriores y crear las rutas pertinentes
+    		
+    		//listar de nuevo punto a nodos previos
+    		for(int i = 0; i < ejercicio.size(); i++) {
+    			//ejercicio.get(i).getCoordinate();
+    			Ruta newRuta = new Ruta(ejercicio.get(i).getCoordinate(),newNodo.getCoordinate());
+    			ejercicio.get(i).addRuta(newRuta);
+    		}
+    		
+    		//listar de nodos previos a nuevo punto
+    		for(int i = 0; i < ejercicio.size(); i++) {
+    			//ejercicio.get(i).getCoordinate();
+    			Ruta newRuta = new Ruta(newNodo.getCoordinate(), ejercicio.get(i).getCoordinate());
+    			newNodo.addRuta(newRuta);
+    		}
+    		ejercicio.add(newNodo);
+    		testRutas();
+    	}
     }
     
     
@@ -726,6 +836,22 @@ public class Demo extends JFrame implements JMapViewerEventListener {
               //e2.printStackTrace();
            }
         }
+    }
+    
+    void nuevasRutas() {
+    	
+    }
+    
+    void testRutas() {
+    	for(int i=0; i<ejercicio.size();i++) {
+    		System.out.println("nodo "+ejercicio.get(i).getName()+" "+ejercicio.get(i).getCapacity()+" "+ejercicio.get(i).getCoordinate()  );
+    		for(int j=0; j<ejercicio.get(i).getListRoutes().size();j++) {
+    			System.out.println(ejercicio.get(i).getListRoutes().get(j).getNameFrom()+" "+
+    					ejercicio.get(i).getListRoutes().get(j).getNameTo()+" "+
+    					ejercicio.get(i).getListRoutes().get(j).getDistance()+" "+
+    					ejercicio.get(i).getListRoutes().get(j).getDuration());
+    		}
+    	}
     }
 
     @Override

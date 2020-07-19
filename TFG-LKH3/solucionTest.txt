@@ -1,16 +1,13 @@
-NAME : Test.13757.tour
-COMMENT : Length = 13757
-COMMENT : Found by LKH [Keld Helsgaun] Thu Jul  9 18:47:14 2020
+NAME : Test.536194.tour
+COMMENT : Length = 536194
+COMMENT : Found by LKH [Keld Helsgaun] Sat Jul 18 19:37:42 2020
 TYPE : TOUR
-DIMENSION : 8
+DIMENSION : 5
 TOUR_SECTION
 1
-6
+2
 5
 4
 3
-2
-8
-7
 -1
 EOF

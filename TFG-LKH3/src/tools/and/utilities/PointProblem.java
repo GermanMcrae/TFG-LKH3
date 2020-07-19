@@ -15,13 +15,16 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PointProblem extends JOptionPane {
+public class PointProblem extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfName;
 	private JTextField tfWeight;
 	private JTextField tfLatitude;
 	private JTextField tfLongitude;
+	
+	public JButton okButton;
+	public JButton cancelButton;
 
 	private boolean validate;
 	/**
@@ -41,12 +44,12 @@ public class PointProblem extends JOptionPane {
 	 * Create the dialog.
 	 */
 	public PointProblem(JFrame jf) {
-		super("Add Point");
+		super(jf,"Add Point");
 		validate = false;
 		setBounds(100, 100, 420, 300);
-		//getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Name");
@@ -62,7 +65,7 @@ public class PointProblem extends JOptionPane {
 		lblNewLabel_1.setBounds(45, 70, 61, 16);
 		contentPanel.add(lblNewLabel_1);
 		
-		tfWeight = new JTextField();
+		tfWeight = new JTextField("0.0");
 		tfWeight.setBounds(128, 65, 266, 26);
 		contentPanel.add(tfWeight);
 		tfWeight.setColumns(10);
@@ -81,27 +84,35 @@ public class PointProblem extends JOptionPane {
 		tfLongitude.setBounds(128, 142, 266, 26);
 		contentPanel.add(tfLongitude);
 		
+		okButton = new JButton("OK");
+		cancelButton = new JButton("Cancel");
+		
 		JLabel lblNewLabel_2_1 = new JLabel("Longitude");
 		lblNewLabel_2_1.setBounds(45, 147, 71, 16);
 		contentPanel.add(lblNewLabel_2_1);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			//getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
+				
+				/*okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//dispose();
+						dispose();
 					}
-				});
+				});*/
 				buttonPane.add(okButton);
-				//getRootPane().setDefaultButton(okButton);
+				getRootPane().setDefaultButton(okButton);
 				validate = true;
-				//dispose();
+				
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				
+				/*cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});*/
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 				validate = false;
@@ -117,5 +128,49 @@ public class PointProblem extends JOptionPane {
 	
 	public boolean getValidate() {
 		return validate;
+	}
+	
+	public void clearActionListener() {
+		System.out.println(okButton.getActionListeners().length);
+		for( ActionListener al : okButton.getActionListeners() ) {
+			okButton.removeActionListener( al );
+		}
+		System.out.println(cancelButton.getActionListeners().length);
+		for( ActionListener al : cancelButton.getActionListeners() ) {
+			cancelButton.removeActionListener( al );
+		}
+	}
+	
+	public void clearOkActionListener() {
+		System.out.println(okButton.getActionListeners().length);
+		for( ActionListener al : okButton.getActionListeners() ) {
+			okButton.removeActionListener( al );
+		}
+	}
+	public void clearCancelActionListener() {
+		System.out.println(cancelButton.getActionListeners().length);
+		for( ActionListener al : cancelButton.getActionListeners() ) {
+			cancelButton.removeActionListener( al );
+		}
+	}
+	
+	public String getName() {
+		return tfName.getText();
+	}
+	
+	public double getWeight() {
+		return Double.parseDouble(tfWeight.getText());
+	}
+	
+	public double getLat() {
+		return Double.parseDouble(tfLatitude.getText());
+	}
+	
+	public double getLon() {
+		return Double.parseDouble(tfLongitude.getText());
+	}
+	
+	public void setName(String name) {
+		tfName.setText(name);
 	}
 }

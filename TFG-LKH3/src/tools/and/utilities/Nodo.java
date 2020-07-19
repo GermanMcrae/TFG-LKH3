@@ -1,5 +1,6 @@
 package tools.and.utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,11 +9,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Nodo {
 	
 	private String name;
-	private int capacity;
+	private double capacity;
 	Coordinate coordinate;
 	
 	List<Ruta> listRoutes;
 	
+	public Nodo() {
+		name = "";
+		capacity = 0.0;
+		coordinate = new Coordinate(0.0, 0.0);
+		
+		listRoutes = new ArrayList<Ruta>();
+		
+	}
 	
 	public String getName() {
 		return name;
@@ -22,30 +31,14 @@ public class Nodo {
 		name = n;
 	}
 	
-	public int getCapacity() {
+	public double getCapacity() {
 		return capacity;
 	}
 	
-	public void setCapacity(int c) {
+	public void setCapacity(double c) {
 		capacity = c;
 	}
 	
-	/*public double getLatitude() {
-		return latitude;
-	}
-	
-	public void setLatitude(double l) {
-		latitude = l;
-	}
-	
-	public double getLongitude() {
-		return longitude;
-	}
-	
-	public void setLongitude(double l) {
-		longitude = l;
-	}*/
-
 	public Coordinate getCoordinate() {
 		return coordinate;
 	}
@@ -62,26 +55,8 @@ public class Nodo {
 		listRoutes = c;
 	}
 	
+	public void addRuta(Ruta r) {
+		listRoutes.add(r);
+	}
 
 }
-
-
-/*	
-@XmlType
-class Localidad{
-	private String nombre;
-	private int cp;
- 
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public int getCp() {
-		return cp;
-	}
-	public void setCp(int cp) {
-		this.cp = cp;
-	}
-}*/
