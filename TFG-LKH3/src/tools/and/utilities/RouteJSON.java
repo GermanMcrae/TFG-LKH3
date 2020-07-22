@@ -89,7 +89,7 @@ public class RouteJSON {
 						nameFrom = tp1.getString("name");
 						JSONArray tp11 = tp1.getJSONArray("location");
 						coordinateFrom = new Coordinate(tp11.getLong(0), tp11.getLong(1));
-						JSONObject tp2 = (JSONObject)tempWaypoints.get(0);
+						JSONObject tp2 = (JSONObject)tempWaypoints.get(1);
 						nameTo = tp2.getString("name");
 						JSONArray tp22 = tp2.getJSONArray("location");
 						coordinateTo = new Coordinate(tp22.getLong(0), tp22.getLong(1));

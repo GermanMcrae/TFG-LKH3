@@ -3,15 +3,21 @@ package tools.and.utilities;
 import java.util.ArrayList;
 import java.util.List;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "nodo")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class Nodo {
 	
 	private String name;
 	private double capacity;
-	Coordinate coordinate;
+	private Coordinate coordinate;
 	
+	@XmlElement(name = "listRoutes")
 	List<Ruta> listRoutes;
 	
 	public Nodo() {
@@ -21,6 +27,14 @@ public class Nodo {
 		
 		listRoutes = new ArrayList<Ruta>();
 		
+	}
+	
+	public Nodo(String n, double cap, Coordinate coor, List<Ruta> lR) {
+		name = n;
+		capacity = cap;
+		coordinate = coor;
+		
+		listRoutes = lR;
 	}
 	
 	public String getName() {

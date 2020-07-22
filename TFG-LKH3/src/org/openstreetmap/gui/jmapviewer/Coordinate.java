@@ -18,6 +18,11 @@ import org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate;
  */
 public class Coordinate implements ICoordinate {
     private transient Point2D.Double data;
+    //private transient Point2D.Double data;
+    
+    public Coordinate() {
+    	data = new Point2D.Double(0.0, 0.0);
+    }
 
     /**
      * Constructs a new {@code Coordinate}.

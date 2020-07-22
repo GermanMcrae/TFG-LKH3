@@ -42,8 +42,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,11 +75,13 @@ import tools.and.utilities.Ruta;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -109,7 +113,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     private String proyectName;
     private String pathFile;
     
-    private List<Nodo> ejercicio;
+    //private List<Nodo> ejercicio;
+    private NodosList ejercicio;
     
     //private List<List<RouteJSON>> MatrixOfPoint = new ArrayList<List<RouteJSON>>();
 
@@ -134,7 +139,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         // receive events and update
         map().addJMVListener(this);
         
-        ejercicio = new ArrayList<Nodo>();
+        ejercicio = new NodosList();
         
         NewProyectRoute npRoute = new NewProyectRoute(this);
         PointProblem ppNewPoint = new PointProblem(this);
@@ -187,6 +192,12 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         	if (result == JFileChooser.APPROVE_OPTION) {
         	    File selectedFile = fileChooser.getSelectedFile();
         	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        	    try {
+					LoadProyect(selectedFile);
+				} catch (IOException | JAXBException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         	}
         });
         JButton btSave = new JButton("Save");
@@ -195,20 +206,17 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         	 
         	JFileChooser fileChooser = new JFileChooser();
         	fileChooser.setDialogTitle("Specify a file to save");   
-        	 
         	int userSelection = fileChooser.showSaveDialog(parentFrame);
-        	 
         	if (userSelection == JFileChooser.APPROVE_OPTION) {
         	    File fileToSave = fileChooser.getSelectedFile();
-        	    if(fileToSave.exists()) {
-        	    	System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-        	    	/*try {
+        	    //if(!fileToSave.exists()) {
+        	    	try {
 						SaveProyect(fileToSave);
 					} catch (IOException | JAXBException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}*/
-        	    }
+					}
+        	    //}
         	    
         	}
         });
@@ -345,17 +353,12 @@ public class Demo extends JFrame implements JMapViewerEventListener {
                     
                     ppNewPoint.setModalityType(Dialog.ModalityType.MODELESS);
                     MapMarkerDot myPoint = new MapMarkerDot(map().getPosition(b.getPoint()).getLat(),map().getPosition(b.getPoint()).getLon());
-                    System.out.println("Button1a "+map().getPosition(b.getPoint()));
-                    System.out.println("Button1b "+b.getPoint());
                     myPoint.setBackColor(Color.blue);
     	            ppNewPoint.setName("P"+(map().mapMarkerList.size()+1));
                     //if(ppNewPoint.getValidate())
                     
     	            System.out.println("Antes de los botones ");
 					ppNewPoint.okButton.addActionListener(e -> {
-						System.out.println("okButton.addActionListener(e -> "+ppNewPoint.okButton.getActionListeners().length);
-						System.out.println("Hace okButton ");
-						System.out.println("myPoint "+myPoint);
 						ppNewPoint.setVisible(false);
 						myPoint.setName(ppNewPoint.getName());
 						map().addMapMarker(myPoint);
@@ -365,8 +368,6 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     				});
                     
                     ppNewPoint.cancelButton.addActionListener(e -> {
-                    	System.out.println("cancelButton.addActionListener(e -> "+ppNewPoint.cancelButton.getActionListeners().length);
-                    	System.out.println("Hace cancelButton ");
                     	ppNewPoint.setVisible(false);
                     	//ppNewPoint.clearCancelActionListener();
                     	ppNewPoint.clearActionListener();
@@ -497,7 +498,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	
     }
     
-    void SaveProyect(File fileToSave) throws IOException, JAXBException{
+    void SaveProyect2(File fileToSave) throws IOException, JAXBException{
     	
     	JAXBContext context = JAXBContext.newInstance(NodosList.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -520,12 +521,12 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 		n2.setCapacity(200);
 		n2.setCoordinate(new Coordinate(20, 10));
 		
-		n2.setListRoutes(routes);
+		//n2.setListRoutes(routes);
 		
 		Nodo n3 = new Nodo();
 		n3.setName("Nodo 0");
 		n3.setCapacity(300);
-		//n3.setCoordinate(new Coordinate(10, 30));
+		n3.setCoordinate(new Coordinate(10, 30));
 		
 		List<Nodo> myList = new ArrayList<Nodo>();
 		myList.add(n1);
@@ -535,9 +536,51 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 		NodosList nodes = new NodosList();
 		nodes.setNodes(myList);
 		
+		/*Ruta ruta = new Ruta();
+		ruta.setDistance(20.1);
+		ruta.setCoordinateFrom(new Coordinate(20, 30));*/
 		
-		FileOutputStream fos = new FileOutputStream("DATOS_NODOS.xml");
+		FileOutputStream fos = new FileOutputStream(fileToSave);
 		marshaller.marshal(nodes, fos);
+		fos.close();
+    	
+    }
+    
+    void LoadProyect2(File fileToLoad) throws IOException, JAXBException{
+    	
+    	JAXBContext context2 = JAXBContext.newInstance(NodosList.class);
+		//Marshaller marshaller = context.createMarshaller();
+		//marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		//System.out.println("tamaño de ejercicio "+ejercicio.size());
+		System.out.println("ruta del ejercicio "+fileToLoad.getAbsolutePath());
+
+		
+		Unmarshaller unmarshaller = context2.createUnmarshaller();
+		var ejer = (NodosList) unmarshaller.unmarshal(fileToLoad);
+    }
+    
+    void LoadProyect(File fileToLoad) throws IOException, JAXBException{
+    	
+    	JAXBContext context2 = JAXBContext.newInstance(NodosList.class);
+		//Marshaller marshaller = context.createMarshaller();
+		//marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		//System.out.println("tamaño de ejercicio "+ejercicio.size());
+		System.out.println("ruta del ejercicio "+fileToLoad.getAbsolutePath());
+
+		
+		Unmarshaller unmarshaller = context2.createUnmarshaller();
+		ejercicio = (NodosList) unmarshaller.unmarshal(fileToLoad);
+		drawPointInMap();
+    }
+    
+    void SaveProyect(File fileToSave) throws IOException, JAXBException{
+    	
+    	JAXBContext context = JAXBContext.newInstance(NodosList.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		System.out.println("tamaño de ejercicio "+ejercicio.size());
+		FileOutputStream fos = new FileOutputStream(fileToSave);
+		marshaller.marshal(ejercicio, fos);
 		fos.close();
     	
     }
@@ -562,14 +605,14 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     		
     		//listar de nuevo punto a nodos previos
     		for(int i = 0; i < ejercicio.size(); i++) {
-    			//ejercicio.get(i).getCoordinate();
+    			ejercicio.get(i).getCoordinate();
     			Ruta newRuta = new Ruta(ejercicio.get(i).getCoordinate(),newNodo.getCoordinate());
     			ejercicio.get(i).addRuta(newRuta);
     		}
     		
     		//listar de nodos previos a nuevo punto
     		for(int i = 0; i < ejercicio.size(); i++) {
-    			//ejercicio.get(i).getCoordinate();
+    			ejercicio.get(i).getCoordinate();
     			Ruta newRuta = new Ruta(newNodo.getCoordinate(), ejercicio.get(i).getCoordinate());
     			newNodo.addRuta(newRuta);
     		}
@@ -595,14 +638,14 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 		Nodo n1 = new Nodo();
 		n1.setName("Nodo 1");
 		n1.setCapacity(100);
-		n1.setCoordinate(new Coordinate(10, 10));
+		//n1.setCoordinate(new Coordinate(10, 10));
 			
 		Nodo n2 = new Nodo();
 		n2.setName("Nodo 2");
 		n2.setCapacity(200);
-		n2.setCoordinate(new Coordinate(20, 10));
+		//n2.setCoordinate(new Coordinate(20, 10));
 		
-		n2.setListRoutes(routes);
+		//n2.setListRoutes(routes);
 		
 		Nodo n3 = new Nodo();
 		n3.setName("Nodo 0");
@@ -842,6 +885,17 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	
     }
     
+    void drawPointInMap() {
+    	//ejercicio
+    	
+    	for(int i = 0 ; i < ejercicio.size(); i++) {
+    		MapMarkerDot myPoint = new MapMarkerDot(ejercicio.get(i).getCoordinate().getLat(),ejercicio.get(i).getCoordinate().getLon());
+            myPoint.setName(ejercicio.get(i).getName());
+            myPoint.setBackColor(Color.blue);
+			map().addMapMarker(myPoint);
+    	}
+    }
+    
     void testRutas() {
     	for(int i=0; i<ejercicio.size();i++) {
     		System.out.println("nodo "+ejercicio.get(i).getName()+" "+ejercicio.get(i).getCapacity()+" "+ejercicio.get(i).getCoordinate()  );
@@ -853,6 +907,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     		}
     	}
     }
+    
+    
 
     @Override
     public void processCommand(JMVCommandEvent command) {

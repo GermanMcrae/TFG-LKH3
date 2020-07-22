@@ -1,5 +1,6 @@
 package tools.and.utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,7 +15,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class NodosList {
 	
 	@XmlElement(name = "nodo")
-    private List<Nodo> nodes = null;
+    private List<Nodo> nodes;
+	
+	public NodosList() {
+		nodes = new ArrayList<Nodo>();
+	}
+	
+	public NodosList(List<Nodo> n) {
+		nodes = n;
+	}
 	
 	public List<Nodo> getNodes() {
         return nodes;
@@ -22,6 +31,22 @@ public class NodosList {
  
     public void setNodes(List<Nodo> collection) {
         this.nodes = collection;
+    }
+    
+    public void clear() {
+    	nodes.clear();
+    }
+    
+    public int size() {
+    	return nodes.size();
+    }
+    
+    public Nodo get(int i) {
+    	return nodes.get(i);
+    }
+    
+    public void add(Nodo n) {
+    	nodes.add(n);
     }
 	
 
