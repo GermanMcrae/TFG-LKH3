@@ -19,7 +19,7 @@ public class PointProblem extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField tfName;
-	private JTextField tfWeight;
+	private JTextField tfDemand;
 	private JTextField tfLatitude;
 	private JTextField tfLongitude;
 	
@@ -61,14 +61,14 @@ public class PointProblem extends JDialog {
 		contentPanel.add(tfName);
 		tfName.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Weight");
+		JLabel lblNewLabel_1 = new JLabel("Demand");
 		lblNewLabel_1.setBounds(45, 70, 61, 16);
 		contentPanel.add(lblNewLabel_1);
 		
-		tfWeight = new JTextField("0.0");
-		tfWeight.setBounds(128, 65, 266, 26);
-		contentPanel.add(tfWeight);
-		tfWeight.setColumns(10);
+		tfDemand = new JTextField("0.0");
+		tfDemand.setBounds(128, 65, 266, 26);
+		contentPanel.add(tfDemand);
+		tfDemand.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Latitude");
 		lblNewLabel_2.setBounds(45, 109, 61, 16);
@@ -122,6 +122,7 @@ public class PointProblem extends JDialog {
 	}
 	
 	public void FillData(double lat, double lon) {
+		tfDemand.setText("0.0");
 		tfLatitude.setText(String.valueOf(lat));
 		tfLongitude.setText(String.valueOf(lon));
 	}
@@ -158,8 +159,8 @@ public class PointProblem extends JDialog {
 		return tfName.getText();
 	}
 	
-	public double getWeight() {
-		return Double.parseDouble(tfWeight.getText());
+	public double getDemand() {
+		return Double.parseDouble(tfDemand.getText());
 	}
 	
 	public double getLat() {
@@ -173,4 +174,5 @@ public class PointProblem extends JDialog {
 	public void setName(String name) {
 		tfName.setText(name);
 	}
+	
 }

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Nodo {
 	
 	private String name;
-	private double capacity;
+	private double demand;
 	private Coordinate coordinate;
 	
 	@XmlElement(name = "listRoutes")
@@ -22,16 +22,16 @@ public class Nodo {
 	
 	public Nodo() {
 		name = "";
-		capacity = 0.0;
+		demand = 0.0;
 		coordinate = new Coordinate(0.0, 0.0);
 		
 		listRoutes = new ArrayList<Ruta>();
 		
 	}
 	
-	public Nodo(String n, double cap, Coordinate coor, List<Ruta> lR) {
+	public Nodo(String n, double dem, Coordinate coor, List<Ruta> lR) {
 		name = n;
-		capacity = cap;
+		demand = dem;
 		coordinate = coor;
 		
 		listRoutes = lR;
@@ -45,12 +45,12 @@ public class Nodo {
 		name = n;
 	}
 	
-	public double getCapacity() {
-		return capacity;
+	public double getDemand() {
+		return demand;
 	}
 	
-	public void setCapacity(double c) {
-		capacity = c;
+	public void setDemand(double d) {
+		demand = d;
 	}
 	
 	public Coordinate getCoordinate() {
@@ -72,5 +72,63 @@ public class Nodo {
 	public void addRuta(Ruta r) {
 		listRoutes.add(r);
 	}
+	
+	@Override
+	public String toString() {
+	    return name+" Demand["+demand+"]";
+	}
+	
+	public boolean isEqual(Nodo n) {
+		boolean value = true;
+		if(!name.equals(n.getName()))
+			return false;
+		if(demand != n.demand)
+			return false;
+		if(!coordinate.equals(n.getCoordinate()))
+			return false;
+		if(listRoutes.size() != n.getListRoutes().size())
+			return false;
+		else if(listRoutes.size() == n.getListRoutes().size()) {
+			for(int i=0;i<listRoutes.size();i++) {
+				if(!listRoutes.get(i).equals(n.getListRoutes().get(i)))
+					return false;
+			}
+		}
+		
+		
+		
+		return true;
+	}
+	
+	public String getVectorDistanceForMatrix(int n) {
+		String text = "";
+		for(int i=0; i<listRoutes.size();i++) {
+			if(i == n) {
+				text += "0 "+listRoutes.get(i).getDistance()+" ";
+			}
+			else {
+				text += listRoutes.get(i).getDistance()+" ";
+			}
+		}
+		//add 0 last vector
+		if(n == listRoutes.size())
+			text += 0;
+		return text;
+	}
 
+	public String getVectorDurationForMatrix(int n) {
+		String text = "";
+		for(int i=0; i<listRoutes.size();i++) {
+			if(i == n) {
+				text += "0 "+listRoutes.get(i).getDuration()+" ";
+			}
+			else {
+				text += listRoutes.get(i).getDuration()+" ";
+			}
+		}
+		//add 0 last vector
+		if(n == listRoutes.size())
+			text += 0;
+		return text;
+	}
 }

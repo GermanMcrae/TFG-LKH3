@@ -62,6 +62,7 @@ import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
 import com.kitfox.svg.Polyline;
 import com.osrm.services.Route;
 
+import tools.and.utilities.GestionNodesRoutes;
 import tools.and.utilities.MatrixPoints;
 import tools.and.utilities.NewProyectRoute;
 import tools.and.utilities.Nodo;
@@ -72,6 +73,7 @@ import tools.and.utilities.ProblemFile;
 import tools.and.utilities.RouteJSON;
 import tools.and.utilities.RouteResult;
 import tools.and.utilities.Ruta;
+import tools.and.utilities.SettingLKH;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -113,8 +115,9 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     private String proyectName;
     private String pathFile;
     
-    //private List<Nodo> ejercicio;
     private NodosList ejercicio;
+    private SettingLKH pSetting;
+    private GestionNodesRoutes pGestionNR;
     
     //private List<List<RouteJSON>> MatrixOfPoint = new ArrayList<List<RouteJSON>>();
 
@@ -140,7 +143,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         map().addJMVListener(this);
         
         ejercicio = new NodosList();
-        
+        pSetting = new SettingLKH();
+        pGestionNR = new GestionNodesRoutes();
         NewProyectRoute npRoute = new NewProyectRoute(this);
         PointProblem ppNewPoint = new PointProblem(this);
         
@@ -158,6 +162,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         JPanel panel1 = new JPanel();
         panel1.setLayout (new BorderLayout());
         JPanel panel2 = new JPanel();
+        
+        
         
 
         mperpLabelName = new JLabel("Meters/Pixels: ");
@@ -364,7 +370,12 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 						map().addMapMarker(myPoint);
 						//ppNewPoint.clearOkActionListener();
 						ppNewPoint.clearActionListener();
-						addNodoEjercicio(ppNewPoint.getName(), ppNewPoint.getWeight(), new Coordinate(ppNewPoint.getLat(), ppNewPoint.getLon()));
+						addNodoEjercicio(ppNewPoint.getName(), ppNewPoint.getDemand(), new Coordinate(ppNewPoint.getLat(), ppNewPoint.getLon()));
+						pGestionNR.listUpdate(ejercicio);
+						System.out.println(ejercicio.getMatrixDistance());
+						System.out.println(ejercicio.getMatrixDuration());
+						System.out.println(ejercicio.getListCoordenades());
+						System.out.println(ejercicio.getListDemands());
     				});
                     
                     ppNewPoint.cancelButton.addActionListener(e -> {
@@ -405,7 +416,8 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         });
         
         jTabbePane.add("Mapa",panel1);
-        jTabbePane.add("Gestion",panel2);
+        jTabbePane.add("Gestion",pGestionNR);
+        jTabbePane.add("Configuracion LKH",pSetting);
         
         add(jTabbePane);
     }
@@ -491,7 +503,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	map().removeAllMapMarkers();
     	map().removeAllMapPolygons();
     	ejercicio.clear();
-    	
+    	pGestionNR.clearList();
     }
     
     private void newProyect() {
@@ -513,19 +525,19 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 			
 		Nodo n1 = new Nodo();
 		n1.setName("Nodo 1");
-		n1.setCapacity(100);
+		n1.setDemand(100);
 		n1.setCoordinate(new Coordinate(10, 10));
 			
 		Nodo n2 = new Nodo();
 		n2.setName("Nodo 2");
-		n2.setCapacity(200);
+		n2.setDemand(200);
 		n2.setCoordinate(new Coordinate(20, 10));
 		
 		//n2.setListRoutes(routes);
 		
 		Nodo n3 = new Nodo();
 		n3.setName("Nodo 0");
-		n3.setCapacity(300);
+		n3.setDemand(300);
 		n3.setCoordinate(new Coordinate(10, 30));
 		
 		List<Nodo> myList = new ArrayList<Nodo>();
@@ -571,6 +583,12 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 		Unmarshaller unmarshaller = context2.createUnmarshaller();
 		ejercicio = (NodosList) unmarshaller.unmarshal(fileToLoad);
 		drawPointInMap();
+		System.out.println("Tam ejercicio: "+ejercicio.getNodes().size());
+		pGestionNR.listUpdate(ejercicio);
+		System.out.println(ejercicio.getMatrixDistance());
+		System.out.println(ejercicio.getMatrixDuration());
+		System.out.println(ejercicio.getListCoordenades());
+		System.out.println(ejercicio.getListDemands());
     }
     
     void SaveProyect(File fileToSave) throws IOException, JAXBException{
@@ -585,13 +603,13 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	
     }
     
-    private void addNodoEjercicio(String name, double capacity, Coordinate coor) {
+    private void addNodoEjercicio(String name, double demand, Coordinate coor) {
     	System.out.println("Nombre: " + name);
-    	System.out.println("Capacidad " + capacity);
+    	System.out.println("Capacidad " + demand);
     	System.out.println("Coordenadas" + coor);
     	Nodo newNodo = new Nodo();
     	newNodo.setName(name);
-		newNodo.setCapacity(capacity);
+		newNodo.setDemand(demand);
 		newNodo.setCoordinate(coor);
     	if(ejercicio.size() == 0) {
     		System.out.println("vacio");
@@ -637,19 +655,19 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 			
 		Nodo n1 = new Nodo();
 		n1.setName("Nodo 1");
-		n1.setCapacity(100);
+		n1.setDemand(100);
 		//n1.setCoordinate(new Coordinate(10, 10));
 			
 		Nodo n2 = new Nodo();
 		n2.setName("Nodo 2");
-		n2.setCapacity(200);
+		n2.setDemand(200);
 		//n2.setCoordinate(new Coordinate(20, 10));
 		
 		//n2.setListRoutes(routes);
 		
 		Nodo n3 = new Nodo();
 		n3.setName("Nodo 0");
-		n3.setCapacity(300);
+		n3.setDemand(300);
 		//n3.setCoordinate(new Coordinate(10, 30));
 		
 		List<Nodo> myList = new ArrayList<Nodo>();
@@ -729,7 +747,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
             FileReader fr = null;
             BufferedReader br = null;
             
-        	try {//~/Documents/tfg/lkh-3/LKH-3.0.6/
+        	try {
         		
 				//Process pr = runtime.exec("cd ~/Documents/tfg/lkh-3/LKH-3.0.6/ | ./LKH test.par");
         		//String[] cmd = {"/bin/sh", "./Documents/tfg/lkh-3/LKH-3.0.6/LKH /Documents/tfg/lkh-3/LKH-3.0.6/test.par"};
@@ -898,7 +916,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     
     void testRutas() {
     	for(int i=0; i<ejercicio.size();i++) {
-    		System.out.println("nodo "+ejercicio.get(i).getName()+" "+ejercicio.get(i).getCapacity()+" "+ejercicio.get(i).getCoordinate()  );
+    		System.out.println("nodo "+ejercicio.get(i).getName()+" "+ejercicio.get(i).getDemand()+" "+ejercicio.get(i).getCoordinate()  );
     		for(int j=0; j<ejercicio.get(i).getListRoutes().size();j++) {
     			System.out.println(ejercicio.get(i).getListRoutes().get(j).getNameFrom()+" "+
     					ejercicio.get(i).getListRoutes().get(j).getNameTo()+" "+

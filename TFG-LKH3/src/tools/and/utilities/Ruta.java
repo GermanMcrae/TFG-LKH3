@@ -165,6 +165,37 @@ public class Ruta {
 		nameTo = n;
 	}
 	
+	public boolean isEqual(Ruta r) {
+		if(duration != r.getDuration())
+			return false;
+		if(distance != r.getDistance())
+			return false;
+		if(!weight_name.equals(r.getWeightName()))
+			return false;
+		if(coordinates.size() != r.getCoordinates().size())
+			return false;
+		else if(coordinates.size() == r.getCoordinates().size()) {
+			for(int i = 0; i < coordinates.size(); i++) {
+				if(!coordinates.get(i).equals(r.getCoordinates().get(1)))
+					return false;
+			}
+		}
+		if(!coordinateFrom.equals(r.getCoordinateFrom()))
+			return false;
+		if(!coordinateTo.equals(r.getCoordinateTo()))
+			return false;
+		if(!nameFrom.equals(r.getNameFrom()))
+			return false;
+		if(!nameTo.equals(r.getNameTo()))
+			return false;
+		
+		return true;
+	}
 	
+	/*
+	private List<Coordinate> coordinates;
+	
+	private String nameFrom;
+	private String nameTo;*/
 	
 }

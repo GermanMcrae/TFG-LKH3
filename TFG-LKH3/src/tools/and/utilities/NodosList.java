@@ -49,7 +49,37 @@ public class NodosList {
     	nodes.add(n);
     }
 	
+    public String getMatrixDistance() {
+    	String matrix = "";
+    	for(int i=0; i<nodes.size();i++) {
+    		matrix += nodes.get(i).getVectorDistanceForMatrix(i)+"\n";
+    	}
+    	return matrix;
+    }
+    
+    public String getMatrixDuration() {
+    	String matrix = "";
+    	for(int i=0; i<nodes.size();i++) {
+    		matrix += nodes.get(i).getVectorDurationForMatrix(i)+"\n";
+    	}
+    	return matrix;
+    }
+    
+    public String getListCoordenades() {
+    	String text = "";
+    	for(int i=0;i<nodes.size();i++) {
+    		text += i+1+"\t"+nodes.get(i).getCoordinate().getLat()+" "+nodes.get(i).getCoordinate().getLon()+"\n";
+    	}
+    	return text;
+    }
 
+    public String getListDemands() {
+    	String text = "";
+    	for(int i=0;i<nodes.size();i++) {
+    		text += i+1+"\t"+nodes.get(i).getDemand()+"\n";
+    	}
+    	return text;
+    }
 }
 
 
