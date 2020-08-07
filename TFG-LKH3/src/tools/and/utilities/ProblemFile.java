@@ -87,6 +87,10 @@ public class ProblemFile {
 	String DISPLAY_DATA_TYPE;//: TWOD_DISPLAY
 	String EDGE_WEIGHT_SECTION;//Matrix
 	String DISPLAY_DATA_SECTION;//Coordenades
+	int CAPACITY;
+	String DEMAND_SECTION;
+	String DEPOT_SECTION;
+	int VEHICLES;
 	
 	
 	public ProblemFile() {
@@ -99,7 +103,10 @@ public class ProblemFile {
 		DISPLAY_DATA_TYPE = "TWOD_DISPLAY";
 		EDGE_WEIGHT_SECTION = "";
 		DISPLAY_DATA_SECTION = "";
-		
+		CAPACITY = 0;
+		DEMAND_SECTION = "";
+		DEPOT_SECTION = "";
+		VEHICLES = 0;
 	}
 	
 	public ProblemFile(String name, String type, String comment, int dimension, String edge_weight_type, String edge_weight_format, String display_data_type, String edge_weight_section, String display_data_section) {
@@ -114,6 +121,12 @@ public class ProblemFile {
 		DISPLAY_DATA_SECTION = display_data_section;
 		
 	}
+	
+	/*public ProblemFile(String type) {
+		if(type.equals("CRVP")) {
+			
+		}
+	}*/
 	
 	public String getNAME() {
 		return NAME;
@@ -151,6 +164,22 @@ public class ProblemFile {
 		return DISPLAY_DATA_SECTION;
 	}
 	
+	public int getCAPACITY() {
+		return CAPACITY;
+	}
+	
+	public String getDEMAND_SECTION() {
+		return DEMAND_SECTION;
+	}
+	
+	public String getDEPOT_SECTION() {
+		return DEPOT_SECTION;
+	}
+	
+	public int getVEHICLES() {
+		return VEHICLES;
+	}
+	
 	public void setNAME(String value) {
 		NAME = value;
 	}
@@ -185,6 +214,22 @@ public class ProblemFile {
 	
 	public void setDISPLAY_DATA_SECTION(String value) {
 		DISPLAY_DATA_SECTION = value;
+	}
+	
+	public void setCAPACITY(int value) {
+		CAPACITY = value;
+	}
+	
+	public void setDEMAND_SECTION(String value) {
+		DEMAND_SECTION = value;
+	}
+	
+	public void setDEPOT_SECTION(String value) {
+		DEPOT_SECTION = value;
+	}
+	
+	public void getVEHICLES(int value) {
+		VEHICLES = value;
 	}
 	
 	public boolean generateFile() {
@@ -233,8 +278,60 @@ public class ProblemFile {
 		return res;
 	}
 	
+	public boolean generateFile(String type) {
+		boolean res = false;
+		String cad = "";
+		if(type.equals("CVRP")) {
+			
+			
+			cad += "NAME: " + NAME + "\n";
+			cad += "TYPE: " + TYPE + "\n";
+			cad += "COMMENT: " + COMMENT + "\n";
+			cad += "DIMENSION: " + DIMENSION + "\n";
+			cad += "CAPACITY: " + CAPACITY + "\n";
+			cad += "EDGE_WEIGHT_TYPE: " + EDGE_WEIGHT_TYPE + "\n";
+			cad += "EDGE_WEIGHT_FORMAT: " + EDGE_WEIGHT_FORMAT + "\n";
+			cad += "EDGE_WEIGHT_SECTION " + "\n" + EDGE_WEIGHT_SECTION + "\n";
+			cad += "DEMAND_SECTION " + "\n" + DEMAND_SECTION + "\n";
+			cad += "DEPOT_SECTION " + "\n" + DEPOT_SECTION + "\n";
+			cad += "EOF";
+		}	
+		//cad += "DIMENSION: " + + "/n";
+		
+		System.out.println(cad);
+		
+		FileWriter fichero = null;
+	    PrintWriter pw = null;
+	    try
+	    {
+	    	fichero = new FileWriter("problemFile.tsp");
+	    	pw = new PrintWriter(fichero);
+	    	pw.print(cad);
+	    } catch (Exception e) {
+            e.printStackTrace();
+	    } finally {
+	    try {
+	    	// Nuevamente aprovechamos el finally para 
+	        // asegurarnos que se cierra el fichero.
+	    	if (null != fichero) {
+	    		fichero.close();
+	    		res = true;
+	    	}
+	        	
+	    	
+	        } catch (Exception e2) {
+	        	e2.printStackTrace();
+	        }
+	    }
+		
+		
+		return res;
+	}
+	
 	/*
-	 * 
+	 * if(type.equals("CRVP")) {
+			
+		}
 	 * 
 	 * 
 	 FileWriter fichero = null;

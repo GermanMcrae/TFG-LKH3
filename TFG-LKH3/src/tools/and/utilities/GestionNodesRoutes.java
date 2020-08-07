@@ -34,7 +34,7 @@ public class GestionNodesRoutes extends JPanel {
 	}
 	
 	public void listUpdate(NodosList ejercicio) {
-		
+		nodoModel.clear();
 		nodoModel.addAll(ejercicio.getNodes());
 		list.setModel(nodoModel);
 	}

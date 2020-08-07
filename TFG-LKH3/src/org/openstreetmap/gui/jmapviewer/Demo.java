@@ -74,6 +74,7 @@ import tools.and.utilities.RouteJSON;
 import tools.and.utilities.RouteResult;
 import tools.and.utilities.Ruta;
 import tools.and.utilities.SettingLKH;
+import tools.and.utilities.TourResult;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -84,6 +85,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -118,6 +120,10 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     private NodosList ejercicio;
     private SettingLKH pSetting;
     private GestionNodesRoutes pGestionNR;
+    private List<TourResult> ListTours;
+    private JComboBox<TourResult> cbRouteSelector;
+    
+    private boolean errorLKH;
     
     //private List<List<RouteJSON>> MatrixOfPoint = new ArrayList<List<RouteJSON>>();
 
@@ -129,12 +135,11 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     public Demo() {
         super("JMapViewer Demo");
         setSize(400, 400);
-
         pointFlag = true;
         proyectName = "";
         pathFile = "";
         treeMap = new JMapViewerTree("Zones");
-        
+        errorLKH = false;
         //listaPuntos = new JList();
         //listaPuntos.setSize(50, 100);;
 
@@ -143,10 +148,17 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         map().addJMVListener(this);
         
         ejercicio = new NodosList();
-        pSetting = new SettingLKH();
+        try {
+			pSetting = new SettingLKH();
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
         pGestionNR = new GestionNodesRoutes();
+        ListTours = new ArrayList<TourResult>();
         NewProyectRoute npRoute = new NewProyectRoute(this);
         PointProblem ppNewPoint = new PointProblem(this);
+        
         
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -192,6 +204,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         });
         JButton btLoad = new JButton("Load");
         btLoad.addActionListener(e -> {
+        	clearPoints();
         	JFileChooser fileChooser = new JFileChooser();
         	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         	int result = fileChooser.showOpenDialog(this);
@@ -199,6 +212,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         	    File selectedFile = fileChooser.getSelectedFile();
         	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         	    try {
+        	    	
 					LoadProyect(selectedFile);
 				} catch (IOException | JAXBException e1) {
 					// TODO Auto-generated catch block
@@ -246,6 +260,26 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         JButton btGenerateRoute = new JButton("Generate Route");
         btGenerateRoute.addActionListener(e -> GenerateRoute());
         
+        cbRouteSelector = new JComboBox<TourResult>();
+        
+        cbRouteSelector.setPreferredSize(new Dimension(190, 25));
+        cbRouteSelector.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				map().removeAllMapPolygons();
+				TourResult tr = (TourResult)e.getItem();
+				
+				for(int i=0; i<tr.getTrack().size();i++) {
+					MapPolylineImpl mpl = new MapPolylineImpl(tr.getTrack().get(i));
+					mpl.setColor(tr.getColor());
+					map().addMapPolygon(mpl);
+				}
+				
+			}
+		});
+        
         //JButton btTestXML = new JButton("Leer XML");
         //btTestXML.addActionListener(e -> ());
         
@@ -268,6 +302,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 map().setTileLoader((TileLoader) e.getItem());
+                
             }
         });
         map().setTileLoader((TileLoader) tileLoaderSelector.getSelectedItem());
@@ -305,6 +340,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
         panelBottomNew.add(btExport);
         panelBottomNew.add(btClear);
         panelBottomNew.add(btGenerateRoute);
+        panelBottomNew.add(cbRouteSelector);
         
         panelTop.add(zoomLabel);
         panelTop.add(zoomValue);
@@ -372,10 +408,10 @@ public class Demo extends JFrame implements JMapViewerEventListener {
 						ppNewPoint.clearActionListener();
 						addNodoEjercicio(ppNewPoint.getName(), ppNewPoint.getDemand(), new Coordinate(ppNewPoint.getLat(), ppNewPoint.getLon()));
 						pGestionNR.listUpdate(ejercicio);
-						System.out.println(ejercicio.getMatrixDistance());
-						System.out.println(ejercicio.getMatrixDuration());
-						System.out.println(ejercicio.getListCoordenades());
-						System.out.println(ejercicio.getListDemands());
+						//System.out.println(ejercicio.getMatrixDistance());
+						//System.out.println(ejercicio.getMatrixDuration());
+						//System.out.println(ejercicio.getListCoordenades());
+						//System.out.println(ejercicio.getListDemands());
     				});
                     
                     ppNewPoint.cancelButton.addActionListener(e -> {
@@ -445,6 +481,115 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     }
     
     private void GenerateRoute() {
+    	if(ejercicio.size() > 1) {
+    		//vamos a crear el fichero
+    		ProblemFile fileTSP = new ProblemFile();
+    		fileTSP.setNAME("TestCVRP");
+    		fileTSP.setTYPE(pSetting.getTypeProblem());
+    		fileTSP.setDIMENSION(ejercicio.getNodes().size());
+    		fileTSP.setEDGE_WEIGHT_TYPE("EXPLICIT");
+    		fileTSP.setEDGE_WEIGHT_FORMAT("FULL_MATRIX");
+    		fileTSP.setEDGE_WEIGHT_SECTION(ejercicio.getMatrixDistance());
+    		System.out.println("Capacidad truck "+pSetting.getCapacityTruck());
+    		fileTSP.setCAPACITY(pSetting.getCapacityTruck());
+    		fileTSP.setDEMAND_SECTION(ejercicio.getListDemands());
+    		fileTSP.setDEPOT_SECTION("1\n-1");
+    		if(fileTSP.generateFile("CVRP")) {
+    			ParametersFile filePAR = new ParametersFile();
+    			filePAR.setBoolVEHICLES(true);
+    			filePAR.setVEHICLES(pSetting.getNumberVehicle());
+    			//filePAR.setBoolINITIAL_TOUR_ALGORITHM(value);
+    			//filePAR.getBoolMTSP_MIN_SIZE();
+    			//filePAR.getBoolMTSP_MAX_SIZE();
+    			//filePAR.setBoolINITIAL_TOUR_ALGORITHM(value);
+    			//filePAR.setBoolMOVE_TYPE(value);
+    			//filePAR.setBoolOPTIMUM(value);
+    			//filePAR.setBoolPATCHING_A(value);
+    			//filePAR.setBoolPATCHING_C(value);
+    			//filePAR.setBoolRUNS(value);
+    			filePAR.setINITIAL_TOUR_ALGORITHM(pSetting.getInitialTourAlgorithm());
+    			filePAR.setBACKTRACKING(pSetting.getBacktracking());
+    			if(filePAR.generateFile()) {
+    				executeLKH();
+    				if(!errorLKH) {
+    					
+    				
+	    				//modificar
+	    				RouteResult routeResult = new RouteResult();
+	    				System.out.println("Haciendo testLectura");
+	    				routeResult.testLectura();
+	    				routeResult.testLecturaTours();
+	    				ListTours = routeResult.getListTours();
+	    				for(int i=0;i<routeResult.getListTours().size();i++) {
+	    					routeResult.getListTours().get(i).setTrack(ejercicio.getTour(routeResult.getListTours().get(i).getCamino()));
+	    					routeResult.getListTours().get(i).setColor(selectColorRand(i));
+	    				}
+	    				
+	    				cbRouteSelector.removeAllItems();
+	    				for(int i=0;i<routeResult.getListTours().size();i++) {
+	    					cbRouteSelector.addItem(routeResult.getListTours().get(i));
+	    				}
+	    				cbRouteSelector.setSelectedIndex(-1);
+	    				
+	    				/*test*/
+	    				for(int i=0;i<routeResult.getListTours().size();i++) {
+	    					//System.out.println("Hace esto? routeResult.getListTours().size() "+routeResult.getListTours().size());
+	    					for(int j=0;j<routeResult.getListTours().get(i).getTrack().size();j++) {
+	    						//System.out.println("Hace esto? routeResult.getListTours().get(i).getTrack().size() "+routeResult.getListTours().get(i).getTrack().size());
+	    						MapPolylineImpl mpl = new MapPolylineImpl(routeResult.getListTours().get(i).getTrack().get(j));
+	    						mpl.setColor(routeResult.getListTours().get(i).getColor());
+	    						map().addMapPolygon(mpl);
+	    						
+	    					}
+	    				}
+    				}
+    				/*List<Integer> listResult = routeResult.getTour();
+    				for(int i = 0; i<listResult.size(); i++) {
+    					System.out.println(listResult.get(i));
+    				}
+    				List<MapPolygon> listPoligonResult = rawMatrixPoint.RouteList(listResult);
+    				for(int i=0; i<listPoligonResult.size();i++) {
+    					map().addMapPolygon(listPoligonResult.get(i));
+    				}*/
+    			}
+    			else{
+    				System.out.println("No se pudo generar el fichero de parametros");
+    			}
+    		}
+    		else{
+    			System.out.println("No se pudo generar el fichero de problemas");
+    		}
+    	}
+    	else {
+    		System.out.println("Fallo");
+    	}
+    }
+    
+    private Color selectColorRand(int i) {
+    	Color color = Color.black;//por defecto
+    	int value = i%5;
+    	if(value == 0) {
+    		color = Color.black;
+        }
+    	else if(value == 1) {
+    		color = Color.blue;
+        }
+    	else if(value == 2) {
+    		color = Color.cyan;
+        }
+    	else if(value == 3) {
+    		color = Color.green;
+        }
+    	else if(value == 4) {
+    		color = Color.pink;
+        }
+    	else if(value == 5) {
+    		color = Color.red;
+        }
+    	return color;
+    }
+    
+    private void GenerateRoute2() {
     	System.out.println("Test Generate route ok");
     	if(!map().mapMarkerList.isEmpty()){
     		rawMatrixPoint = new MatrixPoints(map().mapMarkerList);
@@ -502,8 +647,11 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	System.out.println("Test clear ok");
     	map().removeAllMapMarkers();
     	map().removeAllMapPolygons();
+    	map().removeAll();
     	ejercicio.clear();
     	pGestionNR.clearList();
+    	ListTours.clear();
+        cbRouteSelector.removeAllItems();
     }
     
     private void newProyect() {
@@ -603,7 +751,7 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     	
     }
     
-    private void addNodoEjercicio(String name, double demand, Coordinate coor) {
+    private void addNodoEjercicio(String name, int demand, Coordinate coor) {
     	System.out.println("Nombre: " + name);
     	System.out.println("Capacidad " + demand);
     	System.out.println("Coordenadas" + coor);
@@ -847,15 +995,32 @@ public class Demo extends JFrame implements JMapViewerEventListener {
     		BufferedReader bre = new BufferedReader
     		        (new InputStreamReader(p.getErrorStream()));
     		while ((line = bri.readLine()) != null) {
+    			
+    				
 				System.out.println(line);
     		}
     		bri.close();
+    		
+    		errorLKH = false;
+    		String msgError = "";
     		while ((line = bre.readLine()) != null) {
+    			if(errorLKH) {
+    				msgError += line;
+    			}
+    			if(line.equals("*** Error ***")) {
+    				//System.out.println("Salta el error");
+    				errorLKH = true;
+    			}
 				System.out.println(line);
     		}
+    		
+    		if(errorLKH)
+    			JOptionPane.showMessageDialog(null, msgError, "Error",JOptionPane.ERROR_MESSAGE);
+    		
     		bre.close();
     		try {
-				p.waitFor();
+    			if(!errorLKH)
+    				p.waitFor();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

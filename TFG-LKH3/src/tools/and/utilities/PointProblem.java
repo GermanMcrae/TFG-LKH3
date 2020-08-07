@@ -65,7 +65,7 @@ public class PointProblem extends JDialog {
 		lblNewLabel_1.setBounds(45, 70, 61, 16);
 		contentPanel.add(lblNewLabel_1);
 		
-		tfDemand = new JTextField("0.0");
+		tfDemand = new JTextField("0");
 		tfDemand.setBounds(128, 65, 266, 26);
 		contentPanel.add(tfDemand);
 		tfDemand.setColumns(10);
@@ -122,7 +122,7 @@ public class PointProblem extends JDialog {
 	}
 	
 	public void FillData(double lat, double lon) {
-		tfDemand.setText("0.0");
+		tfDemand.setText("0");
 		tfLatitude.setText(String.valueOf(lat));
 		tfLongitude.setText(String.valueOf(lon));
 	}
@@ -159,8 +159,8 @@ public class PointProblem extends JDialog {
 		return tfName.getText();
 	}
 	
-	public double getDemand() {
-		return Double.parseDouble(tfDemand.getText());
+	public int getDemand() {
+		return Integer.parseInt(tfDemand.getText());
 	}
 	
 	public double getLat() {

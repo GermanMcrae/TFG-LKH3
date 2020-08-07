@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Nodo {
 	
 	private String name;
-	private double demand;
+	private int demand;
 	private Coordinate coordinate;
 	
 	@XmlElement(name = "listRoutes")
@@ -22,14 +22,14 @@ public class Nodo {
 	
 	public Nodo() {
 		name = "";
-		demand = 0.0;
+		demand = 0;
 		coordinate = new Coordinate(0.0, 0.0);
 		
 		listRoutes = new ArrayList<Ruta>();
 		
 	}
 	
-	public Nodo(String n, double dem, Coordinate coor, List<Ruta> lR) {
+	public Nodo(String n, int dem, Coordinate coor, List<Ruta> lR) {
 		name = n;
 		demand = dem;
 		coordinate = coor;
@@ -45,11 +45,11 @@ public class Nodo {
 		name = n;
 	}
 	
-	public double getDemand() {
+	public int getDemand() {
 		return demand;
 	}
 	
-	public void setDemand(double d) {
+	public void setDemand(int d) {
 		demand = d;
 	}
 	
