@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
@@ -18,6 +19,7 @@ import javax.swing.event.TreeModelListener;
 import org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodePanel;
 import org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapObject;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon;
 
 /**
  * Tree of layers for JMapViewer component
@@ -27,9 +29,11 @@ public class JMapViewerTree extends JPanel {
     /** Serial Version UID */
     private static final long serialVersionUID = 3050203054402323972L;
 
+    private String nameTitle;
     private JMapViewer map;
     private CheckBoxTree tree;
     private JPanel treePanel;
+    private JScrollPane treeScrollPane;
     private JSplitPane splitPane;
     //private JList listPoints;
     //DefaultListModel<String> modelOriginal = new DefaultListModel(); 
@@ -41,7 +45,7 @@ public class JMapViewerTree extends JPanel {
     public JMapViewerTree(String name, boolean treeVisible) {
         super();
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-
+        nameTitle = name;
         tree = new CheckBoxTree(name);
         //listPoints = new JList();
         //DefaultListModel modelo = new DefaultListModel();
@@ -52,14 +56,16 @@ public class JMapViewerTree extends JPanel {
         treePanel = new JPanel(new BorderLayout());
         treePanel.add(tree, BorderLayout.CENTER);
         //treePanel.add(listPoints, BorderLayout.CENTER);
-        treePanel.add(new JLabel("<html><center>Use right mouse button to<br />show/hide texts</center></html>"), BorderLayout.SOUTH);
+        treePanel.add(new JLabel("<html><center>Select route or stage<br />to display it on the map</center></html>"), BorderLayout.SOUTH);
+        
+        treeScrollPane = new JScrollPane(treePanel);
         map = new JMapViewer();
 
         splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(150);
+        splitPane.setDividerLocation(600);
 
         //Provide minimum sizes for the two components in the split pane
-        Dimension minimumSize = new Dimension(100, 50);
+        Dimension minimumSize = new Dimension(200, 600);
         tree.setMinimumSize(minimumSize);
         map.setMinimumSize(minimumSize);
         createRefresh();
@@ -166,7 +172,8 @@ public class JMapViewerTree extends JPanel {
         removeAll();
         revalidate();
         if (visible) {
-            splitPane.setLeftComponent(treePanel);
+        	//splitPane.setLeftComponent(treePanel);
+            splitPane.setLeftComponent(treeScrollPane);
             splitPane.setRightComponent(map);
             add(splitPane, BorderLayout.CENTER);
         } else add(map, BorderLayout.CENTER);

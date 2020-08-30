@@ -2,7 +2,7 @@
 <nodes>
     <nodo>
         <name>Nodo 1</name>
-        <demand>100.0</demand>
+        <demand>100</demand>
         <coordinate>
             <lat>0.0</lat>
             <lon>0.0</lon>
@@ -10,7 +10,7 @@
     </nodo>
     <nodo>
         <name>Nodo 2</name>
-        <demand>200.0</demand>
+        <demand>200</demand>
         <coordinate>
             <lat>0.0</lat>
             <lon>0.0</lon>
@@ -18,7 +18,7 @@
     </nodo>
     <nodo>
         <name>Nodo 0</name>
-        <demand>300.0</demand>
+        <demand>300</demand>
         <coordinate>
             <lat>0.0</lat>
             <lon>0.0</lon>

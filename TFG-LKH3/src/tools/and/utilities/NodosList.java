@@ -1,5 +1,6 @@
 package tools.and.utilities;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.openstreetmap.gui.jmapviewer.Coordinate;
+import org.openstreetmap.gui.jmapviewer.Layer;
+import org.openstreetmap.gui.jmapviewer.MapPolylineImpl;
 
 
 @XmlRootElement(name = "nodes")
@@ -49,6 +52,36 @@ public class NodosList {
     
     public void add(Nodo n) {
     	nodes.add(n);
+    }
+    
+    public void delete(Nodo n) {
+    	for(int i=0; i<nodes.size();i++) {
+    		if(nodes.get(i)!=n) {
+    			for(int j=0;j<n.listRoutes.size();j++) {
+    				
+    				
+    				nodes.get(i).deleteRuta(n.getListRoutes().get(j));
+    			}
+    		}
+    	}
+    	
+    	
+    	nodes.remove(n);
+    	
+    }
+    
+    public void delete(int index) {
+    	for(int i=0; i<nodes.size();i++) {
+    		if(index<i) {
+    			//System.out.println("nodes.size: "+nodes.size()+" index:"+index+" <"+" i:"+i);
+    			nodes.get(i).deleteRuta(index);
+    		}
+    		if(index>i) {
+    			//System.out.println("nodes.size: "+nodes.size()+" index:"+index+" >"+" i:"+i);
+    			nodes.get(i).deleteRuta(index-1);
+    		}
+    	}
+    	nodes.remove(index);
     }
 	
     public String getMatrixDistance() {
@@ -106,9 +139,35 @@ public class NodosList {
     			
     		
     	}
-    		
-    		
-    		//value.add(e)
+    	
+    	return value;
+    }
+    
+    public List<MapPolylineImpl> getTourMPLI(List<Integer> camino, Color color){
+    	List<MapPolylineImpl> value = new ArrayList<MapPolylineImpl>();
+    	
+    	for(int i=1;i<camino.size();i++) {
+    		if(camino.get(i-1)<camino.get(i)) {
+    			//List<Coordinate> temp = nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getCoordinates();
+    			MapPolylineImpl mpl = new MapPolylineImpl(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getCoordinates());
+    			mpl.setColor(color);
+				value.add(mpl);
+				//value.add(e)
+    		//System.out.println("Numero de nodes: "+nodes.get(camino.get(i-1))+" tamListRoutes: "+nodes.get(camino.get(i-1)).getListRoutes().size());
+    			//System.out.println("< Camino "+i+" de fila "+(camino.get(i-1)-1)+" a col "+(camino.get(i)-2));
+    		}
+    			
+    			
+    		if(camino.get(i-1)>camino.get(i)) {
+    			MapPolylineImpl mpl = new MapPolylineImpl(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getCoordinates());
+    			mpl.setColor(color);
+				value.add(mpl);
+    			//value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getCoordinates());
+    			//System.out.println("> Camino "+i+" de fila "+(camino.get(i-1)-1)+" a col "+(camino.get(i)-1));
+    		}
+    	}
+    	
+    	
     	return value;
     }
 }

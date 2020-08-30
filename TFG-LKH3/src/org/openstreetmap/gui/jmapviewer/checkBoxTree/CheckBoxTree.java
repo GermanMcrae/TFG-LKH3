@@ -254,4 +254,9 @@ public class CheckBoxTree extends JTree {
             return found;
         }
     }
+    
+    public void deleteAllNodesChildren() {
+    	DefaultMutableTreeNode data = rootNode();
+    	data.removeAllChildren();
+    }
 }

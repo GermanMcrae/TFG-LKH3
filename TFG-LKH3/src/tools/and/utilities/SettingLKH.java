@@ -14,13 +14,15 @@ import javax.swing.text.NumberFormatter;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.swing.BoxLayout;
-import net.miginfocom.swing.MigLayout;
+//import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -32,21 +34,16 @@ import javax.swing.JSpinner;
 public class SettingLKH extends JPanel {
 	private JFormattedTextField tfMTSPmin;
 	private JFormattedTextField tfMTSPmax;
-	private JTextField textField2;
+	private JFormattedTextField tfRuns;
 	private JFormattedTextField tfPatchingA;
 	private JFormattedTextField tfPatchingC;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_5;
-	private JTextField textField_6;
 	
 	private JSpinner spVehicles;
 	private JSpinner spTruck;
 	
 	private JCheckBox chckbxMTSPmin;
 	private JCheckBox chckbxMTSPmax;
-	
+	private JCheckBox chckbxRuns;
 	private JCheckBox chckbxPatchingA;
 	private JCheckBox chckbxPatchingC;
 	
@@ -55,6 +52,7 @@ public class SettingLKH extends JPanel {
 	private JComboBox cbBacktracking;
 	private JComboBox cbTypeProblem;
 	private JComboBox cbAlgoritmo;
+	private JComboBox cbDistanceDuration;
 
 	/**
 	 * Create the panel.
@@ -80,6 +78,7 @@ public class SettingLKH extends JPanel {
 		add(lblNewLabel);
 		
 		tfMTSPmin = new JFormattedTextField(formatter);
+		tfMTSPmin.setText("0");
 		tfMTSPmin.setBounds(174, 62, 130, 26);
 		add(tfMTSPmin);
 		tfMTSPmin.setColumns(10);
@@ -93,22 +92,24 @@ public class SettingLKH extends JPanel {
 		add(lblNewLabel1);
 		
 		tfMTSPmax = new JFormattedTextField(formatter);
+		tfMTSPmax.setText("0");
 		tfMTSPmax.setBounds(174, 95, 130, 26);
 		add(tfMTSPmax);
 		tfMTSPmax.setColumns(10);
 		
-		JCheckBox chckbxNewCheckBox2 = new JCheckBox("");
-		chckbxNewCheckBox2.setBounds(20, 130, 28, 23);
-		add(chckbxNewCheckBox2);
+		chckbxRuns = new JCheckBox("");
+		chckbxRuns.setBounds(20, 130, 28, 23);
+		add(chckbxRuns);
 		
-		JLabel lblNewLabel2 = new JLabel("New label");
-		lblNewLabel2.setBounds(53, 134, 104, 16);
+		JLabel lblNewLabel2 = new JLabel("Runs (default:10)");
+		lblNewLabel2.setBounds(53, 134, 116, 16);
 		add(lblNewLabel2);
 		
-		textField2 = new JTextField();
-		textField2.setBounds(174, 127, 130, 26);
-		add(textField2);
-		textField2.setColumns(10);
+		tfRuns = new JFormattedTextField(formatter);
+		tfRuns.setText("0");
+		tfRuns.setBounds(174, 127, 130, 26);
+		add(tfRuns);
+		tfRuns.setColumns(10);
 
 		chckbxPatchingA = new JCheckBox("");
 		chckbxPatchingA.setBounds(20, 157, 28, 23);
@@ -119,6 +120,7 @@ public class SettingLKH extends JPanel {
 		add(lblNewLabel3);
 		
 		tfPatchingA = new JFormattedTextField(formatter);
+		tfPatchingA.setText("0");
 		tfPatchingA.setBounds(174, 154, 130, 26);
 		add(tfPatchingA);
 		tfPatchingA.setColumns(10);
@@ -132,6 +134,7 @@ public class SettingLKH extends JPanel {
 		add(lblNewLabel4);
 		
 		tfPatchingC = new JFormattedTextField(formatter);
+		tfPatchingC.setText("0");
 		tfPatchingC.setBounds(174, 185, 130, 26);
 		add(tfPatchingC);
 		tfPatchingC.setColumns(10);
@@ -145,9 +148,15 @@ public class SettingLKH extends JPanel {
 		add(lblNewLabel_1);
 		
 		cbTypeProblem = new JComboBox();
-		cbTypeProblem.setModel(new DefaultComboBoxModel(new String[] {"TSP", "MTSP", "CVRP"}));
-		cbTypeProblem.setSelectedIndex(2);
+		cbTypeProblem.setModel(new DefaultComboBoxModel(new String[] {"TSP", "CVRP"}));
+		//cbTypeProblem.setModel(new DefaultComboBoxModel(new String[] {"ACVRP","BWTSP","CCVRP","CTSP","CVRP","CVRPTW","DCVRP","1-PDTSP","m-PDTSP","m1-PDTSP","MLP","MTRP","MTRPD","mTSP","OCMTSP","OVRP","PDPTW","PDTSP","PDTSPF","PDTSPL","RCTVRP","RCTVRPTW","SOP","STTSP","TRP","TSPDL","TSPPD","TSPTW","VRPB","VRPBTW","VRPMPD","VRPMPDTW","VRPSPD","VRPSPDTW"}));
+		cbTypeProblem.setSelectedIndex(1);
 		cbTypeProblem.setBounds(174, 2, 123, 27);
+		cbTypeProblem.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	EnableOptions();
+		    }
+		});
 		add(cbTypeProblem);
 		
 		JLabel lblNewLabel_2 = new JLabel("N. de vehiculos");
@@ -171,78 +180,9 @@ public class SettingLKH extends JPanel {
 		cbPatchingC.setBounds(316, 184, 132, 27);
 		add(cbPatchingC);
 		
-		JCheckBox chckbxNewCheckBox5_1 = new JCheckBox("");
-		chckbxNewCheckBox5_1.setBounds(20, 224, 28, 23);
-		add(chckbxNewCheckBox5_1);
-		
-		JLabel lblNewLabel5_1 = new JLabel("New label");
-		lblNewLabel5_1.setBounds(53, 228, 61, 16);
-		add(lblNewLabel5_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(119, 223, 130, 26);
-		add(textField_1);
-		
-		JCheckBox chckbxNewCheckBox5_2 = new JCheckBox("");
-		chckbxNewCheckBox5_2.setBounds(20, 251, 28, 23);
-		add(chckbxNewCheckBox5_2);
-		
-		JLabel lblNewLabel5_2 = new JLabel("New label");
-		lblNewLabel5_2.setBounds(53, 255, 61, 16);
-		add(lblNewLabel5_2);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(119, 250, 130, 26);
-		add(textField_2);
-		
-		JCheckBox chckbxNewCheckBox5_3 = new JCheckBox("");
-		chckbxNewCheckBox5_3.setBounds(20, 278, 28, 23);
-		add(chckbxNewCheckBox5_3);
-		
-		JLabel lblNewLabel5_3 = new JLabel("New label");
-		lblNewLabel5_3.setBounds(53, 282, 61, 16);
-		add(lblNewLabel5_3);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(119, 277, 130, 26);
-		add(textField_3);
-		
-		JCheckBox chckbxNewCheckBox5_4 = new JCheckBox("");
-		chckbxNewCheckBox5_4.setBounds(261, 224, 28, 23);
-		add(chckbxNewCheckBox5_4);
-		
 		JLabel lblCapacitytruck = new JLabel("Capacity (truck)");
-		lblCapacitytruck.setBounds(349, 70, 109, 16);
+		lblCapacitytruck.setBounds(349, 100, 109, 16);
 		add(lblCapacitytruck);
-		
-		JCheckBox chckbxNewCheckBox5_5 = new JCheckBox("");
-		chckbxNewCheckBox5_5.setBounds(261, 252, 28, 23);
-		add(chckbxNewCheckBox5_5);
-		
-		JLabel lblNewLabel5_5 = new JLabel("New label");
-		lblNewLabel5_5.setBounds(294, 256, 61, 16);
-		add(lblNewLabel5_5);
-		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(360, 251, 130, 26);
-		add(textField_5);
-		
-		JCheckBox chckbxNewCheckBox5_6 = new JCheckBox("");
-		chckbxNewCheckBox5_6.setBounds(261, 279, 28, 23);
-		add(chckbxNewCheckBox5_6);
-		
-		JLabel lblNewLabel5_6 = new JLabel("New label");
-		lblNewLabel5_6.setBounds(294, 283, 61, 16);
-		add(lblNewLabel5_6);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(360, 278, 130, 26);
-		add(textField_6);
 		
 		cbBacktracking = new JComboBox();
 		cbBacktracking.setModel(new DefaultComboBoxModel(new String[] {"YES", "NO"}));
@@ -252,7 +192,7 @@ public class SettingLKH extends JPanel {
 		
 		SpinnerModel sm2 = new SpinnerNumberModel(1, 1, null, 1);
 		spTruck = new JSpinner(sm2);
-		spTruck.setBounds(530, 65, 123, 26);
+		spTruck.setBounds(530, 95, 123, 26);
 		add(spTruck);
 		
 		JLabel lblAlgoritmo = new JLabel("Tour Algorithm");
@@ -264,6 +204,16 @@ public class SettingLKH extends JPanel {
 		cbAlgoritmo.setSelectedIndex(1);
 		cbAlgoritmo.setBounds(448, 2, 210, 27);
 		add(cbAlgoritmo);
+		
+		JLabel lblDistanceOrDuration = new JLabel("DIstance or Duration");
+		lblDistanceOrDuration.setBounds(349, 66, 179, 16);
+		add(lblDistanceOrDuration);
+		
+		cbDistanceDuration = new JComboBox();
+		cbDistanceDuration.setModel(new DefaultComboBoxModel(new String[] {"DISTANCE", "DURATION"}));
+		cbDistanceDuration.setSelectedIndex(0);
+		cbDistanceDuration.setBounds(530, 62, 128, 27);
+		add(cbDistanceDuration);
 	}
 	
 	public int getNumberVehicle() {
@@ -298,6 +248,14 @@ public class SettingLKH extends JPanel {
 		return (int) tfPatchingA.getValue();
 	}
 	
+	public boolean getBoolRuns() {
+		return chckbxRuns.isSelected();
+	}
+	
+	public int getRuns() {
+		return (int) tfRuns.getValue();
+	}
+	
 	public String getPatchingAResExt() {
 		return cbPatchingA.getSelectedItem().toString();
 	}
@@ -324,6 +282,39 @@ public class SettingLKH extends JPanel {
 	
 	public String getInitialTourAlgorithm() {
 		return cbAlgoritmo.getSelectedItem().toString();
+	}
+	
+	public String getInitialDistanceOrDuration() {
+		return cbDistanceDuration.getSelectedItem().toString();
+	}
+	
+	private void EnableOptions() {
+		if(cbTypeProblem.getSelectedItem().toString().equals("CVRP")) {
+			//tfMTSPmin.setEnabled(true);
+			//tfMTSPmax.setEnabled(true);
+			//textField2.setEnabled(false);
+			tfPatchingA.setEnabled(true);
+			tfPatchingC.setEnabled(true);
+			
+			//cbAlgoritmo.setEnabled(true);
+			spTruck.setEnabled(true);
+			cbPatchingA.setEnabled(true);
+			cbPatchingC.setEnabled(true);
+			//spVehicles.setEnabled(true);
+		}
+		else if(cbTypeProblem.getSelectedItem().toString().equals("TSP")) {
+			//tfMTSPmin.setEnabled(false);
+			//tfMTSPmax.setEnabled(false);
+			//textField2.setEnabled(false);
+			tfPatchingA.setEnabled(false);
+			tfPatchingC.setEnabled(false);
+			
+			//cbAlgoritmo.setEnabled(false);
+			spTruck.setEnabled(false);
+			cbPatchingA.setEnabled(false);
+			cbPatchingC.setEnabled(false);
+			//spVehicles.setEnabled(false);
+		}
 	}
 }
 

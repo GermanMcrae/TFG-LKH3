@@ -122,12 +122,6 @@ public class ProblemFile {
 		
 	}
 	
-	/*public ProblemFile(String type) {
-		if(type.equals("CRVP")) {
-			
-		}
-	}*/
-	
 	public String getNAME() {
 		return NAME;
 	}
@@ -296,6 +290,37 @@ public class ProblemFile {
 			cad += "DEPOT_SECTION " + "\n" + DEPOT_SECTION + "\n";
 			cad += "EOF";
 		}	
+		
+		if(type.equals("TSP")) {
+			
+			
+			cad += "NAME: " + NAME + "\n";
+			cad += "TYPE: " + TYPE + "\n";
+			cad += "COMMENT: " + COMMENT + "\n";
+			cad += "DIMENSION: " + DIMENSION + "\n";
+			cad += "EDGE_WEIGHT_TYPE: " + EDGE_WEIGHT_TYPE + "\n";
+			cad += "EDGE_WEIGHT_FORMAT: " + EDGE_WEIGHT_FORMAT + "\n";
+			cad += "EDGE_WEIGHT_SECTION " + "\n" + EDGE_WEIGHT_SECTION + "\n";
+			cad += "EOF";
+		}
+		
+		/*if(type.equals("MTSP")) {
+			
+			
+			cad += "NAME: " + NAME + "\n";
+			cad += "TYPE: " + TYPE + "\n";
+			cad += "COMMENT: " + COMMENT + "\n";
+			cad += "DIMENSION: " + DIMENSION + "\n";
+			cad += "CAPACITY: " + CAPACITY + "\n";
+			cad += "EDGE_WEIGHT_TYPE: " + EDGE_WEIGHT_TYPE + "\n";
+			cad += "EDGE_WEIGHT_FORMAT: " + EDGE_WEIGHT_FORMAT + "\n";
+			cad += "EDGE_WEIGHT_SECTION " + "\n" + EDGE_WEIGHT_SECTION + "\n";
+			cad += "DEMAND_SECTION " + "\n" + DEMAND_SECTION + "\n";
+			cad += "DEPOT_SECTION " + "\n" + DEPOT_SECTION + "\n";
+			cad += "EOF";
+		}*/
+		
+		
 		//cad += "DIMENSION: " + + "/n";
 		
 		System.out.println(cad);

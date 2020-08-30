@@ -28,6 +28,8 @@ TOUR_FILE = solucion.txt
 	String TOUR_FILE;// = solucion.txt
 	String INITIAL_TOUR_ALGORITHM;
 	String BACKTRACKING;
+	String PATCHING_C_EXT;
+	String PATCHING_A_EXT;
 	boolean boolOPTIMUM;
 	boolean boolMOVE_TYPE;
 	boolean boolPATCHING_C;
@@ -59,6 +61,9 @@ TOUR_FILE = solucion.txt
 		MTSP_SOLUTION_FILE = "solucionMTSP.txt";
 		TOUR_FILE = "solucionTest.txt";
 		INITIAL_TOUR_ALGORITHM = "";
+		BACKTRACKING = "NO";
+		PATCHING_C_EXT = "";
+		PATCHING_A_EXT = "";
 		
 		boolOPTIMUM = false;
 		boolMOVE_TYPE = false;
@@ -83,8 +88,20 @@ TOUR_FILE = solucion.txt
 		return MOVE_TYPE;
 	}
 	
+	public int getPATCHING_A() {
+		return PATCHING_A;
+	}
+	
 	public int getPATCHING_C() {
 		return PATCHING_C;
+	}
+	
+	public String getPATCHING_A_EXT() {
+		return PATCHING_A_EXT;
+	}
+	
+	public String getPATCHING_C_EXT() {
+		return PATCHING_C_EXT;
 	}
 	
 	public int getRUNS() {
@@ -93,6 +110,10 @@ TOUR_FILE = solucion.txt
 	
 	public int getMTSP_MIN_SIZE() {
 		return MTSP_MIN_SIZE;
+	}
+	
+	public int getMTSP_MAX_SIZE() {
+		return MTSP_MAX_SIZE;
 	}
 	
 	public int getVEHICLES() {
@@ -127,8 +148,20 @@ TOUR_FILE = solucion.txt
 		MOVE_TYPE = value;
 	}
 	
+	public void setPATCHING_A(int value) {
+		PATCHING_A = value;
+	}
+	
 	public void setPATCHING_C(int value) {
 		PATCHING_C = value;
+	}
+	
+	public void setPATCHING_A_EXT(String value) {
+		PATCHING_A_EXT = value;
+	}
+	
+	public void setPATCHING_C_EXT(String value) {
+		PATCHING_C_EXT = value;
 	}
 	
 	public void setRUNS(int value) {
@@ -137,6 +170,10 @@ TOUR_FILE = solucion.txt
 	
 	public void setMTSP_MIN_SIZE(int value) {
 		MTSP_MIN_SIZE = value;
+	}
+	
+	public void setMTSP_MAX_SIZE(int value) {
+		MTSP_MAX_SIZE = value;
 	}
 	
 	public void setVEHICLES(int value) {
@@ -243,6 +280,7 @@ TOUR_FILE = solucion.txt
 		
 		cad += "TOUR_FILE= " + TOUR_FILE + "\n";
 		cad += "MTSP_SOLUTION_FILE= " + MTSP_SOLUTION_FILE + "\n";
+		cad += "BACKTRACKING= " + BACKTRACKING + "\n";
 		
 		if(boolOPTIMUM) {
 			cad += "OPTIMUM= " + OPTIMUM + "\n";
@@ -251,10 +289,10 @@ TOUR_FILE = solucion.txt
 			cad += "MOVE_TYPE= " + MOVE_TYPE + "\n";
 		}
 		if(boolPATCHING_C) {
-			cad += "PATCHING_C= " + PATCHING_C + "\n";
+			cad += "PATCHING_C= " + PATCHING_C + " " + PATCHING_A_EXT + "\n";
 		}
 		if(boolPATCHING_A) {
-			cad += "PATCHING_A= " + PATCHING_A + "\n";
+			cad += "PATCHING_A= " + PATCHING_A + " " + PATCHING_A_EXT + "\n";
 		}
 		if(boolRUNS) {
 			cad += "RUNS= " + RUNS + "\n";
@@ -268,9 +306,9 @@ TOUR_FILE = solucion.txt
 		if(boolVEHICLES) {
 			cad += "VEHICLES= " + VEHICLES + "\n";
 		}
-		if(boolINITIAL_TOUR_ALGORITHM) {
-			cad += "INITIAL_TOUR_ALGORITHM= " + INITIAL_TOUR_ALGORITHM + "\n";
-		}
+		//if(boolINITIAL_TOUR_ALGORITHM) {
+		cad += "INITIAL_TOUR_ALGORITHM= " + INITIAL_TOUR_ALGORITHM + "\n";
+		//}
 		
 		cad += "EOF";
 				

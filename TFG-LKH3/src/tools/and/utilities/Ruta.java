@@ -16,6 +16,8 @@ import com.osrm.services.Route;
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Ruta {
 	
+	private String NameDestinate;
+	
 	private double duration;
 	private double distance;
 	private String weight_name;
@@ -30,6 +32,7 @@ public class Ruta {
 	private String nameTo;
 	
 	public Ruta() {
+		NameDestinate = "";
 		duration = 0.0;
 		distance = 0.0;
 		weight_name = "";
@@ -43,7 +46,8 @@ public class Ruta {
 		nameTo = "";
 	}
 	
-	public Ruta(double du, double dis, String weight_n, List<Coordinate> cs, Coordinate cF, Coordinate cT, String nF, String nT) {
+	public Ruta(String nd,double du, double dis, String weight_n, List<Coordinate> cs, Coordinate cF, Coordinate cT, String nF, String nT) {
+		NameDestinate = nd;
 		duration = du;
 		distance = dis;
 		weight_name = weight_n;
@@ -97,9 +101,10 @@ public class Ruta {
 		}
 		//RouteJSON rjson = new RouteJSON(json);
 		
-		
-		
-		
+	}
+	
+	public String getNameDestinate() {
+		return NameDestinate;
 	}
 	
 	public double getDuration() {
@@ -136,6 +141,10 @@ public class Ruta {
 	
 	public Coordinate getCoordinateFrom() {
 		return coordinateFrom;
+	}
+	
+	public void setNameDestinate(String nd) {
+		NameDestinate = nd;
 	}
 	
 	public void setCoordinateFrom(Coordinate c) {

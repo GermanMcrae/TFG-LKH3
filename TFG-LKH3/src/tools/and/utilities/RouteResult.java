@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.openstreetmap.gui.jmapviewer.LayerGroup;
+
 public class RouteResult {
 
 	/* File example
@@ -36,15 +40,24 @@ public class RouteResult {
 	//String fileTours;
 	List<Integer> routeSol;// = new ArrayList<>();
 	List<TourResult> ListTours;
+	List<LayerGroup> groupVehicles;
 	//List<int> routeSol;
 	
 	public RouteResult() {
 		routeSol = new ArrayList<Integer>();
 		file = readFile();
 		ListTours = readFileTours();
-		//fileTours = readFileTours();
-		//tour();
+		if(ListTours.size() == 0) {
+			
+			ListTours = readFileOneTour();
+			if(ListTours.size() == 0) {
+				JOptionPane.showMessageDialog(null, 
+	    				  "Route could not be generated", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
+	
+	
 	
 	String readFile() {
 		String text = "";
@@ -54,6 +67,8 @@ public class RouteResult {
 			fr = new FileReader (archivo);
 			BufferedReader br = new BufferedReader(fr);
 			String linea;
+			TourResult tr = new TourResult();
+			tr.setNombre("Optimal route all");
 			try {
 				
 				boolean read = false;
@@ -67,11 +82,6 @@ public class RouteResult {
 					}
 					
 					if(read){
-						//System.out.println(linea);
-						//String temp = ;
-						//System.out.println("'"+temp+"'");
-						//int temp2 = Integer.valueOf(temp);
-						//System.out.println("'"+temp2+"'");
 						routeSol.add(Integer.valueOf(linea.replaceFirst("\n", "")));
 					}
 					
@@ -87,9 +97,48 @@ public class RouteResult {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return text;
+	}
+	
+	List<TourResult> readFileOneTour() {
+		String text = "";
+		List<TourResult> result = new ArrayList<TourResult>();
+		File archivo = new File ("solucionTest.txt");
+		FileReader fr;
+		try {
+			fr = new FileReader (archivo);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			try {
+				TourResult tr = new TourResult();
+				boolean read = false;
+				while((linea=br.readLine())!=null) {
+					
+					text += linea+ "\n";
+					
+					if(linea.equals("-1")) {
+						read = false;
+					}
+					
+					if(read){
+						tr.addCamino(Integer.valueOf(linea.replaceFirst("\n", "")));
+					}
+					
+					if(linea.equals("TOUR_SECTION")) {
+						read = true;
+					}
+				}
+				result.add(tr);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		return result;
 	}
 	
 	List<TourResult> readFileTours() {
@@ -108,6 +157,7 @@ public class RouteResult {
 						TourResult tr = new TourResult();
 						int j=0;
 						tr.setNombre("Coche"+(i-1));
+						//tr.setGroupName(new LayerGroup("Coche"+(i-1)));
 						String tempText = "";
 						boolean fase2 = true;
 						while(j<linea.length()) {
@@ -122,7 +172,10 @@ public class RouteResult {
 								else if(linea.charAt(j) == ' ') {
 									//System.out.println("el texto de mierda'"+tempText+"'");
 									
+									
+									
 									tr.addCamino(Integer.parseInt(tempText));
+									
 									tempText = "";
 								}
 							}
@@ -149,6 +202,7 @@ public class RouteResult {
 							
 							j++;
 						}
+						
 						result.add(tr);
 						//System.out.println(linea + " tam:"+linea.getBytes().length);
 					}

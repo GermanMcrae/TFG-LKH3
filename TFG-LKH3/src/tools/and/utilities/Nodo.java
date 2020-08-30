@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
 
+import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -73,6 +74,15 @@ public class Nodo {
 		listRoutes.add(r);
 	}
 	
+	public void deleteRuta(Ruta r) {
+		listRoutes.remove(r);
+	}
+	
+	public void deleteRuta(int i) {
+		//System.out.println("Delete ruta, listRoutes.size:"+listRoutes.size()+" i:"+i);
+		listRoutes.remove(i);
+	}
+	
 	@Override
 	public String toString() {
 	    return name+" Demand["+demand+"]";
@@ -130,5 +140,25 @@ public class Nodo {
 		if(n == listRoutes.size())
 			text += 0;
 		return text;
+	}
+	
+	public DefaultTableModel GetTableRoutesNodo(){
+		
+		String[] columnNames = {"Name","Origin", "Destination", "Duration", "Distance",};
+		Object[][] datos = new Object[listRoutes.size()][];;
+		for(int i = 0; i<listRoutes.size();i++) {
+			Object[] d = new Object[]{
+				listRoutes.get(i).getNameDestinate(),
+				listRoutes.get(i).getNameFrom(),
+				listRoutes.get(i).getNameTo(),
+				listRoutes.get(i).getDuration(),
+				listRoutes.get(i).getDistance(),
+			};
+			datos[i] = d;
+		}
+		DefaultTableModel dtm = new DefaultTableModel(datos,columnNames);
+		
+		
+		return dtm;
 	}
 }
