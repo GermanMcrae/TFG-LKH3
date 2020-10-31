@@ -1,0 +1,604 @@
+@startuml
+
+title __TFG-LKH3's Class Diagram__\n
+
+  namespace com.osrm.services {
+    class com.osrm.services.Match {
+    }
+  }
+  
+
+  namespace com.osrm.services {
+    class com.osrm.services.Nearest {
+    }
+  }
+  
+
+  namespace com.osrm.services {
+    class com.osrm.services.Route {
+    }
+  }
+  
+
+  namespace com.osrm.services {
+    class com.osrm.services.Table {
+    }
+  }
+  
+
+  namespace com.osrm.services {
+    class com.osrm.services.Tile {
+    }
+  }
+  
+
+  namespace com.osrm.services {
+    class com.osrm.services.Trip {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.AbstractLayer {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.AttributionSupport {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Coordinate {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.DefaultMapController {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Demo {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.FeatureAdapter {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    abstract class org.openstreetmap.gui.jmapviewer.JMapController {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.JMapViewer {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.JMapViewerTree {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Layer {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.LayerGroup {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapMarkerCircle {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapMarkerDot {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    abstract class org.openstreetmap.gui.jmapviewer.MapObjectImpl {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapPolygonImpl {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapPolylineImpl {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapRectangleImpl {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MemoryTileCache {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.OsmMercator {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.OsmTileLoader {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Projected {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Style {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Tile {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.TileController {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.TileRange {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.TileXY {
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace checkBoxTree {
+      class org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeData {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace checkBoxTree {
+      class org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeEditor {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace checkBoxTree {
+      class org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodePanel {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace checkBoxTree {
+      class org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeRenderer {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace checkBoxTree {
+      class org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace events {
+      class org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.Attributed {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.CachedTileLoader {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.IProjected {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapMarker {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapObject {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapRectangle {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TemplatedTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileCache {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileClearController {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileJob {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileLoader {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileLoaderListener {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.AbstractTMSTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.AbstractTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.TileSourceInfo {
+      }
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.GestionNodesRoutes {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.Nodo {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.NodosList {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.ParametersFile {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.PointProblem {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.ProblemFile {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.RouteJSON {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.RouteResult {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.Ruta {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.SettingLKH {
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.TourResult {
+    }
+  }
+  
+
+  org.openstreetmap.gui.jmapviewer.AbstractLayer o-- org.openstreetmap.gui.jmapviewer.LayerGroup : parent
+  org.openstreetmap.gui.jmapviewer.AbstractLayer o-- org.openstreetmap.gui.jmapviewer.Style : style
+  org.openstreetmap.gui.jmapviewer.AttributionSupport o-- org.openstreetmap.gui.jmapviewer.interfaces.Attributed : source
+  org.openstreetmap.gui.jmapviewer.Coordinate .up.|> org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate
+  org.openstreetmap.gui.jmapviewer.DefaultMapController .up.|> java.awt.event.MouseListener
+  org.openstreetmap.gui.jmapviewer.DefaultMapController .up.|> java.awt.event.MouseMotionListener
+  org.openstreetmap.gui.jmapviewer.DefaultMapController .up.|> java.awt.event.MouseWheelListener
+  org.openstreetmap.gui.jmapviewer.DefaultMapController -up-|> org.openstreetmap.gui.jmapviewer.JMapController
+  org.openstreetmap.gui.jmapviewer.Demo .up.|> org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener
+  org.openstreetmap.gui.jmapviewer.Demo -up-|> javax.swing.JFrame
+  org.openstreetmap.gui.jmapviewer.Demo o-- tools.and.utilities.NodosList : ejercicio
+  org.openstreetmap.gui.jmapviewer.Demo o-- tools.and.utilities.GestionNodesRoutes : pGestionNR
+  org.openstreetmap.gui.jmapviewer.Demo o-- tools.and.utilities.SettingLKH : pSetting
+  org.openstreetmap.gui.jmapviewer.Demo o-- org.openstreetmap.gui.jmapviewer.JMapViewerTree : treeMap
+  org.openstreetmap.gui.jmapviewer.JMapController o-- org.openstreetmap.gui.jmapviewer.JMapViewer : map
+  org.openstreetmap.gui.jmapviewer.JMapViewer .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileLoaderListener
+  org.openstreetmap.gui.jmapviewer.JMapViewer -up-|> javax.swing.JPanel
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.AttributionSupport : attribution
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.TileController : tileController
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.interfaces.TileSource : tileSource
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.JMapViewer.ZOOM_BUTTON_STYLE : zoomButtonStyle
+  org.openstreetmap.gui.jmapviewer.JMapViewerTree -up-|> javax.swing.JPanel
+  org.openstreetmap.gui.jmapviewer.JMapViewerTree o-- org.openstreetmap.gui.jmapviewer.JMapViewer : map
+  org.openstreetmap.gui.jmapviewer.JMapViewerTree o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree : tree
+  org.openstreetmap.gui.jmapviewer.Layer -up-|> org.openstreetmap.gui.jmapviewer.AbstractLayer
+  org.openstreetmap.gui.jmapviewer.LayerGroup -up-|> org.openstreetmap.gui.jmapviewer.AbstractLayer
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapMarker
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle o-- org.openstreetmap.gui.jmapviewer.Coordinate : coord
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle o-- org.openstreetmap.gui.jmapviewer.interfaces.MapMarker.STYLE : markerStyle
+  org.openstreetmap.gui.jmapviewer.MapMarkerDot -up-|> org.openstreetmap.gui.jmapviewer.MapMarkerCircle
+  org.openstreetmap.gui.jmapviewer.MapObjectImpl o-- org.openstreetmap.gui.jmapviewer.Layer : layer
+  org.openstreetmap.gui.jmapviewer.MapObjectImpl o-- org.openstreetmap.gui.jmapviewer.Style : style
+  org.openstreetmap.gui.jmapviewer.MapPolygonImpl .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon
+  org.openstreetmap.gui.jmapviewer.MapPolygonImpl -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapPolylineImpl .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon
+  org.openstreetmap.gui.jmapviewer.MapPolylineImpl -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapRectangle
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl o-- org.openstreetmap.gui.jmapviewer.Coordinate : bottomRight
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl o-- org.openstreetmap.gui.jmapviewer.Coordinate : topLeft
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileCache
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache o-- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheLinkedListElement : lruTiles
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileLoader
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader o-- org.openstreetmap.gui.jmapviewer.interfaces.TileLoaderListener : listener
+  org.openstreetmap.gui.jmapviewer.Projected .up.|> org.openstreetmap.gui.jmapviewer.interfaces.IProjected
+  org.openstreetmap.gui.jmapviewer.Tile o-- org.openstreetmap.gui.jmapviewer.interfaces.TileSource : source
+  org.openstreetmap.gui.jmapviewer.TileController o-- org.openstreetmap.gui.jmapviewer.interfaces.TileCache : tileCache
+  org.openstreetmap.gui.jmapviewer.TileController o-- org.openstreetmap.gui.jmapviewer.interfaces.TileLoader : tileLoader
+  org.openstreetmap.gui.jmapviewer.TileController o-- org.openstreetmap.gui.jmapviewer.interfaces.TileSource : tileSource
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeData o-- org.openstreetmap.gui.jmapviewer.AbstractLayer : layer
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeEditor .up.|> javax.swing.tree.TreeCellEditor
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeEditor -up-|> javax.swing.AbstractCellEditor
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeEditor o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeRenderer : renderer
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeEditor o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree : theTree
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodePanel -up-|> javax.swing.JPanel
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodePanel o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeData : data
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeRenderer .up.|> javax.swing.tree.TreeCellRenderer
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeRenderer o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodePanel : panel
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree -up-|> javax.swing.JTree
+  org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxNodeEditor : editor
+  org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent -up-|> java.util.EventObject
+  org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent o-- org.openstreetmap.gui.jmapviewer.events.JMVCommandEvent.COMMAND : command
+  org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.AbstractTMSTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.AbstractTileSource .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource o-- org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource : TemplateSource
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource o-- org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource.ScanexLayer : layer
+  org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractTMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource o-- org.openstreetmap.gui.jmapviewer.OsmMercator : osmMercator
+  org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TemplatedTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  tools.and.utilities.GestionNodesRoutes -up-|> javax.swing.JPanel
+  tools.and.utilities.Nodo o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinate
+  tools.and.utilities.PointProblem -up-|> javax.swing.JDialog
+  tools.and.utilities.RouteJSON o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateFrom
+  tools.and.utilities.RouteJSON o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateTo
+  tools.and.utilities.RouteJSON o-- org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon : poly
+  tools.and.utilities.Ruta o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateFrom
+  tools.and.utilities.Ruta o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateTo
+  tools.and.utilities.SettingLKH -up-|> javax.swing.JPanel
+  tools.and.utilities.TourResult o-- org.openstreetmap.gui.jmapviewer.LayerGroup : groupName
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

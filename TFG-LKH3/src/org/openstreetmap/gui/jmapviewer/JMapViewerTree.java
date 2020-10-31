@@ -62,10 +62,10 @@ public class JMapViewerTree extends JPanel {
         map = new JMapViewer();
 
         splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(600);
+        splitPane.setDividerLocation(1600);
 
         //Provide minimum sizes for the two components in the split pane
-        Dimension minimumSize = new Dimension(200, 600);
+        Dimension minimumSize = new Dimension(200, 1600);
         tree.setMinimumSize(minimumSize);
         map.setMinimumSize(minimumSize);
         createRefresh();

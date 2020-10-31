@@ -39,13 +39,19 @@ public class RouteResult {
 	String file;
 	//String fileTours;
 	List<Integer> routeSol;// = new ArrayList<>();
+	List<Integer> routeDistance;
+	List<Integer> routeDuration;
 	List<TourResult> ListTours;
 	List<LayerGroup> groupVehicles;
+	
+	List<ArrayList<Integer>> listCaminos;
+	List<Double> cost;
 	//List<int> routeSol;
 	
 	public RouteResult() {
 		routeSol = new ArrayList<Integer>();
 		file = readFile();
+		System.out.println("file: "+file);
 		ListTours = readFileTours();
 		if(ListTours.size() == 0) {
 			
@@ -57,6 +63,10 @@ public class RouteResult {
 		}
 	}
 	
+	
+	public RouteResult(List<Integer> rs) {
+		
+	}
 	
 	
 	String readFile() {
@@ -128,6 +138,7 @@ public class RouteResult {
 						read = true;
 					}
 				}
+				tr.addCamino(1);
 				result.add(tr);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -141,10 +152,13 @@ public class RouteResult {
 		return result;
 	}
 	
-	List<TourResult> readFileTours() {
+	/*List<TourResult> readFileTours() {
 		String text = "";
 		List<TourResult> result = new ArrayList<TourResult>();
+		List<List<Integer>> listCaminos = new ArrayList<List<Integer>>();
 		File archivo = new File ("solucionMTSP.txt");
+		System.out.println("archivo");
+		System.out.println(archivo);
 		FileReader fr;
 		try {
 			fr = new FileReader (archivo);
@@ -155,6 +169,7 @@ public class RouteResult {
 				while((linea=br.readLine())!=null) {
 					if(i > 1) {
 						TourResult tr = new TourResult();
+						
 						int j=0;
 						tr.setNombre("Coche"+(i-1));
 						//tr.setGroupName(new LayerGroup("Coche"+(i-1)));
@@ -170,7 +185,6 @@ public class RouteResult {
 									
 								}
 								else if(linea.charAt(j) == ' ') {
-									//System.out.println("el texto de mierda'"+tempText+"'");
 									
 									
 									
@@ -196,7 +210,7 @@ public class RouteResult {
 								
 								if(j == linea.length()-1) {
 									//System.out.println("Momento final '"+(linea.length()-1)+"' coste:"+tempText);
-									tr.setCost(Integer.parseInt(tempText));
+									tr.setCost(Double.parseDouble(tempText));
 								}
 							}
 							
@@ -220,6 +234,110 @@ public class RouteResult {
 		
 		return result;
 		
+	}*/
+	
+	List<TourResult> readFileTours() {
+		String text = "";
+		List<TourResult> result = new ArrayList<TourResult>();
+		listCaminos = new ArrayList<ArrayList<Integer>>();
+		cost = new ArrayList<Double>();
+		File archivo = new File ("solucionMTSP.txt");
+		System.out.println("archivo");
+		System.out.println(archivo);
+		FileReader fr;
+		try {
+			fr = new FileReader (archivo);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			try {
+				int i = 0;
+				while((linea=br.readLine())!=null) {
+					if(i > 1) {
+						TourResult tr = new TourResult();
+						ArrayList<Integer> caminito = new ArrayList<Integer>();
+						int j=0;
+						tr.setNombre("Coche"+(i-1));
+						//tr.setGroupName(new LayerGroup("Coche"+(i-1)));
+						String tempText = "";
+						boolean fase2 = true;
+						while(j<linea.length()) {
+							//System.out.println("Antes del if('"+linea.charAt(j)+"'");
+							if(linea.charAt(j) != '(' && fase2) {
+								//System.out.println("Despues del if('"+linea.charAt(j)+"'");
+								if(linea.charAt(j) != ' ') {
+									//System.out.println("Despues2 del if y graba('"+linea.charAt(j)+"'");
+									tempText += linea.charAt(j);
+									
+								}
+								else if(linea.charAt(j) == ' ') {
+									
+									
+									Integer intTemp = Integer.parseInt(tempText); 
+									tr.addCamino(intTemp);
+									caminito.add(intTemp);
+									tempText = "";
+								}
+							}
+							else {
+								fase2 = false;
+							}
+							if(!fase2) {
+								
+								//System.out.println("Entra en fase2 '"+linea.charAt(j)+"'");
+								if(List.of('0','1','2','3','4','5','6','7','8','9').contains(linea.charAt(j))) {
+									tempText += linea.charAt(j);
+									//System.out.println("Como va fase2 tempText '"+tempText+"'");
+								}
+								
+								if(linea.charAt(j) == ')') {
+									tempText = "";
+								}
+								
+								if(j == linea.length()-1) {
+									//System.out.println("Momento final '"+(linea.length()-1)+"' coste:"+tempText);
+									Double tempDouble = Double.parseDouble(tempText);
+									tr.setCost(tempDouble);
+									cost.add(tempDouble);
+								}
+							}
+							
+							j++;
+						}
+						
+						result.add(tr);
+						listCaminos.add(caminito);
+						//System.out.println(linea + " tam:"+linea.getBytes().length);
+					}
+					i++;
+				}
+				//System.out.println("Resultado tamaño "+result.size());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
+	List<TourResult> GenerateTourResult() {
+		List<TourResult> result = new ArrayList<TourResult>();
+		for(int i=0; i<listCaminos.size();i++) {
+			TourResult tr = new TourResult();
+			tr.setNombre("Coche"+(i));
+			for(int j=0;j<listCaminos.get(i).size();j++) {
+				tr.addCamino(listCaminos.get(i).get(j));
+			}
+			if(i > cost.size())
+				tr.setCost(cost.get(i));
+			result.add(tr);
+		}
+		return result;
+		
 	}
 	
 	/*TestCVRP, Cost: 1540_210160
@@ -237,6 +355,7 @@ public class RouteResult {
 	public List<TourResult> getListTours(){
 		return ListTours;
 	}
+	
 	
 	public void testLectura() {
 		System.out.println(file);
@@ -276,20 +395,32 @@ public class RouteResult {
 			
 	}
 	
+	public double GetCostAllTours(String type) {
+		double value = 0.0;
+		for(int i=0;i<ListTours.size();i++) {
+			value += ListTours.get(i).getCosteTotal(type);
+		}
+		return value;
+	}
+	
 	public List<Integer> getTour(){
 		return routeSol;
 	}
+	//List<List<Integer>> listCaminos;
+	//List<Double> cost;
+	public List<ArrayList<Integer>> getListCaminos(){
+		return listCaminos;
+	}
 	
-	/*
-	 * // Apertura del fichero y creacion de BufferedReader para poder
-            // hacer una lectura comoda (disponer del metodo readLine()).
-			archivo = new File ("solucionTest.txt");
-			fr = new FileReader (archivo);
-			br = new BufferedReader(fr);
-			
-			// Lectura del fichero
-			String linea;
-			while((linea=br.readLine())!=null)
-				System.out.println(linea);
-	 * */
+	public void setListCaminos(List<ArrayList<Integer>> lc) {
+		listCaminos = lc;
+	}
+	
+	public List<Double> getCost(){
+		return cost;
+	}
+	
+	public void setRouteSol(List<Double> cst) {
+		cost = cst;
+	}
 }

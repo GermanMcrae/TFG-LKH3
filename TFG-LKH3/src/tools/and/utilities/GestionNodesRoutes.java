@@ -190,10 +190,3 @@ public class GestionNodesRoutes extends JPanel {
 		return Integer.parseInt(tfDemand.getText());
 	}
 }
-
-
-
-
-/*final JList<Student> studentList = new JList<>();
-            final DefaultListModel<Student> studentModel = new DefaultListModel<>();
-            studentList.setModel(studentModel);*/

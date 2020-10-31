@@ -16,9 +16,13 @@ public class TourResult {
 	private List<Integer> camino;
 	private List<List<Coordinate>> track;
 	private List<MapPolylineImpl> trackMPLI;
+	
 	private LayerGroup groupName;
 	private List<Layer> subCaminos;
-	private int cost;
+	private List<Double> distance;
+	private List<Double> duration;
+	
+	private double cost;
 	private Color color;
 	
 	//MapPolygon
@@ -29,17 +33,21 @@ public class TourResult {
 		track = new ArrayList<List<Coordinate>>();
 		groupName = new LayerGroup("");
 		subCaminos = new ArrayList<Layer>();
-		cost = 0;
+		cost = 0.0;
+		distance = new ArrayList<Double>();
+		duration = new ArrayList<Double>();
 		color = Color.black;
 	}
 	
-	public TourResult(String n, List<Integer> cam, List<List<Coordinate>> t, LayerGroup gn, List<Layer> sc, int cos, Color col) {
+	public TourResult(String n, List<Integer> cam, List<List<Coordinate>> t, LayerGroup gn, List<Layer> sc, double cos,  List<Double> dis, List<Double> dur, Color col) {
 		nombre = n;
 		camino = cam;
 		track = t;
 		groupName = gn;
 		subCaminos = sc;
 		cost = cos;
+		distance = dis;
+		duration = dur;
 		color = col;
 	}
 	
@@ -67,8 +75,16 @@ public class TourResult {
 		return subCaminos;
 	}
 	
-	public int getCost(){
+	public double getCost(){
 		return cost;
+	}
+	
+	public List<Double> getDistance(){
+		return distance;
+	}
+	
+	public List<Double> getDuration(){
+		return duration;
 	}
 	
 	public Color getColor(){
@@ -99,8 +115,16 @@ public class TourResult {
 		subCaminos = sc;
 	}
 	
-	public void setCost(int c){
+	public void setCost(double c){
 		cost = c;
+	}
+	
+	public void setDistance(List<Double> d){
+		distance = d;
+	}
+	
+	public void setDuration(List<Double> d){
+		duration = d;
 	}
 	
 	public void setColor(Color c){
@@ -113,7 +137,30 @@ public class TourResult {
 	
 	public void addTrack(ArrayList<Coordinate> value) {
 		track.add(value);
-		//aqui añadiria un nuevo Layer asociado a un track
+	}
+	
+	public void addListDistance(Double value) {
+		distance.add(value);
+	}
+	
+	public void addListDuration(Double value) {
+		duration.add(value);
+	}
+	
+	public double CostTotalDistance() {
+		double value = 0.0;
+		for(int i=0;i<distance.size();i++) {
+			value += distance.get(i);
+		}
+		return value;
+	}
+	
+	public double CostTotalDuration() {
+		double value = 0.0;
+		for(int i=0;i<duration.size();i++) {
+			value += duration.get(i);
+		}
+		return value;
 	}
 	
 	public String getTextCamino() {
@@ -122,6 +169,15 @@ public class TourResult {
 			text+="["+camino.get(i)+"]";
 		}
 		return text;
+	}
+	
+	public double getCosteTotal(String type) {
+		double value = 0.0;
+		if(type.equals("DISTANCE"))
+			value = CostTotalDistance();
+		else if(type.equals("DURATION"))
+			value = CostTotalDuration();
+		return value;
 	}
 	
 	@Override

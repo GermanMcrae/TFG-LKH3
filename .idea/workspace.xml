@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3e733422-44b1-455c-8bbd-32f16daf09a2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/parFile.par" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/parFile.par" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/problemFile.tsp" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/problemFile.tsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/solucionTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/solucionTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/GestionNodesRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/GestionNodesRoutes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/MatrixPoints.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/NewProyectRoute.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/NodosList.java" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/NodosList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/ProblemFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/ProblemFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/RouteResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/RouteResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/TourResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/TFG-LKH3/src/tools/and/utilities/TourResult.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1gpr0SfqMitJxYLVXPqpsw7nrud" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e733422-44b1-455c-8bbd-32f16daf09a2" name="Default Changelist" comment="" />
+      <created>1598822152291</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598822152291</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598822812963">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1598822812963" />
+    <state x="229" y="100" key="SettingsEditor" timestamp="1598824207013">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="229" y="100" key="SettingsEditor/-1920.-157.1920.1057/0.23.1440.877@0.23.1440.877" timestamp="1598824207013" />
+  </component>
+</project>

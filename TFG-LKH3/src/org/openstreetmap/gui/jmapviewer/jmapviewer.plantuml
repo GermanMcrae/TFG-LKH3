@@ -1,0 +1,854 @@
+@startuml
+
+title __JMAPVIEWER's Class Diagram__\n
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.AbstractLayer {
+        - description : String
+        - name : String
+        - visible : Boolean
+        - visibleTexts : Boolean
+        + AbstractLayer()
+        + AbstractLayer()
+        + AbstractLayer()
+        + AbstractLayer()
+        + AbstractLayer()
+        + AbstractLayer()
+        + AbstractLayer()
+        {static} + add()
+        + getDescription()
+        + getName()
+        + getParent()
+        + getStyle()
+        + isVisible()
+        + isVisibleTexts()
+        + setDescription()
+        + setName()
+        + setParent()
+        + setStyle()
+        + setVisible()
+        + setVisibleTexts()
+        + toString()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.AttributionSupport {
+        {static} + ATTR_FONT : Font
+        {static} + ATTR_LINK_FONT : Font
+        # attrImageBounds : Rectangle
+        # attrTextBounds : Rectangle
+        # attrToUBounds : Rectangle
+        - attrImage : Image
+        - attrTermsText : String
+        - attrTermsUrl : String
+        + handleAttribution()
+        + handleAttributionCursor()
+        + initialize()
+        + paintAttribution()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Coordinate {
+        - data : Double
+        + Coordinate()
+        + Coordinate()
+        + equals()
+        + getLat()
+        + getLon()
+        + hashCode()
+        + setLat()
+        + setLon()
+        + toString()
+        - readObject()
+        - writeObject()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.DefaultMapController {
+        {static} - MAC_MOUSE_BUTTON3_MASK : int
+        {static} - MOUSE_BUTTONS_MASK : int
+        - doubleClickZoomEnabled : boolean
+        - isMoving : boolean
+        - lastDragPoint : Point
+        - movementEnabled : boolean
+        - movementMouseButton : int
+        - movementMouseButtonMask : int
+        - wheelZoomEnabled : boolean
+        + DefaultMapController()
+        + getMovementMouseButton()
+        + isDoubleClickZoomEnabled()
+        + isMovementEnabled()
+        {static} + isPlatformOsx()
+        + isWheelZoomEnabled()
+        + mouseClicked()
+        + mouseDragged()
+        + mouseEntered()
+        + mouseExited()
+        + mouseMoved()
+        + mousePressed()
+        + mouseReleased()
+        + mouseWheelMoved()
+        + setDoubleClickZoomEnabled()
+        + setMovementEnabled()
+        + setMovementMouseButton()
+        + setWheelZoomEnabled()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Demo {
+        - ListTours : List<TourResult>
+        - errorLKH : boolean
+        - mperpLabelName : JLabel
+        - mperpLabelValue : JLabel
+        - pointFlag : boolean
+        {static} - serialVersionUID : long
+        - zoomLabel : JLabel
+        - zoomValue : JLabel
+        + Demo()
+        {static} + main()
+        + processCommand()
+        ~ LoadProyect()
+        ~ SaveProyect()
+        ~ clearFile()
+        ~ clearFiles()
+        ~ drawPointInMap()
+        ~ executeLKH()
+        ~ nuevasRutas()
+        ~ testRutas()
+        - GenerateRoute()
+        - addNodoEjercicio()
+        {static} - c()
+        - clearPoints()
+        - map()
+        - refresh()
+        - selectColorRand()
+        - updateZoomParameters()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.FeatureAdapter {
+        {static} - browserAdapter : BrowserAdapter
+        {static} - imageAdapter : ImageAdapter
+        {static} - loggingAdapter : LoggingAdapter
+        {static} - translationAdapter : TranslationAdapter
+        {static} + getLogger()
+        {static} + openLink()
+        {static} + readImage()
+        {static} + registerBrowserAdapter()
+        {static} + registerImageAdapter()
+        {static} + registerLoggingAdapter()
+        {static} + registerTranslationAdapter()
+        {static} + tr()
+        - FeatureAdapter()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    interface org.openstreetmap.gui.jmapviewer.FeatureAdapter.BrowserAdapter {
+        {abstract} + openLink()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultBrowserAdapter {
+        + openLink()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultImageAdapter {
+        + read()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultLoggingAdapter {
+        + getLogger()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultTranslationAdapter {
+        + tr()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    interface org.openstreetmap.gui.jmapviewer.FeatureAdapter.ImageAdapter {
+        {abstract} + read()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    interface org.openstreetmap.gui.jmapviewer.FeatureAdapter.LoggingAdapter {
+        {abstract} + getLogger()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    interface org.openstreetmap.gui.jmapviewer.FeatureAdapter.TranslationAdapter {
+        {abstract} + tr()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    abstract class org.openstreetmap.gui.jmapviewer.JMapController {
+        + JMapController()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.JMapViewer {
+        {static} + MAX_ZOOM : int
+        {static} + MIN_ZOOM : int
+        {static} + debug : boolean
+        {static} + zoomReverseWheel : boolean
+        # center : Point
+        # evtListenerList : EventListenerList
+        # mapMarkerList : List<MapMarker>
+        # mapMarkersVisible : boolean
+        # mapPolygonList : List<MapPolygon>
+        # mapPolygonsVisible : boolean
+        # mapRectangleList : List<MapRectangle>
+        # mapRectanglesVisible : boolean
+        # scrollWrapEnabled : boolean
+        # tileGridVisible : boolean
+        # zoom : int
+        # zoomInButton : JButton
+        # zoomOutButton : JButton
+        # zoomSlider : JSlider
+        {static} - move : Point[]
+        {static} - serialVersionUID : long
+        + JMapViewer()
+        + JMapViewer()
+        + JMapViewer()
+        + addJMVListener()
+        + addMapMarker()
+        + addMapPolygon()
+        + addMapRectangle()
+        + getAttribution()
+        + getCenter()
+        + getLatOffset()
+        + getMapMarkerList()
+        + getMapMarkersVisible()
+        + getMapPolygonList()
+        + getMapPosition()
+        + getMapPosition()
+        + getMapPosition()
+        + getMapPosition()
+        + getMapRectangleList()
+        + getMeterPerPixel()
+        + getPosition()
+        + getPosition()
+        + getPosition()
+        + getRadius()
+        + getTileCache()
+        + getTileController()
+        + getToolTipText()
+        + getZoom()
+        + getZoomButtonStyle()
+        + getZoomControlsVisible()
+        + isMapPolygonsVisible()
+        + isMapRectanglesVisible()
+        + isScrollWrapEnabled()
+        + isTileGridVisible()
+        + moveMap()
+        + removeAllMapMarkers()
+        + removeAllMapPolygons()
+        + removeAllMapRectangles()
+        + removeJMVListener()
+        + removeMapMarker()
+        + removeMapPolygon()
+        + removeMapRectangle()
+        + setCenter()
+        + setDisplayPosition()
+        + setDisplayPosition()
+        + setDisplayPosition()
+        + setDisplayPosition()
+        + setDisplayToFitMapElements()
+        + setDisplayToFitMapMarkers()
+        + setDisplayToFitMapPolygons()
+        + setDisplayToFitMapRectangles()
+        + setMapMarkerList()
+        + setMapMarkerVisible()
+        + setMapPolygonList()
+        + setMapPolygonsVisible()
+        + setMapRectangleList()
+        + setMapRectanglesVisible()
+        + setScrollWrapEnabled()
+        + setTileGridVisible()
+        + setTileLoader()
+        + setTileSource()
+        + setZoom()
+        + setZoom()
+        + setZoomButtonStyle()
+        + setZoomContolsVisible()
+        + setZoomControlsVisible()
+        + tileLoadingFinished()
+        + zoomIn()
+        + zoomIn()
+        + zoomOut()
+        + zoomOut()
+        # initializeZoomSlider()
+        # paintComponent()
+        # paintMarker()
+        # paintPolygon()
+        # paintRectangle()
+        # zoomChanged()
+        - fireJMVEvent()
+        {static} - getImageIcon()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    enum ZOOM_BUTTON_STYLE {
+      HORIZONTAL
+      VERTICAL
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.JMapViewerTree {
+        - nameTitle : String
+        {static} - serialVersionUID : long
+        - splitPane : JSplitPane
+        - treePanel : JPanel
+        - treeScrollPane : JScrollPane
+        + JMapViewerTree()
+        + JMapViewerTree()
+        + addLayer()
+        + addLayer()
+        + addLayer()
+        + addMapObject()
+        + getTree()
+        + getViewer()
+        + removeFromLayer()
+        + setTreeVisible()
+        {static} + size()
+        - createPopupMenu()
+        - createRefresh()
+        {static} - setVisibleTexts()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Layer {
+        - elements : List<MapObject>
+        + Layer()
+        + Layer()
+        + Layer()
+        + Layer()
+        + Layer()
+        + Layer()
+        + Layer()
+        + add()
+        + getElements()
+        + setElements()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.LayerGroup {
+        - layers : List<AbstractLayer>
+        + LayerGroup()
+        + LayerGroup()
+        + LayerGroup()
+        + LayerGroup()
+        + LayerGroup()
+        + LayerGroup()
+        + add()
+        + addLayer()
+        + calculateVisibleTexts()
+        + getLayers()
+        + resultOf()
+        + setElements()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapMarkerCircle {
+        - radius : double
+        + MapMarkerCircle()
+        + MapMarkerCircle()
+        + MapMarkerCircle()
+        + MapMarkerCircle()
+        + MapMarkerCircle()
+        + MapMarkerCircle()
+        + MapMarkerCircle()
+        + getCoordinate()
+        {static} + getDefaultStyle()
+        + getLat()
+        + getLon()
+        + getMarkerStyle()
+        + getRadius()
+        + paint()
+        + setLat()
+        + setLon()
+        + toString()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapMarkerDot {
+        {static} + DOT_RADIUS : int
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        + MapMarkerDot()
+        {static} + getDefaultStyle()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    abstract class org.openstreetmap.gui.jmapviewer.MapObjectImpl {
+        - name : String
+        - visible : Boolean
+        + MapObjectImpl()
+        + MapObjectImpl()
+        + MapObjectImpl()
+        + getBackColor()
+        + getColor()
+        {static} + getDefaultFont()
+        + getFont()
+        + getLayer()
+        + getName()
+        + getStroke()
+        + getStyle()
+        + getStyleAssigned()
+        + isVisible()
+        + paintText()
+        + setBackColor()
+        + setColor()
+        + setFont()
+        + setLayer()
+        + setName()
+        + setStroke()
+        + setStyle()
+        + setVisible()
+        - isVisibleLayer()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapPolygonImpl {
+        - points : List<? extends ICoordinate>
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        + MapPolygonImpl()
+        {static} + getDefaultStyle()
+        + getPoints()
+        + paint()
+        + paint()
+        + toString()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapPolylineImpl {
+        - points : List<? extends ICoordinate>
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + MapPolylineImpl()
+        + changeColor()
+        {static} + getDefaultStyle()
+        + getPoints()
+        + paint()
+        + paint()
+        + toString()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MapRectangleImpl {
+        + MapRectangleImpl()
+        + MapRectangleImpl()
+        + MapRectangleImpl()
+        + MapRectangleImpl()
+        + MapRectangleImpl()
+        + getBottomRight()
+        {static} + getDefaultStyle()
+        + getTopLeft()
+        + paint()
+        + toString()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MemoryTileCache {
+        # cacheSize : int
+        # hash : Map<String, CacheEntry>
+        {static} # log : Logger
+        + MemoryTileCache()
+        + MemoryTileCache()
+        + addTile()
+        + clear()
+        + getCacheSize()
+        + getTile()
+        + getTileCount()
+        + setCacheSize()
+        # createCacheEntry()
+        # removeEntry()
+        # removeOldEntries()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry {
+        + toString()
+        # CacheEntry()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheLinkedListElement {
+        # elementCount : int
+        + CacheLinkedListElement()
+        + addFirst()
+        + clear()
+        + getElementCount()
+        + getFirstElement()
+        + getLastElement()
+        + moveElementToFirstPos()
+        + removeEntry()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.OsmMercator {
+        {static} + DEFAUL_TILE_SIZE : int
+        {static} + EARTH_RADIUS : double
+        {static} + MAX_LAT : double
+        {static} + MERCATOR_256 : OsmMercator
+        {static} + MIN_LAT : double
+        - tileSize : int
+        + OsmMercator()
+        + OsmMercator()
+        + falseEasting()
+        + falseNorthing()
+        + getDistance()
+        + getDistance()
+        + getMaxPixels()
+        + latToY()
+        + lonToX()
+        + radius()
+        + xToLon()
+        + yToLat()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.OsmTileLoader {
+        + headers : Map<String, String>
+        + timeoutConnect : int
+        + timeoutRead : int
+        {static} - jobDispatcher : ThreadPoolExecutor
+        + OsmTileLoader()
+        + OsmTileLoader()
+        + cancelOutstandingTasks()
+        + createTileLoaderJob()
+        + hasOutstandingTasks()
+        {static} + setConcurrentConnections()
+        + toString()
+        # loadTileFromOsm()
+        # loadTileMetadata()
+        # prepareHttpUrlConnection()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.OsmTileLoader.OsmTileJob {
+        - force : boolean
+        - input : InputStream
+        + run()
+        + submit()
+        + submit()
+        - OsmTileJob()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Projected {
+        - data : Double
+        + Projected()
+        + equals()
+        + getEast()
+        + getNorth()
+        + hashCode()
+        + toString()
+        - readObject()
+        - writeObject()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Style {
+        {static} - OPAQUE : AlphaComposite
+        {static} - TRANSPARENCY : AlphaComposite
+        - backColor : Color
+        - color : Color
+        - font : Font
+        - stroke : Stroke
+        + Style()
+        + Style()
+        + getAlphaComposite()
+        + getBackAlphaComposite()
+        + getBackColor()
+        + getColor()
+        + getFont()
+        + getStroke()
+        + setBackColor()
+        + setColor()
+        + setFont()
+        + setStroke()
+        {static} - getAlphaComposite()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Tile {
+        {static} + ERROR_IMAGE : BufferedImage
+        {static} + LOADING_IMAGE : BufferedImage
+        # error : boolean
+        # error_message : String
+        # image : BufferedImage
+        # key : String
+        # loaded : boolean
+        # loading : boolean
+        # metadata : Map<String, String>
+        # xtile : int
+        # ytile : int
+        # zoom : int
+        + Tile()
+        + Tile()
+        + equals()
+        + finishLoading()
+        + getErrorMessage()
+        + getImage()
+        + getKey()
+        + getMetadata()
+        + getSource()
+        + getStatus()
+        {static} + getTileKey()
+        + getTileSource()
+        + getTileXY()
+        + getUrl()
+        + getValue()
+        + getXtile()
+        + getYtile()
+        + getZoom()
+        + hasError()
+        + hashCode()
+        + initLoading()
+        + isLoaded()
+        + isLoading()
+        + loadImage()
+        + loadPlaceholderFromCache()
+        + loadingCanceled()
+        + paint()
+        + paint()
+        + putValue()
+        + setError()
+        + setError()
+        + setImage()
+        + setLoaded()
+        + toString()
+        {static} - loadImage()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.Tile.CachedCallable {
+        - callable : Callable<V>
+        + call()
+        ~ CachedCallable()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.TileController {
+        + TileController()
+        + cancelOutstandingJobs()
+        + getTile()
+        + getTileCache()
+        + getTileLayerSource()
+        + getTileLoader()
+        + getTileSource()
+        + setTileCache()
+        + setTileLoader()
+        + setTileSource()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.TileRange {
+        # maxX : int
+        # maxY : int
+        # minX : int
+        # minY : int
+        # zoom : int
+        + TileRange()
+        + TileRange()
+        + size()
+        # TileRange()
+        # tilesSpanned()
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    class org.openstreetmap.gui.jmapviewer.TileXY {
+        - x : double
+        - y : double
+        + TileXY()
+        + getX()
+        + getXIndex()
+        + getY()
+        + getYIndex()
+        + toString()
+    }
+  }
+  
+
+  org.openstreetmap.gui.jmapviewer.AbstractLayer o-- org.openstreetmap.gui.jmapviewer.LayerGroup : parent
+  org.openstreetmap.gui.jmapviewer.AbstractLayer o-- org.openstreetmap.gui.jmapviewer.Style : style
+  org.openstreetmap.gui.jmapviewer.AttributionSupport o-- org.openstreetmap.gui.jmapviewer.interfaces.Attributed : source
+  org.openstreetmap.gui.jmapviewer.Coordinate .up.|> org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate
+  org.openstreetmap.gui.jmapviewer.DefaultMapController .up.|> java.awt.event.MouseListener
+  org.openstreetmap.gui.jmapviewer.DefaultMapController .up.|> java.awt.event.MouseMotionListener
+  org.openstreetmap.gui.jmapviewer.DefaultMapController .up.|> java.awt.event.MouseWheelListener
+  org.openstreetmap.gui.jmapviewer.DefaultMapController -up-|> org.openstreetmap.gui.jmapviewer.JMapController
+  org.openstreetmap.gui.jmapviewer.Demo .up.|> org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener
+  org.openstreetmap.gui.jmapviewer.Demo -up-|> javax.swing.JFrame
+  org.openstreetmap.gui.jmapviewer.Demo o-- tools.and.utilities.NodosList : ejercicio
+  org.openstreetmap.gui.jmapviewer.Demo o-- tools.and.utilities.GestionNodesRoutes : pGestionNR
+  org.openstreetmap.gui.jmapviewer.Demo o-- tools.and.utilities.SettingLKH : pSetting
+  org.openstreetmap.gui.jmapviewer.Demo o-- org.openstreetmap.gui.jmapviewer.JMapViewerTree : treeMap
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.BrowserAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultBrowserAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultImageAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultLoggingAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultTranslationAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.ImageAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.LoggingAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter +-down- org.openstreetmap.gui.jmapviewer.FeatureAdapter.TranslationAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultBrowserAdapter .up.|> org.openstreetmap.gui.jmapviewer.FeatureAdapter.BrowserAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultImageAdapter .up.|> org.openstreetmap.gui.jmapviewer.FeatureAdapter.ImageAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultLoggingAdapter .up.|> org.openstreetmap.gui.jmapviewer.FeatureAdapter.LoggingAdapter
+  org.openstreetmap.gui.jmapviewer.FeatureAdapter.DefaultTranslationAdapter .up.|> org.openstreetmap.gui.jmapviewer.FeatureAdapter.TranslationAdapter
+  org.openstreetmap.gui.jmapviewer.JMapController o-- org.openstreetmap.gui.jmapviewer.JMapViewer : map
+  org.openstreetmap.gui.jmapviewer.JMapViewer .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileLoaderListener
+  org.openstreetmap.gui.jmapviewer.JMapViewer -up-|> javax.swing.JPanel
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.AttributionSupport : attribution
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.TileController : tileController
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.interfaces.TileSource : tileSource
+  org.openstreetmap.gui.jmapviewer.JMapViewer o-- org.openstreetmap.gui.jmapviewer.JMapViewer.ZOOM_BUTTON_STYLE : zoomButtonStyle
+  org.openstreetmap.gui.jmapviewer.JMapViewer +-down- org.openstreetmap.gui.jmapviewer.JMapViewer.ZOOM_BUTTON_STYLE
+  org.openstreetmap.gui.jmapviewer.JMapViewerTree -up-|> javax.swing.JPanel
+  org.openstreetmap.gui.jmapviewer.JMapViewerTree o-- org.openstreetmap.gui.jmapviewer.JMapViewer : map
+  org.openstreetmap.gui.jmapviewer.JMapViewerTree o-- org.openstreetmap.gui.jmapviewer.checkBoxTree.CheckBoxTree : tree
+  org.openstreetmap.gui.jmapviewer.Layer -up-|> org.openstreetmap.gui.jmapviewer.AbstractLayer
+  org.openstreetmap.gui.jmapviewer.LayerGroup -up-|> org.openstreetmap.gui.jmapviewer.AbstractLayer
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapMarker
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle o-- org.openstreetmap.gui.jmapviewer.Coordinate : coord
+  org.openstreetmap.gui.jmapviewer.MapMarkerCircle o-- org.openstreetmap.gui.jmapviewer.interfaces.MapMarker.STYLE : markerStyle
+  org.openstreetmap.gui.jmapviewer.MapMarkerDot -up-|> org.openstreetmap.gui.jmapviewer.MapMarkerCircle
+  org.openstreetmap.gui.jmapviewer.MapObjectImpl o-- org.openstreetmap.gui.jmapviewer.Layer : layer
+  org.openstreetmap.gui.jmapviewer.MapObjectImpl o-- org.openstreetmap.gui.jmapviewer.Style : style
+  org.openstreetmap.gui.jmapviewer.MapPolygonImpl .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon
+  org.openstreetmap.gui.jmapviewer.MapPolygonImpl -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapPolylineImpl .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon
+  org.openstreetmap.gui.jmapviewer.MapPolylineImpl -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl .up.|> org.openstreetmap.gui.jmapviewer.interfaces.MapRectangle
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl -up-|> org.openstreetmap.gui.jmapviewer.MapObjectImpl
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl o-- org.openstreetmap.gui.jmapviewer.Coordinate : bottomRight
+  org.openstreetmap.gui.jmapviewer.MapRectangleImpl o-- org.openstreetmap.gui.jmapviewer.Coordinate : topLeft
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileCache
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache o-- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheLinkedListElement : lruTiles
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache +-down- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache +-down- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheLinkedListElement
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry o-- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry : next
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry o-- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry : prev
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry o-- org.openstreetmap.gui.jmapviewer.Tile : tile
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheLinkedListElement o-- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry : firstElement
+  org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheLinkedListElement o-- org.openstreetmap.gui.jmapviewer.MemoryTileCache.CacheEntry : lastElement
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileLoader
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader o-- org.openstreetmap.gui.jmapviewer.interfaces.TileLoaderListener : listener
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader +-down- org.openstreetmap.gui.jmapviewer.OsmTileLoader.OsmTileJob
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader.OsmTileJob .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileJob
+  org.openstreetmap.gui.jmapviewer.OsmTileLoader.OsmTileJob o-- org.openstreetmap.gui.jmapviewer.Tile : tile
+  org.openstreetmap.gui.jmapviewer.Projected .up.|> org.openstreetmap.gui.jmapviewer.interfaces.IProjected
+  org.openstreetmap.gui.jmapviewer.Tile o-- org.openstreetmap.gui.jmapviewer.interfaces.TileSource : source
+  org.openstreetmap.gui.jmapviewer.Tile +-down- org.openstreetmap.gui.jmapviewer.Tile.CachedCallable
+  org.openstreetmap.gui.jmapviewer.Tile.CachedCallable .up.|> java.util.concurrent.Callable
+  org.openstreetmap.gui.jmapviewer.Tile.CachedCallable o-- V : result
+  org.openstreetmap.gui.jmapviewer.TileController o-- org.openstreetmap.gui.jmapviewer.interfaces.TileCache : tileCache
+  org.openstreetmap.gui.jmapviewer.TileController o-- org.openstreetmap.gui.jmapviewer.interfaces.TileLoader : tileLoader
+  org.openstreetmap.gui.jmapviewer.TileController o-- org.openstreetmap.gui.jmapviewer.interfaces.TileSource : tileSource
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

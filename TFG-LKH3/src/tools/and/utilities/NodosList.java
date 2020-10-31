@@ -21,37 +21,62 @@ public class NodosList {
 	
 	@XmlElement(name = "nodo")
     private List<Nodo> nodes;
+	@XmlElement(name = "ejercicios")
+	private List<EjercicioSolucion> ejercicioSolucion;
 	
 	public NodosList() {
 		nodes = new ArrayList<Nodo>();
+		ejercicioSolucion = new ArrayList<EjercicioSolucion>();
 	}
 	
-	public NodosList(List<Nodo> n) {
+	public NodosList(List<Nodo> n, List<EjercicioSolucion> es) {
 		nodes = n;
+		ejercicioSolucion = es;
 	}
 	
 	public List<Nodo> getNodes() {
         return nodes;
+    }
+	
+	public List<EjercicioSolucion> getEjercicioSolucion() {
+        return ejercicioSolucion;
     }
  
     public void setNodes(List<Nodo> collection) {
         this.nodes = collection;
     }
     
+    public void setEjercicioSolucion(List<EjercicioSolucion> collection) {
+        this.ejercicioSolucion = collection;
+    }
+    
     public void clear() {
     	nodes.clear();
+    	ejercicioSolucion.clear();
     }
     
     public int size() {
     	return nodes.size();
     }
     
+    public int sizeEjercicioSolucion() {
+    	return ejercicioSolucion.size();
+    }
+    
     public Nodo get(int i) {
     	return nodes.get(i);
     }
     
+    public EjercicioSolucion getEjercicioSolucion(int i) {
+    	return ejercicioSolucion.get(i);
+    }
+    
     public void add(Nodo n) {
     	nodes.add(n);
+    }
+    
+    public void addEjercicioSolucion(EjercicioSolucion es) {
+    	ejercicioSolucion.add(es);
     }
     
     public void delete(Nodo n) {
@@ -170,23 +195,60 @@ public class NodosList {
     	
     	return value;
     }
+    
+    public List<Double> getListDistanceTour(List<Integer> camino){
+    	List<Double> value = new ArrayList<Double>();
+    	
+    	for(int i=1;i<camino.size();i++) {
+    		if(camino.get(i-1)<camino.get(i)) {
+    			//List<Coordinate> temp = nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getCoordinates();
+    			//MapPolylineImpl mpl = new MapPolylineImpl(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getCoordinates());
+    			//mpl.setColor(color);
+				value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getDistance());
+				//value.add(e)
+    		//System.out.println("Numero de nodes: "+nodes.get(camino.get(i-1))+" tamListRoutes: "+nodes.get(camino.get(i-1)).getListRoutes().size());
+    			//System.out.println("< Camino "+i+" de fila "+(camino.get(i-1)-1)+" a col "+(camino.get(i)-2));
+    		}
+    			
+    			
+    		if(camino.get(i-1)>camino.get(i)) {
+    			//MapPolylineImpl mpl = new MapPolylineImpl(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getCoordinates());
+    			//mpl.setColor(color);
+				value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getDistance());
+    			//value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getCoordinates());
+    			//System.out.println("> Camino "+i+" de fila "+(camino.get(i-1)-1)+" a col "+(camino.get(i)-1));
+    		}
+    	}
+    	
+    	
+    	return value;
+    }
+    
+    public List<Double> getListDurationTour(List<Integer> camino){
+    	List<Double> value = new ArrayList<Double>();
+    	
+    	for(int i=1;i<camino.size();i++) {
+    		if(camino.get(i-1)<camino.get(i)) {
+    			//List<Coordinate> temp = nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getCoordinates();
+    			//MapPolylineImpl mpl = new MapPolylineImpl(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getCoordinates());
+    			//mpl.setColor(color);
+				value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-2).getDuration());
+				//value.add(e)
+    		//System.out.println("Numero de nodes: "+nodes.get(camino.get(i-1))+" tamListRoutes: "+nodes.get(camino.get(i-1)).getListRoutes().size());
+    			//System.out.println("< Camino "+i+" de fila "+(camino.get(i-1)-1)+" a col "+(camino.get(i)-2));
+    		}
+    			
+    			
+    		if(camino.get(i-1)>camino.get(i)) {
+    			//MapPolylineImpl mpl = new MapPolylineImpl(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getCoordinates());
+    			//mpl.setColor(color);
+				value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getDuration());
+    			//value.add(nodes.get(camino.get(i-1)-1).getListRoutes().get(camino.get(i)-1).getCoordinates());
+    			//System.out.println("> Camino "+i+" de fila "+(camino.get(i-1)-1)+" a col "+(camino.get(i)-1));
+    		}
+    	}
+    	
+    	
+    	return value;
+    }
 }
-
-
-/*
- * @XmlRootElement(name = "employees")
-@XmlAccessorType (XmlAccessType.FIELD)
-public class Employees 
-{
-    @XmlElement(name = "employee")
-    private List<Employee> employees = null;
- 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
- 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-}*/
- 

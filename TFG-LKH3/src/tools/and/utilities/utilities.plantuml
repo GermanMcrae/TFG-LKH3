@@ -1,0 +1,415 @@
+@startuml
+
+title __UTILITIES's Class Diagram__\n
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.GestionNodesRoutes {
+        + btDelete : JButton
+        + btModify : JButton
+        + spRutas : JScrollPane
+        ~ nodoModel : DefaultListModel<Nodo>
+        - list : JList<Nodo>
+        - tableRoute : JTable
+        - tfDemand : JFormattedTextField
+        - tfLatitude : JTextField
+        - tfLongitude : JTextField
+        - tfName : JTextField
+        + GestionNodesRoutes()
+        + clearDisplay()
+        + clearList()
+        + getDemand()
+        + getItemIndexSelection()
+        + getItemSelection()
+        + getName()
+        + listUpdate()
+        - fillNodo()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.Nodo {
+        ~ listRoutes : List<Ruta>
+        - demand : int
+        - name : String
+        + GetTableRoutesNodo()
+        + Nodo()
+        + Nodo()
+        + addRuta()
+        + deleteRuta()
+        + deleteRuta()
+        + getCoordinate()
+        + getDemand()
+        + getListRoutes()
+        + getName()
+        + getVectorDistanceForMatrix()
+        + getVectorDurationForMatrix()
+        + isEqual()
+        + setCoordinate()
+        + setDemand()
+        + setListRoutes()
+        + setName()
+        + toString()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.NodosList {
+        - nodes : List<Nodo>
+        + NodosList()
+        + NodosList()
+        + add()
+        + clear()
+        + delete()
+        + delete()
+        + get()
+        + getListCoordenades()
+        + getListDemands()
+        + getMatrixDistance()
+        + getMatrixDuration()
+        + getNodes()
+        + getTour()
+        + getTourMPLI()
+        + setNodes()
+        + size()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.ParametersFile {
+        ~ BACKTRACKING : String
+        ~ INITIAL_TOUR_ALGORITHM : String
+        ~ MOVE_TYPE : int
+        ~ MTSP_MAX_SIZE : int
+        ~ MTSP_MIN_SIZE : int
+        ~ MTSP_SOLUTION_FILE : String
+        ~ OPTIMUM : int
+        ~ PATCHING_A : int
+        ~ PATCHING_A_EXT : String
+        ~ PATCHING_C : int
+        ~ PATCHING_C_EXT : String
+        ~ PROBLEM_FILE : String
+        ~ RUNS : int
+        ~ TOUR_FILE : String
+        ~ VEHICLES : int
+        ~ boolINITIAL_TOUR_ALGORITHM : boolean
+        ~ boolMOVE_TYPE : boolean
+        ~ boolMTSP_MAX_SIZE : boolean
+        ~ boolMTSP_MIN_SIZE : boolean
+        ~ boolOPTIMUM : boolean
+        ~ boolPATCHING_A : boolean
+        ~ boolPATCHING_C : boolean
+        ~ boolRUNS : boolean
+        ~ boolVEHICLES : boolean
+        + ParametersFile()
+        + generateFile()
+        + generateFile2()
+        + getBACKTRACKING()
+        + getBoolINITIAL_TOUR_ALGORITHM()
+        + getBoolMOVE_TYPE()
+        + getBoolMTSP_MAX_SIZE()
+        + getBoolMTSP_MIN_SIZE()
+        + getBoolOPTIMUM()
+        + getBoolPATCHING_A()
+        + getBoolPATCHING_C()
+        + getBoolRUNS()
+        + getBoolVEHICLES()
+        + getINITIAL_TOUR_ALGORITHM()
+        + getMOVE_TYPE()
+        + getMTSP_MAX_SIZE()
+        + getMTSP_MIN_SIZE()
+        + getMTSP_SOLUTION_FILE()
+        + getOPTIMUM()
+        + getPATCHING_A()
+        + getPATCHING_A_EXT()
+        + getPATCHING_C()
+        + getPATCHING_C_EXT()
+        + getPROBLEM_FILE()
+        + getRUNS()
+        + getTOUR_FILE()
+        + getVEHICLES()
+        + setBACKTRACKING()
+        + setBoolINITIAL_TOUR_ALGORITHM()
+        + setBoolMOVE_TYPE()
+        + setBoolMTSP_MAX_SIZE()
+        + setBoolMTSP_MIN_SIZE()
+        + setBoolOPTIMUM()
+        + setBoolPATCHING_A()
+        + setBoolPATCHING_C()
+        + setBoolRUNS()
+        + setBoolVEHICLES()
+        + setINITIAL_TOUR_ALGORITHM()
+        + setMOVE_TYPE()
+        + setMTSP_MAX_SIZE()
+        + setMTSP_MIN_SIZE()
+        + setMTSP_SOLUTION_FILE()
+        + setOPTIMUM()
+        + setPATCHING_A()
+        + setPATCHING_A_EXT()
+        + setPATCHING_C()
+        + setPATCHING_C_EXT()
+        + setPROBLEM_FILE()
+        + setRUNS()
+        + setTOUR_FILE()
+        + setVEHICLES()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.PointProblem {
+        + cancelButton : JButton
+        + okButton : JButton
+        - contentPanel : JPanel
+        - tfDemand : JTextField
+        - tfLatitude : JTextField
+        - tfLongitude : JTextField
+        - tfName : JTextField
+        - validate : boolean
+        + FillData()
+        + PointProblem()
+        + clearActionListener()
+        + clearCancelActionListener()
+        + clearOkActionListener()
+        + getDemand()
+        + getLat()
+        + getLon()
+        + getName()
+        + getValidate()
+        + setName()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.ProblemFile {
+        ~ CAPACITY : int
+        ~ COMMENT : String
+        ~ DEMAND_SECTION : String
+        ~ DEPOT_SECTION : String
+        ~ DIMENSION : int
+        ~ DISPLAY_DATA_SECTION : String
+        ~ DISPLAY_DATA_TYPE : String
+        ~ EDGE_WEIGHT_FORMAT : String
+        ~ EDGE_WEIGHT_SECTION : String
+        ~ EDGE_WEIGHT_TYPE : String
+        ~ NAME : String
+        ~ TYPE : String
+        ~ VEHICLES : int
+        + ProblemFile()
+        + ProblemFile()
+        + generateFile()
+        + generateFile()
+        + getCAPACITY()
+        + getCOMMENT()
+        + getDEMAND_SECTION()
+        + getDEPOT_SECTION()
+        + getDIMENSION()
+        + getDISPLAY_DATA_SECTION()
+        + getDISPLAY_DATA_TYPE()
+        + getEDGE_WEIGHT_FORMAT()
+        + getEDGE_WEIGHT_SECTION()
+        + getEDGE_WEIGHT_TYPE()
+        + getNAME()
+        + getTYPE()
+        + getVEHICLES()
+        + getVEHICLES()
+        + setCAPACITY()
+        + setCOMMENT()
+        + setDEMAND_SECTION()
+        + setDEPOT_SECTION()
+        + setDIMENSION()
+        + setDISPLAY_DATA_SECTION()
+        + setDISPLAY_DATA_TYPE()
+        + setEDGE_WEIGHT_FORMAT()
+        + setEDGE_WEIGHT_SECTION()
+        + setEDGE_WEIGHT_TYPE()
+        + setNAME()
+        + setTYPE()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.RouteJSON {
+        ~ code : boolean
+        ~ codeString : String
+        ~ coordinates : List<Coordinate>
+        ~ distance : double
+        ~ duration : double
+        ~ nameFrom : String
+        ~ nameTo : String
+        ~ routes : JSONArray
+        ~ waypoints : JSONArray
+        ~ weight_name : String
+        + RouteJSON()
+        + RouteJSON()
+        + getCode()
+        + getCoordinateFrom()
+        + getCoordinateTo()
+        + getCoordinates()
+        + getDistance()
+        + getDuration()
+        + getNameFrom()
+        + getNameTo()
+        + getPolyline()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.RouteResult {
+        ~ ListTours : List<TourResult>
+        ~ file : String
+        ~ groupVehicles : List<LayerGroup>
+        ~ routeSol : List<Integer>
+        + RouteResult()
+        + getListRutas()
+        + getListTours()
+        + getTour()
+        + testLectura()
+        + testLecturaTours()
+        ~ readFile()
+        ~ readFileOneTour()
+        ~ readFileTours()
+        - tour()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.Ruta {
+        - NameDestinate : String
+        - coordinates : List<Coordinate>
+        - distance : double
+        - duration : double
+        - nameFrom : String
+        - nameTo : String
+        - weight_name : String
+        + Ruta()
+        + Ruta()
+        + Ruta()
+        + getCoordinateFrom()
+        + getCoordinateTo()
+        + getCoordinates()
+        + getDistance()
+        + getDuration()
+        + getNameDestinate()
+        + getNameFrom()
+        + getNameTo()
+        + getWeightName()
+        + isEqual()
+        + setCoordinateFrom()
+        + setCoordinateTo()
+        + setCoordinates()
+        + setDistance()
+        + setDuration()
+        + setNameDestinate()
+        + setNameFrom()
+        + setNameTo()
+        + setWeightName()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.SettingLKH {
+        - cbAlgoritmo : JComboBox
+        - cbBacktracking : JComboBox
+        - cbDistanceDuration : JComboBox
+        - cbPatchingA : JComboBox
+        - cbPatchingC : JComboBox
+        - cbTypeProblem : JComboBox
+        - chckbxMTSPmax : JCheckBox
+        - chckbxMTSPmin : JCheckBox
+        - chckbxPatchingA : JCheckBox
+        - chckbxPatchingC : JCheckBox
+        - chckbxRuns : JCheckBox
+        - spTruck : JSpinner
+        - spVehicles : JSpinner
+        - tfMTSPmax : JFormattedTextField
+        - tfMTSPmin : JFormattedTextField
+        - tfPatchingA : JFormattedTextField
+        - tfPatchingC : JFormattedTextField
+        - tfRuns : JFormattedTextField
+        + SettingLKH()
+        + getBacktracking()
+        + getBoolMTSPmax()
+        + getBoolMTSPmin()
+        + getBoolPatchingA()
+        + getBoolPatchingC()
+        + getBoolRuns()
+        + getCapacityTruck()
+        + getInitialDistanceOrDuration()
+        + getInitialTourAlgorithm()
+        + getMTSPmax()
+        + getMTSPmin()
+        + getNumberVehicle()
+        + getPatchingA()
+        + getPatchingAResExt()
+        + getPatchingC()
+        + getPatchingCResExt()
+        + getRuns()
+        + getTypeProblem()
+        - EnableOptions()
+    }
+  }
+  
+
+  namespace tools.and.utilities {
+    class tools.and.utilities.TourResult {
+        - camino : List<Integer>
+        - color : Color
+        - cost : int
+        - nombre : String
+        - subCaminos : List<Layer>
+        - track : List<List<Coordinate>>
+        - trackMPLI : List<MapPolylineImpl>
+        + TourResult()
+        + TourResult()
+        + addCamino()
+        + addTrack()
+        + getCamino()
+        + getColor()
+        + getCost()
+        + getGroupName()
+        + getNombre()
+        + getSubCaminos()
+        + getTextCamino()
+        + getTrack()
+        + getTrackMPLI()
+        + setCamino()
+        + setColor()
+        + setCost()
+        + setGroupName()
+        + setNombre()
+        + setSubCaminos()
+        + setTrack()
+        + setTrackMPLI()
+        + toString()
+    }
+  }
+  
+
+  tools.and.utilities.GestionNodesRoutes -up-|> javax.swing.JPanel
+  tools.and.utilities.Nodo o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinate
+  tools.and.utilities.PointProblem -up-|> javax.swing.JDialog
+  tools.and.utilities.RouteJSON o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateFrom
+  tools.and.utilities.RouteJSON o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateTo
+  tools.and.utilities.RouteJSON o-- org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon : poly
+  tools.and.utilities.Ruta o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateFrom
+  tools.and.utilities.Ruta o-- org.openstreetmap.gui.jmapviewer.Coordinate : coordinateTo
+  tools.and.utilities.SettingLKH -up-|> javax.swing.JPanel
+  tools.and.utilities.TourResult o-- org.openstreetmap.gui.jmapviewer.LayerGroup : groupName
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -1,0 +1,375 @@
+@startuml
+
+title __TILESOURCES's Class Diagram__\n
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource {
+          {static} + DEFAULT_OSM_ATTRIBUTION : String
+          + AbstractOsmTileSource()
+          + getAttributionImage()
+          + getAttributionImageURL()
+          + getAttributionLinkURL()
+          + getAttributionText()
+          + getMaxZoom()
+          + getTermsOfUseText()
+          + getTermsOfUseURL()
+          + requiresAttribution()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.AbstractTMSTileSource {
+          # baseUrl : String
+          # id : String
+          # modTileFeatures : boolean
+          # name : String
+          # tileSize : int
+          - metadataHeaders : Map<String, String>
+          - noTileChecksums : Map<String, Set<String>>
+          - noTileHeaders : Map<String, Set<String>>
+          + AbstractTMSTileSource()
+          + getBaseUrl()
+          + getDefaultTileSize()
+          + getExtension()
+          + getId()
+          + getMaxZoom()
+          + getMetadata()
+          + getMinZoom()
+          + getName()
+          + getTileId()
+          + getTilePath()
+          + getTileSize()
+          + getTileUrl()
+          + getTileXMax()
+          + getTileXMin()
+          + getTileYMax()
+          + getTileYMin()
+          + isModTileFeatures()
+          + isNoTileAtZoom()
+          + latLonToTileXY()
+          + latLonToXY()
+          + tileXYToLatLon()
+          + tileXYToLatLon()
+          + toString()
+          + xyToLatLon()
+          {static} - getTileMax()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.AbstractTileSource {
+          # attributionImage : Image
+          # attributionImageURL : String
+          # attributionLinkURL : String
+          # attributionText : String
+          # termsOfUseText : String
+          # termsOfUseURL : String
+          + getAttributionImage()
+          + getAttributionImageURL()
+          + getAttributionLinkURL()
+          + getAttributionText()
+          + getTermsOfUseText()
+          + getTermsOfUseURL()
+          + isNoTileAtZoom()
+          + requiresAttribution()
+          + setAttributionImage()
+          + setAttributionImageURL()
+          + setAttributionLinkURL()
+          + setAttributionText()
+          + setTermsOfUseText()
+          + setTermsOfUseURL()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource {
+          {static} - API_KEY : String
+          {static} - attributions : Future<List<Attribution>>
+          - brandLogoUri : String
+          {static} - culturePattern : Pattern
+          {static} - imageUrlTemplate : String
+          {static} - imageryZoomMax : Integer
+          {static} - quadkeyPattern : Pattern
+          {static} - subdomainPattern : Pattern
+          {static} - subdomains : String[]
+          + BingAerialTileSource()
+          + BingAerialTileSource()
+          + getAttributionImage()
+          + getAttributionImageURL()
+          + getAttributionLinkURL()
+          + getAttributionText()
+          + getMaxZoom()
+          + getTermsOfUseText()
+          + getTermsOfUseURL()
+          + getTileUrl()
+          + requiresAttribution()
+          # getAttribution()
+          # getAttributionLoaderCallable()
+          # getAttributionUrl()
+          # parseAttributionText()
+          {static} - computeQuadTree()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource.Attribution {
+          - attributionText : String
+          - maxZoom : int
+          - minZoom : int
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource {
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      abstract class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.CycleMap {
+          {static} - PATTERN : String
+          {static} - SERVER : String[]
+          - serverNum : int
+          + CycleMap()
+          + getBaseUrl()
+          + getMaxZoom()
+          + getTermsOfUseText()
+          + getTermsOfUseURL()
+          + getTileUrl()
+          {abstract} # getApiKey()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.Mapnik {
+          {static} - PATTERN : String
+          {static} - SERVER : String[]
+          - serverNum : int
+          + Mapnik()
+          + getBaseUrl()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.OSMFrance {
+          {static} - PATTERN : String
+          {static} - SERVER : String[]
+          - serverNum : int
+          + OSMFrance()
+          + getBaseUrl()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.Transport {
+          {static} - PATTERN : String
+          + Transport()
+          + getAttributionLinkURL()
+          + getAttributionText()
+          + getMaxZoom()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.TransportMap {
+          + TransportMap()
+          + getAttributionLinkURL()
+          + getAttributionText()
+          + getMaxZoom()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource {
+          {static} - API_KEY : String
+          {static} - DEFAULT_MAXZOOM : int
+          {static} - DEFAULT_URL : String
+          {static} - E : double
+          {static} - EQUATOR : double
+          {static} - RADIUS_E : double
+          - cachedLat : double
+          + ScanexTileSource()
+          + getExtension()
+          + getTilePath()
+          + getTileUrl()
+          + latLonToTileXY()
+          + latLonToXY()
+          + tileXYToLatLon()
+          + xyToLatLon()
+          - latToTileY()
+          {static} - nextTerm()
+          - tileYToLat()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      enum ScanexLayer {
+        IRS
+        name
+        uri
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource {
+          # maxZoom : int
+          # minZoom : int
+          + TMSTileSource()
+          + getCoveringTileRange()
+          + getDistance()
+          + getMaxZoom()
+          + getMinZoom()
+          + getServerCRS()
+          + isInside()
+          + latLonToTileXY()
+          + latLonToXY()
+          + projectedToTileXY()
+          + tileXYToLatLon()
+          + tileXYtoProjected()
+          + xyToLatLon()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource {
+          {static} - ALL_PATTERNS : Pattern[]
+          {static} - COOKIE_HEADER : String
+          {static} - PATTERN_HEADER : Pattern
+          {static} - PATTERN_NEG_Y : Pattern
+          {static} - PATTERN_PARAM : Pattern
+          {static} - PATTERN_SWITCH : Pattern
+          {static} - PATTERN_X : Pattern
+          {static} - PATTERN_Y : Pattern
+          {static} - PATTERN_Y_YAHOO : Pattern
+          {static} - PATTERN_ZOOM : Pattern
+          - headers : Map<String, String>
+          - inverse_zoom : boolean
+          - rand : Random
+          - randomParts : String[]
+          - zoom_offset : int
+          + TemplatedTMSTileSource()
+          {static} + checkUrl()
+          + getHeaders()
+          + getTileUrl()
+          - handleTemplate()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace tilesources {
+      class org.openstreetmap.gui.jmapviewer.tilesources.TileSourceInfo {
+          # cookies : String
+          # id : String
+          # maxZoom : int
+          # metadataHeaders : Map<String, String>
+          # minZoom : int
+          # modTileFeatures : boolean
+          # name : String
+          # noTileChecksums : Map<String, Set<String>>
+          # noTileHeaders : Map<String, Set<String>>
+          # tileSize : int
+          # url : String
+          + TileSourceInfo()
+          + TileSourceInfo()
+          + TileSourceInfo()
+          + getCookies()
+          + getId()
+          + getMaxZoom()
+          + getMetadataHeaders()
+          + getMinZoom()
+          + getName()
+          + getNoTileChecksums()
+          + getNoTileHeaders()
+          + getTileSize()
+          + getUrl()
+          + isModTileFeatures()
+          + setCookies()
+          + setId()
+          + setModTileFeatures()
+          + setName()
+          + setTileSize()
+          + setUrl()
+      }
+    }
+  }
+  
+
+  org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.AbstractTMSTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.AbstractTileSource .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource.Attribution
+  org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource.Attribution o-- org.openstreetmap.gui.jmapviewer.Coordinate : max
+  org.openstreetmap.gui.jmapviewer.tilesources.BingAerialTileSource.Attribution o-- org.openstreetmap.gui.jmapviewer.Coordinate : min
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.CycleMap
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.Mapnik
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.OSMFrance
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.Transport
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.TransportMap
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.CycleMap -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.Mapnik -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.OSMFrance -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.Transport -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource.TransportMap -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractOsmTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource o-- org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource : TemplateSource
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource o-- org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource.ScanexLayer : layer
+  org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource +-down- org.openstreetmap.gui.jmapviewer.tilesources.ScanexTileSource.ScanexLayer
+  org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.AbstractTMSTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource o-- org.openstreetmap.gui.jmapviewer.OsmMercator : osmMercator
+  org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource .up.|> org.openstreetmap.gui.jmapviewer.interfaces.TemplatedTileSource
+  org.openstreetmap.gui.jmapviewer.tilesources.TemplatedTMSTileSource -up-|> org.openstreetmap.gui.jmapviewer.tilesources.TMSTileSource
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

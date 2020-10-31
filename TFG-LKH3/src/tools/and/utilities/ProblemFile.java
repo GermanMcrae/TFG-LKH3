@@ -291,9 +291,19 @@ public class ProblemFile {
 			cad += "EOF";
 		}	
 		
-		if(type.equals("TSP")) {
+		/*if(type.equals("ATSP") ) {
 			
 			
+			cad += "NAME: " + NAME + "\n";
+			cad += "TYPE: " + TYPE + "\n";
+			cad += "COMMENT: " + COMMENT + "\n";
+			cad += "DIMENSION: " + DIMENSION + "\n";
+			cad += "EDGE_WEIGHT_TYPE: " + EDGE_WEIGHT_TYPE + "\n";
+			cad += "EDGE_WEIGHT_FORMAT: " + EDGE_WEIGHT_FORMAT + "\n";
+			cad += "EDGE_WEIGHT_SECTION " + "\n" + EDGE_WEIGHT_SECTION + "\n";
+			cad += "EOF";
+		}*/
+		else {
 			cad += "NAME: " + NAME + "\n";
 			cad += "TYPE: " + TYPE + "\n";
 			cad += "COMMENT: " + COMMENT + "\n";
@@ -303,25 +313,6 @@ public class ProblemFile {
 			cad += "EDGE_WEIGHT_SECTION " + "\n" + EDGE_WEIGHT_SECTION + "\n";
 			cad += "EOF";
 		}
-		
-		/*if(type.equals("MTSP")) {
-			
-			
-			cad += "NAME: " + NAME + "\n";
-			cad += "TYPE: " + TYPE + "\n";
-			cad += "COMMENT: " + COMMENT + "\n";
-			cad += "DIMENSION: " + DIMENSION + "\n";
-			cad += "CAPACITY: " + CAPACITY + "\n";
-			cad += "EDGE_WEIGHT_TYPE: " + EDGE_WEIGHT_TYPE + "\n";
-			cad += "EDGE_WEIGHT_FORMAT: " + EDGE_WEIGHT_FORMAT + "\n";
-			cad += "EDGE_WEIGHT_SECTION " + "\n" + EDGE_WEIGHT_SECTION + "\n";
-			cad += "DEMAND_SECTION " + "\n" + DEMAND_SECTION + "\n";
-			cad += "DEPOT_SECTION " + "\n" + DEPOT_SECTION + "\n";
-			cad += "EOF";
-		}*/
-		
-		
-		//cad += "DIMENSION: " + + "/n";
 		
 		System.out.println(cad);
 		
@@ -352,55 +343,6 @@ public class ProblemFile {
 		
 		return res;
 	}
-	
-	/*
-	 * if(type.equals("CRVP")) {
-			
-		}
-	 * 
-	 * 
-	 FileWriter fichero = null;
-     PrintWriter pw = null;
-     try
-     {
-         fichero = new FileWriter("c:/prueba.txt");
-         pw = new PrintWriter(fichero);
-
-            for (int i = 0; i < 10; i++)
-                pw.println("Linea " + i);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-           try {
-           // Nuevamente aprovechamos el finally para 
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
-           } catch (Exception e2) {
-              e2.printStackTrace();
-           }
-        }
-	 * NAME: bays29
-		TYPE: TSP
-		COMMENT: 29 cities in Bavaria, street distances (Groetschel,Juenger,Reinelt)
-		DIMENSION: 29
-		EDGE_WEIGHT_TYPE: EXPLICIT
-		EDGE_WEIGHT_FORMAT: FULL_MATRIX 
-		DISPLAY_DATA_TYPE: TWOD_DISPLAY
-		EDGE_WEIGHT_SECTION
-   		  0 107 241 190 124 
-	 * 
-	 * */
-	
-	/*public String getEDGE_WEIGHT_SECTION() {
-		return EDGE_WEIGHT_SECTION;
-	}
-	
-	public String getDISPLAY_DATA_SECTION() {
-		return DISPLAY_DATA_SECTION;
-	}*/
-	
-	
+		
 	
 }

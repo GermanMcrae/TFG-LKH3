@@ -1,0 +1,237 @@
+@startuml
+
+title __INTERFACES's Class Diagram__\n
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.Attributed {
+          {abstract} + getAttributionImage()
+          {abstract} + getAttributionImageURL()
+          {abstract} + getAttributionLinkURL()
+          {abstract} + getAttributionText()
+          {abstract} + getTermsOfUseText()
+          {abstract} + getTermsOfUseURL()
+          {abstract} + requiresAttribution()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.CachedTileLoader {
+          {abstract} + clearCache()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.ICoordinate {
+          {abstract} + getLat()
+          {abstract} + getLon()
+          {abstract} + setLat()
+          {abstract} + setLon()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.IProjected {
+          {abstract} + getEast()
+          {abstract} + getNorth()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.JMapViewerEventListener {
+          {abstract} + processCommand()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapMarker {
+          {abstract} + getCoordinate()
+          {abstract} + getLat()
+          {abstract} + getLon()
+          {abstract} + getMarkerStyle()
+          {abstract} + getRadius()
+          {abstract} + paint()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      enum STYLE {
+        FIXED
+        VARIABLE
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapObject {
+          {abstract} + getBackColor()
+          {abstract} + getColor()
+          {abstract} + getFont()
+          {abstract} + getLayer()
+          {abstract} + getName()
+          {abstract} + getStroke()
+          {abstract} + getStyle()
+          {abstract} + getStyleAssigned()
+          {abstract} + isVisible()
+          {abstract} + setLayer()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapPolygon {
+          {abstract} + getPoints()
+          {abstract} + paint()
+          {abstract} + paint()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.MapRectangle {
+          {abstract} + getBottomRight()
+          {abstract} + getTopLeft()
+          {abstract} + paint()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TemplatedTileSource {
+          {abstract} + getHeaders()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileCache {
+          {abstract} + addTile()
+          {abstract} + clear()
+          {abstract} + getCacheSize()
+          {abstract} + getTile()
+          {abstract} + getTileCount()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileClearController {
+          {abstract} + cancel()
+          {abstract} + clearFinished()
+          {abstract} + fileDeleted()
+          {abstract} + initClearDir()
+          {abstract} + initClearFiles()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileJob {
+          {abstract} + submit()
+          {abstract} + submit()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileLoader {
+          {abstract} + cancelOutstandingTasks()
+          {abstract} + createTileLoaderJob()
+          + hasOutstandingTasks()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileLoaderListener {
+          {abstract} + tileLoadingFinished()
+      }
+    }
+  }
+  
+
+  namespace org.openstreetmap.gui.jmapviewer {
+    namespace interfaces {
+      interface org.openstreetmap.gui.jmapviewer.interfaces.TileSource {
+          {abstract} + getCoveringTileRange()
+          {abstract} + getDefaultTileSize()
+          {abstract} + getDistance()
+          {abstract} + getId()
+          {abstract} + getMaxZoom()
+          {abstract} + getMetadata()
+          {abstract} + getMinZoom()
+          {abstract} + getName()
+          {abstract} + getServerCRS()
+          {abstract} + getTileId()
+          {abstract} + getTileSize()
+          {abstract} + getTileUrl()
+          {abstract} + getTileXMax()
+          {abstract} + getTileXMin()
+          {abstract} + getTileYMax()
+          {abstract} + getTileYMin()
+          {abstract} + isInside()
+          + isModTileFeatures()
+          {abstract} + isNoTileAtZoom()
+          {abstract} + latLonToTileXY()
+          {abstract} + latLonToTileXY()
+          {abstract} + latLonToXY()
+          {abstract} + latLonToXY()
+          {abstract} + projectedToTileXY()
+          {abstract} + tileXYToLatLon()
+          {abstract} + tileXYToLatLon()
+          {abstract} + tileXYToLatLon()
+          {abstract} + tileXYtoProjected()
+          {abstract} + xyToLatLon()
+          {abstract} + xyToLatLon()
+      }
+    }
+  }
+  
+
+  org.openstreetmap.gui.jmapviewer.interfaces.MapMarker +-down- org.openstreetmap.gui.jmapviewer.interfaces.MapMarker.STYLE
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
