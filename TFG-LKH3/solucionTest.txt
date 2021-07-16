@@ -1,13 +1,22 @@
-NAME : TestCVRP.7947.tour
-COMMENT : Length = 7947
-COMMENT : Found by LKH [Keld Helsgaun] Fri Oct 30 19:26:37 2020
+NAME : TestCVRP.41319.tour
+COMMENT : Length = 41319
+COMMENT : Found by LKH [Keld Helsgaun] Tue Nov 17 09:53:13 2020
 TYPE : TOUR
-DIMENSION : 5
+DIMENSION : 14
 TOUR_SECTION
 1
-2
+7
 5
+12
 4
+11
+8
+2
+14
+9
 3
+13
+6
+10
 -1
 EOF

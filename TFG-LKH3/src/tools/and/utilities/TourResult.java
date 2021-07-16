@@ -1,6 +1,7 @@
 package tools.and.utilities;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,8 @@ public class TourResult {
 	}
 	
 	public double getCost(){
-		return cost;
+		return Math.round(cost * 100.0) / 100.0;
+		//return cost;
 	}
 	
 	public List<Double> getDistance(){
@@ -140,11 +142,11 @@ public class TourResult {
 	}
 	
 	public void addListDistance(Double value) {
-		distance.add(value);
+		distance.add(Math.round(value * 100.0) / 100.0);
 	}
 	
 	public void addListDuration(Double value) {
-		duration.add(value);
+		duration.add(Math.round(value * 100.0) / 100.0);
 	}
 	
 	public double CostTotalDistance() {
@@ -152,7 +154,8 @@ public class TourResult {
 		for(int i=0;i<distance.size();i++) {
 			value += distance.get(i);
 		}
-		return value;
+		return Math.round(value * 100.0) / 100.0;
+		//return value;
 	}
 	
 	public double CostTotalDuration() {
@@ -160,7 +163,8 @@ public class TourResult {
 		for(int i=0;i<duration.size();i++) {
 			value += duration.get(i);
 		}
-		return value;
+		return Math.round(value * 100.0) / 100.0;
+		//return value;
 	}
 	
 	public String getTextCamino() {
@@ -177,12 +181,15 @@ public class TourResult {
 			value = CostTotalDistance();
 		else if(type.equals("DURATION"))
 			value = CostTotalDuration();
-		return value;
+		
+		System.out.println("getCosteTotal "+type+" "+value);
+		return Math.round(value * 100.0) / 100.0;
+		//return value;
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return nombre+" C:"+cost;
+		return nombre+" C:"+Math.round(cost * 100.0) / 100.0;
 	}
 }

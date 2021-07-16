@@ -48,24 +48,45 @@ public class RouteResult {
 	List<Double> cost;
 	//List<int> routeSol;
 	
+	
+	
 	public RouteResult() {
+		file = "";
+		routeSol = new ArrayList<Integer>();
+		routeDistance = new ArrayList<Integer>();
+		routeDuration = new ArrayList<Integer>();
+		ListTours = new ArrayList<TourResult>();
+		groupVehicles = new ArrayList<LayerGroup>();
+		
+		listCaminos = new ArrayList<ArrayList<Integer>>();
+		cost = new ArrayList<Double>();
+	}
+	
+	
+	public void loadWithList(List<ArrayList<Integer>> listSol) {
+		listCaminos = listSol;
+		for(int i=0;i<listSol.size();i++) {
+			TourResult tr = new TourResult();
+			tr.setCamino(listSol.get(i));
+			ListTours.add(tr);
+		}
+		
+	}
+	
+	public void loadFile() {
 		routeSol = new ArrayList<Integer>();
 		file = readFile();
-		System.out.println("file: "+file);
+		System.out.println("loadFile() file: "+file);
 		ListTours = readFileTours();
+		System.out.println("loadFile() ListTours.size() == 0: "+ListTours.size());
 		if(ListTours.size() == 0) {
-			
 			ListTours = readFileOneTour();
+			System.out.println("loadFile() ListTours.size() == 0: "+ListTours.size());
 			if(ListTours.size() == 0) {
 				JOptionPane.showMessageDialog(null, 
 	    				  "Route could not be generated", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	}
-	
-	
-	public RouteResult(List<Integer> rs) {
-		
 	}
 	
 	
@@ -113,6 +134,7 @@ public class RouteResult {
 	List<TourResult> readFileOneTour() {
 		String text = "";
 		List<TourResult> result = new ArrayList<TourResult>();
+		ArrayList<Integer> resultNumber = new ArrayList<Integer>();
 		File archivo = new File ("solucionTest.txt");
 		FileReader fr;
 		try {
@@ -132,6 +154,7 @@ public class RouteResult {
 					
 					if(read){
 						tr.addCamino(Integer.valueOf(linea.replaceFirst("\n", "")));
+						resultNumber.add(Integer.valueOf(linea.replaceFirst("\n", "")));
 					}
 					
 					if(linea.equals("TOUR_SECTION")) {
@@ -140,6 +163,8 @@ public class RouteResult {
 				}
 				tr.addCamino(1);
 				result.add(tr);
+				resultNumber.add(1);
+				listCaminos.add(resultNumber);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -400,7 +425,7 @@ public class RouteResult {
 		for(int i=0;i<ListTours.size();i++) {
 			value += ListTours.get(i).getCosteTotal(type);
 		}
-		return value;
+		return Math.round(value * 100.0) / 100.0;
 	}
 	
 	public List<Integer> getTour(){

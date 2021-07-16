@@ -92,6 +92,8 @@ public class ProblemFile {
 	String DEPOT_SECTION;
 	int VEHICLES;
 	
+	String fileGenerate;
+	
 	
 	public ProblemFile() {
 		NAME = "Test TSP file problem";
@@ -107,6 +109,7 @@ public class ProblemFile {
 		DEMAND_SECTION = "";
 		DEPOT_SECTION = "";
 		VEHICLES = 0;
+		fileGenerate = "";
 	}
 	
 	public ProblemFile(String name, String type, String comment, int dimension, String edge_weight_type, String edge_weight_format, String display_data_type, String edge_weight_section, String display_data_section) {
@@ -272,6 +275,10 @@ public class ProblemFile {
 		return res;
 	}
 	
+	public String getFileGenerate() {
+		return fileGenerate;
+	}
+	
 	public boolean generateFile(String type) {
 		boolean res = false;
 		String cad = "";
@@ -315,7 +322,7 @@ public class ProblemFile {
 		}
 		
 		System.out.println(cad);
-		
+		fileGenerate = cad;
 		FileWriter fichero = null;
 	    PrintWriter pw = null;
 	    try

@@ -281,8 +281,11 @@ TOUR_FILE = solucion.txt
 		cad += "TOUR_FILE= " + TOUR_FILE + "\n";
 		cad += "MTSP_SOLUTION_FILE= " + MTSP_SOLUTION_FILE + "\n";
 		cad += "BACKTRACKING= " + BACKTRACKING + "\n";
+		cad += "MTSP_MIN_SIZE= " + MTSP_MIN_SIZE + "\n";
+		cad += "MTSP_MAX_SIZE= " + MTSP_MAX_SIZE + "\n";
+		cad += "RUNS= " + RUNS + "\n";
 		
-		if(boolOPTIMUM) {
+		/*if(boolOPTIMUM) {
 			cad += "OPTIMUM= " + OPTIMUM + "\n";
 		}
 		if(boolMOVE_TYPE) {
@@ -305,7 +308,7 @@ TOUR_FILE = solucion.txt
 		}
 		if(boolVEHICLES) {
 			cad += "VEHICLES= " + VEHICLES + "\n";
-		}
+		}*/
 		//if(boolINITIAL_TOUR_ALGORITHM) {
 		cad += "INITIAL_TOUR_ALGORITHM= " + INITIAL_TOUR_ALGORITHM + "\n";
 		//}

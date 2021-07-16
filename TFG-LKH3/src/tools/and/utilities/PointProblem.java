@@ -90,6 +90,10 @@ public class PointProblem extends JDialog {
 		JLabel lblNewLabel_2_1 = new JLabel("Longitude");
 		lblNewLabel_2_1.setBounds(45, 147, 71, 16);
 		contentPanel.add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_3 = new JLabel("Note: Capacity will only apply for the cvrp problem");
+		lblNewLabel_2_3.setBounds(45, 187, 320, 16);
+		contentPanel.add(lblNewLabel_2_3);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

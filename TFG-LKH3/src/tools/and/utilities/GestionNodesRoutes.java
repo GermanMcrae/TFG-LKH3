@@ -22,6 +22,7 @@ import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
+import java.awt.Component;
 
 public class GestionNodesRoutes extends JPanel {
 
@@ -30,18 +31,24 @@ public class GestionNodesRoutes extends JPanel {
 	 */
 	private JList<Nodo> list;
 	DefaultListModel<Nodo> nodoModel;
+	
+	
 	private JTextField tfName;
 	private JFormattedTextField tfDemand;
 	private JTextField tfLatitude;
 	private JTextField tfLongitude;
 	public JButton btModify;
 	public JButton btDelete;
+	
 	private JTable tableRoute;
+	private JTable tableRouteSol;
 	public JScrollPane spRutas;
+	public JScrollPane spSoluciones;
 	
 	public GestionNodesRoutes() {
 		setLayout(null);
 		nodoModel = new DefaultListModel<>();
+		
 		list = new JList<>();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(new ListSelectionListener() {
@@ -61,6 +68,9 @@ public class GestionNodesRoutes extends JPanel {
 		listScroller.setBounds(65, 96, 256, 258);
 		//add(new JScrollPane(list));
 		add(listScroller);
+		
+		
+		
 		
 		NumberFormat format = NumberFormat.getInstance();
 	    NumberFormatter formatter = new NumberFormatter(format);
@@ -121,7 +131,7 @@ public class GestionNodesRoutes extends JPanel {
 		tableRoute = new JTable();
 		//JScrollPane scrollPane = new JScrollPane(tableRoute);
 		spRutas = new JScrollPane(tableRoute);
-		spRutas.setBounds(65, 413, 712, 200);
+		spRutas.setBounds(65, 413, 712, 151);
 		add(spRutas);
 		
 		JLabel lblNewLabel_3 = new JLabel("Nodes list");
@@ -132,6 +142,16 @@ public class GestionNodesRoutes extends JPanel {
 		lblNewLabel_4.setBounds(65, 385, 712, 16);
 		add(lblNewLabel_4);
 		
+		
+		
+		
+		
+		//JScrollPane spSoluciones = new JScrollPane((Component) null);
+		//tableRouteSol = new JTable();
+		//spSoluciones = new JScrollPane(tableRouteSol);
+		//spSoluciones.setBounds(65, 604, 712, 151);
+		//add(spSoluciones);
+		
 
 
 	}
@@ -140,6 +160,7 @@ public class GestionNodesRoutes extends JPanel {
 		nodoModel.clear();
 		nodoModel.addAll(ejercicio.getNodes());
 		list.setModel(nodoModel);
+		
 	}
 	
 	public void clearList() {
@@ -147,6 +168,7 @@ public class GestionNodesRoutes extends JPanel {
 		list.setModel(nodoModel);
 		//tableRoute.removeAll();
 		tableRoute.setModel(new DefaultTableModel());
+		//tableRouteSol.setModel(new DefaultTableModel());
 		clearDisplay();
 	}
 	
@@ -160,6 +182,7 @@ public class GestionNodesRoutes extends JPanel {
 			btDelete.setEnabled(true);
 			
 			tableRoute.setModel(value.GetTableRoutesNodo());
+			//tableRoute.setModel(value.get);
 		}
 	}
 	
@@ -172,6 +195,7 @@ public class GestionNodesRoutes extends JPanel {
 		tfDemand.setEditable(false);
 		btModify.setEnabled(false);
 		btDelete.setEnabled(false);
+		
 		//tableRoute.removeAll();
 	}
 	
@@ -182,6 +206,8 @@ public class GestionNodesRoutes extends JPanel {
 	public int getItemIndexSelection() {
 		return list.getSelectedIndex();
 	}
+	
+	
 	
 	public String getName() {
 		return tfName.getText();

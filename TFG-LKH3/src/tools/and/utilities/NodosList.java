@@ -55,6 +55,10 @@ public class NodosList {
     	ejercicioSolucion.clear();
     }
     
+    public void clearEjercicio() {
+    	ejercicioSolucion.clear();
+    }
+    
     public int size() {
     	return nodes.size();
     }
@@ -107,6 +111,10 @@ public class NodosList {
     		}
     	}
     	nodes.remove(index);
+    }
+    
+    public void deleteSol(int index) {
+    	ejercicioSolucion.remove(index);
     }
 	
     public String getMatrixDistance() {

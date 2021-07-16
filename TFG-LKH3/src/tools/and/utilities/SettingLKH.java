@@ -78,52 +78,52 @@ public class SettingLKH extends JPanel {
 
 	    chckbxMTSPmin = new JCheckBox("");
 		chckbxMTSPmin.setBounds(20, 226, 28, 23);
-		chckbxMTSPmin.setVisible(true);
+		chckbxMTSPmin.setVisible(false);
 		add(chckbxMTSPmin);
 		
-		JLabel lblNewLabel = new JLabel("MTSP Min size");
-		lblNewLabel.setBounds(53, 230, 104, 16);
+		JLabel lblNewLabel = new JLabel("Min number of nodes to visit");
+		lblNewLabel.setBounds(20, 66, 221, 16);
 		lblNewLabel.setVisible(true);
 		add(lblNewLabel);
 		
 		tfMTSPmin = new JFormattedTextField(formatter);
 		tfMTSPmin.setText("1");
-		tfMTSPmin.setBounds(174, 223, 130, 26);
+		tfMTSPmin.setBounds(253, 61, 104, 26);
 		tfMTSPmin.setVisible(true);
 		add(tfMTSPmin);
 		tfMTSPmin.setColumns(10);
 		
 		chckbxMTSPmax = new JCheckBox("");
 		chckbxMTSPmax.setBounds(20, 259, 28, 23);
-		chckbxMTSPmax.setVisible(true);
+		chckbxMTSPmax.setVisible(false);
 		add(chckbxMTSPmax);
 		
-		JLabel lblNewLabel1 = new JLabel("MTSP Max size");
-		lblNewLabel1.setBounds(53, 263, 104, 16);
+		JLabel lblNewLabel1 = new JLabel("Max number of nodes to visit");
+		lblNewLabel1.setBounds(20, 100, 221, 16);
 		lblNewLabel1.setVisible(true);
 		add(lblNewLabel1);
 		
 		tfMTSPmax = new JFormattedTextField(formatter);
 		//tfMTSPmax.setText("0");
-		tfMTSPmax.setBounds(174, 256, 130, 26);
+		tfMTSPmax.setBounds(253, 95, 104, 26);
 		tfMTSPmax.setVisible(true);
 		add(tfMTSPmax);
 		tfMTSPmax.setColumns(10);
 		
 		chckbxRuns = new JCheckBox("");
-		chckbxRuns.setBounds(20, 130, 28, 23);
+		chckbxRuns.setBounds(60, 259, 28, 23);
 		chckbxRuns.setVisible(false);
 		add(chckbxRuns);
 		
-		JLabel lblNewLabel2 = new JLabel("Runs (default:10)");
-		lblNewLabel2.setBounds(53, 134, 116, 16);
-		lblNewLabel2.setVisible(false);
-		add(lblNewLabel2);
+		JLabel lbRuns = new JLabel("Runs (default:10)");
+		lbRuns.setBounds(20, 132, 116, 16);
+		lbRuns.setVisible(true);
+		add(lbRuns);
 		
 		tfRuns = new JFormattedTextField(formatter);
-		tfRuns.setText("0");
-		tfRuns.setBounds(174, 127, 130, 26);
-		tfRuns.setVisible(false);
+		tfRuns.setText("10");
+		tfRuns.setBounds(227, 127, 130, 26);
+		tfRuns.setVisible(true);
 		add(tfRuns);
 		tfRuns.setColumns(10);
 
@@ -162,11 +162,11 @@ public class SettingLKH extends JPanel {
 		tfPatchingC.setColumns(10);
 		
 		JLabel lblBacktracking = new JLabel("Backtracking");
-		lblBacktracking.setBounds(349, 34, 87, 16);
+		lblBacktracking.setBounds(412, 34, 87, 16);
 		lblBacktracking.setVisible(false);
 		add(lblBacktracking);
 		
-		JLabel lblNewLabel_1 = new JLabel("Tipo de problema");
+		JLabel lblNewLabel_1 = new JLabel("Type problem");
 		lblNewLabel_1.setBounds(20, 6, 149, 16);
 		add(lblNewLabel_1);
 		
@@ -174,7 +174,7 @@ public class SettingLKH extends JPanel {
 		cbTypeProblem.setModel(new DefaultComboBoxModel(new String[] {"ATSP", "CVRP"}));
 		//cbTypeProblem.setModel(new DefaultComboBoxModel(new String[] {"ACVRP","BWTSP","CCVRP","CTSP","CVRP","CVRPTW","DCVRP","1-PDTSP","m-PDTSP","m1-PDTSP","MLP","MTRP","MTRPD","mTSP","OCMTSP","OVRP","PDPTW","PDTSP","PDTSPF","PDTSPL","RCTVRP","RCTVRPTW","SOP","STTSP","TRP","TSPDL","TSPPD","TSPTW","VRPB","VRPBTW","VRPMPD","VRPMPDTW","VRPSPD","VRPSPDTW"}));
 		cbTypeProblem.setSelectedIndex(1);
-		cbTypeProblem.setBounds(174, 2, 123, 27);
+		cbTypeProblem.setBounds(260, 2, 97, 27);
 		cbTypeProblem.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 		    	EnableOptions();
@@ -182,7 +182,7 @@ public class SettingLKH extends JPanel {
 		});
 		add(cbTypeProblem);
 		
-		JLabel lblNewLabel_2 = new JLabel("N. de vehiculos");
+		JLabel lblNewLabel_2 = new JLabel("Number of vehicles");
 		lblNewLabel_2.setBounds(20, 34, 149, 16);
 		add(lblNewLabel_2);
 		
@@ -190,68 +190,70 @@ public class SettingLKH extends JPanel {
 		spVehicles = new JSpinner(sm);
 		spVehicles.setValue(1);
 		
-		spVehicles.setBounds(174, 29, 123, 26);
+		spVehicles.setBounds(260, 29, 97, 26);
 		add(spVehicles);
 		
 		cbPatchingA = new JComboBox();
 		cbPatchingA.setModel(new DefaultComboBoxModel(new String[] {"RESTRICTED", "EXTENDED"}));
-		cbPatchingA.setBounds(316, 153, 132, 27);
+		cbPatchingA.setBounds(450, 157, 132, 27);
 		cbPatchingA.setVisible(false);
 		add(cbPatchingA);
 		
 		cbPatchingC = new JComboBox();
 		cbPatchingC.setModel(new DefaultComboBoxModel(new String[] {"RESTRICTED", "EXTENDED"}));
-		cbPatchingC.setBounds(316, 184, 132, 27);
+		cbPatchingC.setBounds(450, 188, 132, 27);
 		cbPatchingC.setVisible(false);
 		add(cbPatchingC);
 		
 		JLabel lblCapacitytruck = new JLabel("Capacity (truck)");
-		lblCapacitytruck.setBounds(349, 100, 109, 16);
+		lblCapacitytruck.setBounds(412, 100, 109, 16);
 		add(lblCapacitytruck);
 		
 		cbBacktracking = new JComboBox();
 		cbBacktracking.setModel(new DefaultComboBoxModel(new String[] {"YES", "NO"}));
 		cbBacktracking.setSelectedIndex(1);
-		cbBacktracking.setBounds(530, 30, 128, 27);
+		cbBacktracking.setBounds(606, 30, 128, 27);
 		cbBacktracking.setVisible(false);
 		add(cbBacktracking);
 		
 		SpinnerModel sm2 = new SpinnerNumberModel(1, 1, null, 1);
 		spTruck = new JSpinner(sm2);
-		spTruck.setBounds(530, 95, 123, 26);
+		spTruck.setBounds(611, 95, 123, 26);
 		add(spTruck);
 		
-		JLabel lblAlgoritmo = new JLabel("Tour Algorithm");
-		lblAlgoritmo.setBounds(349, 6, 99, 16);
+		JLabel lblAlgoritmo = new JLabel("Initial algorithm");
+		lblAlgoritmo.setBounds(412, 6, 109, 16);
 		add(lblAlgoritmo);
 		
 		cbAlgoritmo = new JComboBox();
 		//cbAlgoritmo.setModel(new DefaultComboBoxModel(new String[] {"ALL","BORUVKA", "CVRP", "GREEDY", "MOORE", "MTSP", "NEAREST-NEIGHBOR", "QUICK-BORUVKA", "SIERPINSKI", "WALK"}));
 		cbAlgoritmo.setModel(new DefaultComboBoxModel(new String[] {"ALL","BORUVKA", "GREEDY", "MOORE", "MTSP", "NEAREST-NEIGHBOR", "WALK"}));
 		cbAlgoritmo.setSelectedIndex(1);
-		cbAlgoritmo.setBounds(448, 2, 210, 27);
+		cbAlgoritmo.setBounds(533, 2, 201, 27);
 		add(cbAlgoritmo);
 		
 		JLabel lblDistanceOrDuration = new JLabel("DIstance or Duration");
-		lblDistanceOrDuration.setBounds(349, 66, 179, 16);
+		lblDistanceOrDuration.setBounds(412, 66, 179, 16);
 		add(lblDistanceOrDuration);
 		
 		cbDistanceDuration = new JComboBox();
 		cbDistanceDuration.setModel(new DefaultComboBoxModel(new String[] {"DISTANCE", "DURATION"}));
 		cbDistanceDuration.setSelectedIndex(0);
-		cbDistanceDuration.setBounds(530, 62, 128, 27);
+		cbDistanceDuration.setBounds(606, 62, 128, 27);
 		add(cbDistanceDuration);
 		
 		btnGenerateRoutes = new JButton("Generate Route");
-		btnGenerateRoutes.setBounds(530, 130, 128, 29);
+		btnGenerateRoutes.setBounds(606, 127, 128, 29);
 		add(btnGenerateRoutes);
 		
 		JButton btLoad = new JButton("Load");
-		btLoad.setBounds(6, 89, 117, 29);
+		btLoad.setBounds(316, 220, 117, 29);
+		btLoad.setVisible(false);
 		add(btLoad);
 		
 		JButton btnNewButton = new JButton("Save");
-		btnNewButton.setBounds(174, 89, 117, 29);
+		btnNewButton.setBounds(316, 253, 117, 29);
+		btnNewButton.setVisible(false);
 		add(btnNewButton);
 	}
 	
@@ -268,7 +270,7 @@ public class SettingLKH extends JPanel {
 	}
 	
 	public int getMTSPmin() {
-		return (int) tfMTSPmin.getValue();
+		return Integer.parseInt(tfMTSPmin.getText().replaceAll(",", ""));
 	}
 	
 	public boolean getBoolMTSPmax() {
@@ -276,7 +278,7 @@ public class SettingLKH extends JPanel {
 	}
 	
 	public int getMTSPmax() {
-		return (int) tfMTSPmax.getValue();
+		return Integer.parseInt(tfMTSPmax.getText().replaceAll(",", ""));
 	}
 	
 	public boolean getBoolPatchingA() {
@@ -292,7 +294,7 @@ public class SettingLKH extends JPanel {
 	}
 	
 	public int getRuns() {
-		return (int) tfRuns.getValue();
+		return Integer.parseInt(tfRuns.getText().replaceAll(",", ""));
 	}
 	
 	public String getPatchingAResExt() {
@@ -333,11 +335,13 @@ public class SettingLKH extends JPanel {
 	
 	private void EnableOptions() {
 		if(cbTypeProblem.getSelectedItem().toString().equals("CVRP")) {
-			//tfMTSPmin.setEnabled(true);
-			//tfMTSPmax.setEnabled(true);
+			tfMTSPmin.setEnabled(true);
+			tfMTSPmax.setEnabled(true);
 			//textField2.setEnabled(false);
 			tfPatchingA.setEnabled(true);
 			tfPatchingC.setEnabled(true);
+			spVehicles.setEnabled(true);
+			tfRuns.setEnabled(true);
 			
 			//cbAlgoritmo.setEnabled(true);
 			spTruck.setEnabled(true);
@@ -346,11 +350,13 @@ public class SettingLKH extends JPanel {
 			//spVehicles.setEnabled(true);
 		}
 		else if(cbTypeProblem.getSelectedItem().toString().equals("ATSP")||cbTypeProblem.getSelectedItem().toString().equals("TSP")) {
-			//tfMTSPmin.setEnabled(false);
-			//tfMTSPmax.setEnabled(false);
+			tfMTSPmin.setEnabled(false);
+			tfMTSPmax.setEnabled(false);
 			//textField2.setEnabled(false);
 			tfPatchingA.setEnabled(false);
 			tfPatchingC.setEnabled(false);
+			spVehicles.setEnabled(false);
+			tfRuns.setEnabled(false);
 			
 			//cbAlgoritmo.setEnabled(false);
 			spTruck.setEnabled(false);
